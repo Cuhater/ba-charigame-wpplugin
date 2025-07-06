@@ -1,0 +1,19 @@
+{
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^3.6",
+    "automattic/vipwpcs": "*",
+    "phpcompatibility/php-compatibility": "*",
+    "dealerdirect/phpcodesniffer-composer-installer": "*"
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  },
+  "scripts": {
+	"phpcs": "phpcs --standard=phpcs.xml"
+  },
+  "require": {
+    "ext-curl": "*"
+  }
+}
