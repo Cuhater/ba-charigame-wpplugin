@@ -1,0 +1,32 @@
+\chapter{Implementierung}
+\label{chap:literature}
+%
+Fremdes Gedankengut muss immer kenntlich gemacht werden. Vor allem muss es überprüfbar und auffindbar sein. Hierzu dient die Technik des Zitierens und Belegens.
+\par
+Verschiedene Fachrichtungen und Studiengänge folgen spezifischen Zitierkonventionen. Wichtige Hinweise zu gängigen Zitationssystem und -stilen finden Sie in den E-Learning-Kursen des Schreibzentrums\footnote{\href{https://ilu.th-koeln.de/goto.php?target=cat\_52109\&client\_id=thkilu}{https://ilu.th-koeln.de/goto.php?target=cat\_52109\&client\_id=thkilu}}.
+%
+\section{Entwicklungsumgebung und Tools}
+%Bitte legen Sie den Zitierstil immer am Anfang fest und wechseln sie ihn nicht.
+\par
+Wörtlich übernommene Textpassagen werden durch Anführungszeichen unten und oben (\enquote{\ldots}) kenntlich gemacht.
+\par
+Wenn Ihr Zitat bereits ein Zitat enthält, müssen Sie die \enquote{doppelten Anführungszeichen} im Text durch \enquote*{einfache Anführungszeichen} ersetzen. Dazu vergleiche auch Abschnitt~\ref{sec:specialCases}.
+%Verwechseln Sie diese bitte nicht mit dem Apostroph oder dem Zoll-Zeichen auf Ihrer Tastatur. Die Tastaturkürzel für korrekte Anführungszeichen und andere Sonderzeichen sind bei Typefacts aufgelistet.
+%
+\subsection{Plugin-Softwarearchitektur}
+Für alle Zitate muss ein Quellenverweis erstellt werden. Der Quellenverweis ist eine im Zitationsstil festgelegte Kurznotation, die auf die vollständige Literaturangabe im Literaturverzeichnis verweist. Quellenverweise können \emph{entweder} im laufenden Text (anglo-amerikanische Zitierweise bzw. Harvard-Stil) \emph{oder} über eine Fußnote am unteren Ende der Seite \emph{oder} in einer Endnote am Ende des gesamten Textes erfolgen. Hier gelten unterschiedliche fachliche Konventionen, die unbedingt beachtet werden müssen.
+\par
+Entscheidet man sich für Kurzverweise im Textfluss oder für Endnoten, kann der Fußnotenbereich für Kommentare und für Verweise auf Stellen im eigenen Text genutzt werden.
+\par
+\emph{Beachten Sie die Positionen von Hochzahl und Satzzeichen:}
+\par
+Wenn das wörtliche Zitat selbst mit einem Punkt endet, steht dieser vor dem beendenden Anführungszeichen. Die Hochzahl folgt dann direkt danach ohne Leerzeichen. Ein Punkt für den eigenen Satz entfällt dann.
+\par
+Wenn das wörtliche Zitat nicht mit einem Punkt endet gibt es zwei Fälle: Steht das Zitat mitten im eigenen Satz, folgt die Hochzahl direkt nach den Anführungszeichen. Steht das Zitat am Ende des eigenen Satzes, notiert man zuerst die Anführungszeichen, dann den eigenen Satzpunkt und erst dann die Hochzahl.
+\par
+Damit die Quellenverweise auch bei mehreren gleichlautenden Kurztiteln oder Jahreszahlen eines Autors eindeutig bleiben, erhalten die Jahreszahlen einen zusätzlichen kleinen Buchstaben.
+%Oftmals ergibt sich dies erst gegen Ende der Arbeit. Daher kann es helfen, bei der Manuskripterstellung der Jahreszahl einen vorläufigen Kurztitel beizufügen. In der Endphase lässt sich dieser durch Suchen/Ersetzen über das Textverarbeitungsprogramm austauschen bzw. entfernen.
+%
+\subsection{Backend-Entwicklung}
+Textverarbeitungsprogramme machen das Verweisen über \emph{derselbe} und \emph{ebenda} heute überflüssig, da man nicht mehr gezwungen ist, die gleichen Angaben wieder und wieder abzutippen. Sollten Sie sich (zum Beispiel auf Anraten Ihres Prüfenden) dennoch für dieses Verfahren entscheiden, empfehlen wir dringend, \emph{ebenda} und \emph{derselbe} etc. \emph{erst in der redaktionellen Endphase} einzufügen, weil die Bezüge erst dann klar sind.
+

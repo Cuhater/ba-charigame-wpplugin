@@ -1,0 +1,15 @@
+[0] Config.pm:308> INFO - This is Biber 2.20
+[0] Config.pm:311> INFO - Logfile is 'VorlageAbschlussarbeiten.blg'
+[32] biber:340> INFO - === Sat Jul  5, 2025, 12:19:06
+[40] Biber.pm:420> INFO - Reading 'VorlageAbschlussarbeiten.bcf'
+[82] Biber.pm:991> INFO - Using all citekeys in bib section 0
+[90] Biber.pm:4463> INFO - Processing section 0
+[96] Biber.pm:4654> INFO - Looking for bibtex file 'references.bib' for section 0
+[97] bibtex.pm:1713> INFO - LaTeX decoding ...
+[110] bibtex.pm:1519> INFO - Found BibTeX data source '/Users/christiankrenn/Downloads/latex-vorlagenpaket_fuer_wissenschaftliche_abschlussarbeiten (2)/references.bib'
+[202] UCollate.pm:68> INFO - Overriding locale 'de-DE' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[202] UCollate.pm:68> INFO - Overriding locale 'de-DE' defaults 'variable = shifted' with 'variable = non-ignorable'
+[203] Biber.pm:4283> INFO - Sorting list 'nty/global//global/global/global' of type 'entry' with template 'nty' and locale 'de-DE'
+[203] Biber.pm:4289> INFO - No sort tailoring available for locale 'de-DE'
+[216] bbl.pm:676> INFO - Writing 'VorlageAbschlussarbeiten.bbl' with encoding 'UTF-8'
+[224] bbl.pm:779> INFO - Output to VorlageAbschlussarbeiten.bbl

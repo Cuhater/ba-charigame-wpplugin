@@ -1,0 +1,79 @@
+\documentclass[
+	ngerman,
+	%twoside,
+	BCOR=8mm,
+	headings=normal,
+	parskip=half,
+	headsepline,
+	automark,
+	listof=totoc,
+	bibliography=totoc,
+	%,captions=tableabove
+	%draft
+]{scrreprt}
+%
+%
+\input{packages}
+%
+\input{definitions}
+%
+\input{glsdefs}
+%
+\makeglossaries
+%
+\graphicspath{{images/}}
+%
+\addbibresource{references.bib}
+
+\nocite{*} % listet alle Quellen (auch die nicht zitierten!)
+%
+%=== für schnelleres kopilieren alle ungeänderten Dateien auskommentieren =====
+\includeonly{
+    content/chapDeclaration,
+    content/chapAbstract,
+    content/chapEinleitung,
+	content/chapBasics,
+    content/chapContext,
+    content/chapConceptDesign,
+    content/chapImplement
+}
+%
+%
+%==============================================================================
+%
+\begin{document}
+%
+\pdfbookmark[0]{Titelseite}{titel}
+\input{content/Cover}
+\cleardoublepage
+\pagenumbering{Roman}
+\include{content/chapAbstract}
+
+\cleardoublepage
+\pdfbookmark[0]{Inhaltsverzeichnis}{toc}
+\tableofcontents
+\listoftables
+\listoffigures
+\printglossary
+\printglossary[type=\acronymtype, title={Abkürzungsverzeichnis}]
+\printglossary[type=symbols, title={Symbolverzeichnis}]
+%
+\cleardoublepage
+\KOMAoptions{open=right}
+\pagenumbering{arabic}
+\include{content/chapEinleitung}
+\include{content/chapBasics}
+\include{content/chapContext}
+\include{content/chapConceptDesign}
+\include{content/chapImplement}
+%
+\printbibliography[prenote=mynote]
+%
+\appendix
+\addchap{Anhang}
+\KOMAoptions{open=any}
+%
+\include{content/chapDeclaration}
+%
+%
+\end{document}
