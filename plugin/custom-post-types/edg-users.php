@@ -136,7 +136,7 @@ function construct_user_cpt(): void {
 						'id'    => '',
 					),
 					'display_format'    => 'd/m',
-					'return_format'     => 'md',
+					'return_format'     => 'Ymd',
 					'first_day'         => 1,
 				),
 				array(
@@ -209,7 +209,7 @@ function construct_user_cpt(): void {
 		// Nur für das Custom Post Type "edg-user"
 		if ( $query->get( 'post_type' ) === 'edg-user' && $query->get( 'orderby' ) === 'birthday' ) {
 			$query->set( 'meta_key', 'birthday' );
-			$query->set( 'orderby', 'meta_value' ); // meta_value_num geht auch, wenn birthday rein numerisch ist (YYYYMMDD)
+			$query->set( 'orderby', 'meta_value_num' ); // meta_value_num geht auch, wenn birthday rein numerisch ist (YYYYMMDD)
 		}
 	} );
 
@@ -269,7 +269,6 @@ function construct_user_cpt(): void {
 					}
 					echo esc_html( $date->format( 'd.m.Y' ) );
 				}
-
 				break;
 			case 'imported':
 				echo get_post_meta( $post_id, 'imported', true );

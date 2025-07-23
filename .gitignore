@@ -1,0 +1,56 @@
+# IntelliJ IDEA Projektdateien im Projektroot ignorieren
+.idea/
+
+# Abhängigkeiten im plugin-Ordner ignorieren
+/plugin/node_modules/
+/plugin/vendor/
+
+Lock-Dateien im plugin-Ordner ignorieren
+/plugin/package-lock.json
+/plugin/composer.lock
+
+#Debug-/Logdateien im plugin-Ordner ignorieren
+/plugin/*.log
+/plugin/.env
+/plugin/.env.*
+
+/latex/*.aux
+/latex/*.log
+/latex/*.out
+/latex/*.toc
+/latex/*.lof
+/latex/*.lot
+/latex/*.fls
+/latex/*.fdb_latexmk
+/latex/*.synctex.gz
+/latex/*.nav
+/latex/*.snm
+/latex/*.bbl
+/latex/*.blg
+/latex/*.brf
+/latex/*.idx
+/latex/*.ilg
+/latex/*.ind
+/latex/*.loa
+/latex/*.acn
+/latex/*.acr
+/latex/*.alg
+/latex/*.glg
+/latex/*.glo
+/latex/*.gls
+/latex/*.ist
+/latex/*.xdy
+
+/latex/*.pdf
+/latex/*.dvi
+/latex/*.ps
+
+/latex/*.tmp
+/latex/*.bak
+/latex/*.swp
+/latex/*.backup
+/latex/*.sav
+/latex/*~
+/latex/*.slg
+/latex/*.slo
+/latex/*.sls

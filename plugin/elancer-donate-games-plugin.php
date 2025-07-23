@@ -174,7 +174,116 @@ function register_parent_menu(): void {
 		'edg-data-table',
 		'elancer\render_edg_data_table'
 	);
+	add_submenu_page(
+		'edg-types',
+		'Charigame E-mail Settings ',
+		'E-Mail Settings',
+		'manage_options',
+		'charigame-email-settings',
+		'elancer\elancer_render_email_settings'
+	);
 }
+function elancer_render_email_settings() {
+	// SMTP Optionen speichern
+	if (isset($_POST['charigame_save_smtp_settings']) && check_admin_referer('charigame_save_smtp_action')) {
+		$options = [
+			'smtp_host'     => sanitize_text_field($_POST['smtp_host']),
+			'smtp_port'     => absint($_POST['smtp_port']),
+			'smtp_user'     => sanitize_text_field($_POST['smtp_user']),
+			'smtp_pass'     => sanitize_text_field($_POST['smtp_pass']),
+			'smtp_secure'   => sanitize_text_field($_POST['smtp_secure']),
+			'smtp_from'     => sanitize_email($_POST['smtp_from']),
+			'smtp_fromname' => sanitize_text_field($_POST['smtp_fromname']),
+		];
+		update_option('charigame_smtp_settings', $options);
+		echo '<div class="notice notice-success"><p>✅ SMTP-Einstellungen gespeichert.</p></div>';
+	}
+
+	// Test-E-Mail versenden
+	if (isset($_POST['charigame_send_test_mail']) && check_admin_referer('charigame_send_test_mail_action')) {
+		$from = sanitize_email($_POST['sender_email']);
+		$to   = sanitize_email($_POST['recipient_email']);
+		$smtp = get_option('charigame_smtp_settings');
+
+		add_action('phpmailer_init', function($phpmailer) use ($smtp, $from) {
+			$phpmailer->isSMTP();
+			$phpmailer->Host       = $smtp['smtp_host'];
+			$phpmailer->SMTPAuth   = true;
+			$phpmailer->Port       = $smtp['smtp_port'];
+			$phpmailer->Username   = $smtp['smtp_user'];
+			$phpmailer->Password   = defined('WPMS_SMTP_PASS') ? WPMS_SMTP_PASS : $smtp['smtp_pass'];
+			$phpmailer->SMTPSecure = $smtp['smtp_secure'];
+			$phpmailer->setFrom($from, 'Charigame Plugin');
+		});
+
+
+		$subject = 'Charigame Test-E-Mail';
+		$message = 'Dies ist eine Testmail von deinem WordPress-System.';
+
+		if (wp_mail($to, $subject, $message)) {
+			echo '<div class="notice notice-success"><p>✅ Test-E-Mail erfolgreich gesendet.</p></div>';
+		} else {
+			echo '<div class="notice notice-error"><p>❌ Fehler beim Senden.</p></div>';
+		}
+
+		remove_all_actions('phpmailer_init');
+	}
+
+	// Aktuelle Optionen laden
+	$smtp = get_option('charigame_smtp_settings', [
+		'smtp_host'     => '',
+		'smtp_port'     => 587,
+		'smtp_user'     => '',
+		'smtp_pass'     => '',
+		'smtp_secure'   => 'tls',
+		'smtp_from'     => '',
+		'smtp_fromname' => '',
+	]);
+	?>
+
+	<div class="wrap">
+		<h2>SMTP-Einstellungen</h2>
+		<form method="post">
+			<?php wp_nonce_field('charigame_save_smtp_action'); ?>
+			<table class="form-table">
+				<tr><th><label>SMTP Host</label></th><td><input name="smtp_host" type="text" value="<?php echo esc_attr($smtp['smtp_host']); ?>" class="regular-text" /></td></tr>
+				<tr><th><label>SMTP Port</label></th><td><input name="smtp_port" type="number" value="<?php echo esc_attr($smtp['smtp_port']); ?>" class="small-text" /></td></tr>
+				<tr><th><label>Benutzername</label></th><td><input name="smtp_user" type="text" value="<?php echo esc_attr($smtp['smtp_user']); ?>" class="regular-text" /></td></tr>
+				<tr><th><label>Passwort</label></th>
+					<td>
+						<?php if (defined('WPMS_SMTP_PASS')): ?>
+							<em>Wird per Konstante gesetzt (WPMS_SMTP_PASS)</em>
+						<?php else: ?>
+							<input name="smtp_pass" type="password" value="<?php echo esc_attr($smtp['smtp_pass']); ?>" class="regular-text" />
+						<?php endif; ?>
+					</td>
+				</tr>
+				<tr><th><label>Verschlüsselung</label></th><td>
+						<select name="smtp_secure">
+							<option value="tls" <?php selected($smtp['smtp_secure'], 'tls'); ?>>TLS</option>
+							<option value="ssl" <?php selected($smtp['smtp_secure'], 'ssl'); ?>>SSL</option>
+							<option value="" <?php selected($smtp['smtp_secure'], ''); ?>>Keine</option>
+						</select>
+					</td></tr>
+				<tr><th><label>Absender E-Mail</label></th><td><input name="smtp_from" type="email" value="<?php echo esc_attr($smtp['smtp_from']); ?>" class="regular-text" /></td></tr>
+				<tr><th><label>Absender Name</label></th><td><input name="smtp_fromname" type="text" value="<?php echo esc_attr($smtp['smtp_fromname']); ?>" class="regular-text" /></td></tr>
+			</table>
+			<p><input type="submit" name="charigame_save_smtp_settings" class="button button-primary" value="SMTP Einstellungen speichern" /></p>
+		</form>
+
+		<h2>Test-E-Mail versenden</h2>
+		<form method="post">
+			<?php wp_nonce_field('charigame_send_test_mail_action'); ?>
+			<table class="form-table">
+				<tr><th><label>Absender E-Mail</label></th><td><input name="sender_email" type="email" value="<?php echo esc_attr($smtp['smtp_from']); ?>" class="regular-text" /></td></tr>
+				<tr><th><label>Empfänger E-Mail</label></th><td><input name="recipient_email" type="email" value="" class="regular-text" /></td></tr>
+			</table>
+			<p><input type="submit" name="charigame_send_test_mail" class="button button-secondary" value="Testmail senden" /></p>
+		</form>
+	</div>
+	<?php
+}
+
 
 if ( ! class_exists( 'WP_List_Table' ) ) {
 	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
@@ -752,10 +861,12 @@ function get_user_data_by_email( $email ) {
 		$query->the_post();
 
 		$user_data = (object) array(
+			'ID'         => get_the_ID(),
 			'first_name' => get_field( 'first-name' ),
 			'last_name'  => get_field( 'last-name' ),
 			'email'      => get_field( 'email' ),
 			'birthday'   => get_field( 'birthday' ),
+			'email_sent'   => get_field( 'email_sent' ),
 		);
 
 		wp_reset_postdata();
@@ -847,7 +958,6 @@ function create_edg_user_with_acf( $first_name, $last_name, $email, $birthday ) 
 		$existing_user = $existing_users[0];
 		update_field( 'imported', 0, $existing_user->ID );
 	}
-
 	// Erstelle einen neuen EDG-Benutzerpost
 	$post_id = wp_insert_post( array(
 		'post_title'  => $first_name . ' ' . $last_name,
@@ -863,6 +973,11 @@ function create_edg_user_with_acf( $first_name, $last_name, $email, $birthday ) 
 	update_field( 'last-name', $last_name, $post_id );
 	update_field( 'email', $email, $post_id );
 	update_field( 'imported', 1, $post_id );
+	update_field( 'email_sent', 0, $post_id );
+	$email_sent = get_field('email_sent', $post_id);
+	if ($email_sent === '' || $email_sent === null) {
+
+	}
 
 	// Format the birthday to the 'md' format without year
 	$date         = DateTime::createFromFormat( 'Y-m-d', $birthday );
@@ -877,7 +992,7 @@ function create_edg_user_with_acf( $first_name, $last_name, $email, $birthday ) 
 		$date->setDate( $current_year + 1, $date->format( 'm' ), $date->format( 'd' ) );
 	}
 
-	$birthday_formatted = $date->format( 'Y-m-d' ); // Formatiere das Datum
+	$birthday_formatted = $date->format( 'Ymd' ); // Formatiere das Datum
 	update_field( 'birthday', $birthday_formatted, $post_id );
 
 
@@ -919,6 +1034,8 @@ function get_users_with_birthday( $is_all_user ) {
 			if ( ! empty( $email ) ) {
 				$emails[] = $email;
 			}
+
+
 		}
 	}
 	// Restore original post data
@@ -1264,7 +1381,9 @@ function edit_cronjob_on_dispatch_time_update( $meta_id, $post_id, $meta_key, $m
 		$args          = array( $post_id );
 		$dispatch_date = get_post_meta( $post_id, 'dispatch_date', true );
 		$dispatch_time = get_post_meta( $post_id, 'dispatch_time', true );
-		$timestamp     = strtotime( str_replace( '/', '-', $dispatch_date . ' ' . $dispatch_time ) );
+		$datetime_str = str_replace( '/', '-', $dispatch_date . ' ' . $dispatch_time );
+		$datetime = new DateTime( $datetime_str, wp_timezone() );
+		$timestamp = $datetime->getTimestamp();
 		if ( $timestamp > time() ) {
 			wp_clear_scheduled_hook( 'send_email_to_user_hook_' . $post_id, $args );
 		} else {
@@ -1295,7 +1414,9 @@ function add_campaign_cronjobs( $post_id, $post, $update ) {
 				$dispatch_time = get_field( 'dispatch_time', $single_campaign->ID );
 
 				if ( $dispatch_date && $dispatch_time ) {
-					$timestamp = strtotime( "$dispatch_date $dispatch_time" );
+					$datetime_str = "$dispatch_date $dispatch_time";
+					$datetime = new DateTime( $datetime_str, wp_timezone() );
+					$timestamp = $datetime->getTimestamp();
 
 					if ( $timestamp > time() ) {
 						wp_clear_scheduled_hook( 'edg_schedule_campaign', $args );
@@ -1373,6 +1494,21 @@ function run_pipedrive_import() {
 }
 // 9. E-Mail Functions
 // ========================================================================================================================
+
+function set_custom_smtp( $phpmailer ) {
+	$phpmailer->isSMTP();
+	$phpmailer->Host       = 'smtp.example.com';
+	$phpmailer->SMTPAuth   = true;
+	$phpmailer->Port       = 587;
+	$phpmailer->Username   = 'dein-benutzername@example.com';
+	$phpmailer->Password   = 'dein-passwort';
+	$phpmailer->SMTPSecure = 'tls'; // oder 'ssl'
+	$phpmailer->From       = 'absender@abcd.com';
+	$phpmailer->FromName   = 'Dein Name oder Firma';
+}
+
+// In send_custom_email:
+//add_action( 'phpmailer_init', 'elancer\set_custom_smtp' );
 function send_custom_email( $args ): void {
 
 	$header_image_url    = plugins_url( 'assets/email/images/email-header.jpg', __FILE__ );
@@ -1400,27 +1536,37 @@ function send_custom_email( $args ): void {
 		$gamedata     = search_game_data_by_game_code( $gamecode );
 		$email_gruppe = get_field( 'email_gruppe', $single_campaign_id );
 
-		$user_query = new WP_Query(array(
-			'post_type' => 'edg-user',
-			'meta_query' => array(
-				array(
-					'key' => 'email',
-					'value' => $single_email,
-					'compare' => '='
-				)
-			),
-			'posts_per_page' => 1
-		));
+		$single_user = get_user_data_by_email($single_email);
+		$first_name = $single_user->first_name ?? '';
+		$last_name = $single_user->last_name ?? '';
+		$name = $first_name . ' ' . $last_name;
 
-		if ($user_query->have_posts()) {
-			$user_query->the_post();
-			$first_name = get_post_meta(get_the_ID(), 'first-name', true);
-			$last_name = get_post_meta(get_the_ID(), 'last-name', true);
-			wp_reset_postdata();
-		} else {
-			$first_name = 'Benutzer';
-			$last_name = '';
+		$already_sent = $single_user->email_sent;
+		if ($already_sent == 1) {
+			continue;
 		}
+
+//		$user_query = new WP_Query(array(
+//			'post_type' => 'edg-user',
+//			'meta_query' => array(
+//				array(
+//					'key' => 'email',
+//					'value' => $single_email,
+//					'compare' => '='
+//				)
+//			),
+//			'posts_per_page' => 1
+//		));
+//
+//		if ($user_query->have_posts()) {
+//			$user_query->the_post();
+//			$first_name = get_post_meta(get_the_ID(), 'first-name', true);
+//			$last_name = get_post_meta(get_the_ID(), 'last-name', true);
+//			wp_reset_postdata();
+//		} else {
+//			$first_name = 'Benutzer';
+//			$last_name = '';
+//		}
 
 
 		$primary_color   = get_field( 'primary-color', 'option' );
@@ -1439,12 +1585,6 @@ function send_custom_email( $args ): void {
 		$company_name     = $company_settings['company_name'];
 		$company_street   = $company_settings['company_street'];
 		$company_city     = $company_settings['company_city'];
-
-		if($first_name = '' && $last_name != '' ) {
-			$name = $first_name . ' ' . $last_name;
-		} else {
-			$name = '';
-		}
 		// Email params
 		$subject = $email_subject;
 		// Message content
@@ -1533,7 +1673,10 @@ function send_custom_email( $args ): void {
 		$message .= '</div>';
 		$message .= '</body></html>';
 		$headers = array( 'Content-Type: text/html; charset=UTF-8' );
-		update_field('email_sent', 1, $single_email);
+		update_field('email_sent', 1, $single_user->ID);
+
+		//add_action( 'phpmailer_init', 'elancer\set_custom_smtp' );
 		wp_mail( $single_email, $subject, $message, $headers );
+		//remove_action( 'phpmailer_init', 'elancer\set_custom_smtp' );
 	}
 }

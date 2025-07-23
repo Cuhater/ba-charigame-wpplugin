@@ -10,46 +10,8 @@ use DateTime;
 use DateTimeZone;
 wp_head();
 $bg_image = get_field( 'background-image', 'option' );
-
-$spendenverteilung_gruppe = get_field( 'spendenverteilung_gruppe', get_the_ID() );
-if ( $spendenverteilung_gruppe != null ) {
-	$highscore       = $spendenverteilung_gruppe['highscore'];
-	$gewinnkategorie = $spendenverteilung_gruppe['gewinnkategorie'];
-	//var_dump($gewinnkategorie);
-
-	if ( ! $highscore ) {
-		$spendenbetrag = $gewinnkategorie[0]['spendenbetrag'];
-	} else {
-		$spendenbetrag = $gewinnkategorie[ count( $gewinnkategorie ) - 1 ]['spendenbetrag'];
-	}
-} else {
-	$spendenbetrag = 0;
-}
-//echo $spendenbetrag;
-//date_default_timezone_set('Europe/Berlin');
-//$campaign_time  = get_field( 'dispatch_time', get_the_ID() );
-//list($hour, $minute, $second) = explode(':', $campaign_time);
-//$now = current_time('timestamp'); // lokale Zeit!
-//$next_run = mktime($hour, $minute, $second, date('n', $now), date('j', $now), date('Y', $now));
-//
-//// Falls die Uhrzeit heute schon vorbei ist, auf morgen setzen
-//if ($next_run <= $now) {
-//	echo "NEXT RUN";
-//	echo "<br>";
-//	$next_run = strtotime('+1 day', $next_run);
-//	$run = date('Y-m-d H:i:s', $next_run);
-//	echo $run;
-//	echo "<br>";
-//}
-//else{
-//	echo "THIS RUN";
-//	echo "<br>";
-//	$next_run = strtotime('+1 day', $next_run);
-//	$run = date('Y-m-d H:i:s', $next_run);
-//	echo $run;
-//
-//}
-
+//echo date_default_timezone_get()
+//var_dump(get_users_with_birthday(false));
 ?>
 	<style>
 		.template-background {

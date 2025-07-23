@@ -1,27 +1,122 @@
 \chapter{Einleitung}
-\begin{quote}
-    ``Simplicity is a great virtue but it requires hard work to achieve it and education to appreciate it. And to make matters worse: complexity sells better.''
-\end{quote}
-\cite{dijkstra1982}
+%\begin{quote}
+%    ``Simplicity is a great virtue but it requires hard work to achieve it and education to appreciate it.
+%    And to make matters worse: complexity sells better.''\cite{dijkstra1982}
+%\end{quote}
+
+%\footnote{\href{https://www.th-koeln.de/schreibzentrum}{https://www.th-koeln.de/schreibzentrum}}
+%\\\\
+%Technische Einfachheit bildet ein zentrales Qualitätsmerkmal moderner Softwareentwicklung. Sie fördert Wartbarkeit, Verständlichkeit und langfristige Erweiterbarkeit.
+
+%\\\\
+%Technische Einfachheit bildet ein zentrales Qualitätsmerkmal moderner
+%Softwareentwicklung \cite{martin2008clean,fowler2018refactoring}. Sie
+%fördert Wartbarkeit, Verständlichkeit und langfristige Erweiterbarkeit,
+%was auch in internationalen Standards wie der ISO/IEC 25010 als wichtiges
+%Qualitätskriterium anerkannt wird \cite{iso25010}.
+%\\
+%Nach \cite{martin2008clean} ist Einfachheit eines der fundamentalen
+%Prinzipien für sauberen Code, während \cite{fowler2018refactoring}
+%betont, dass einfache Strukturen die Basis für erfolgreiche
+%Refaktorierung bilden.
+%\\
+%Um dies zu erreichen, erfordert es gezielte Architekturentscheidungen und eine klare Reduktion unnötiger Abhängigkeiten.
+%\\
+%Das WordPress-Plugin Charigame der elancer-team GmbH bietet Unternehmen eine digitale Möglichkeit, ihr gesellschaftliches Engagement spielbasiert zu kommunizieren.
+%\\
+%Nutzer nehmen an interaktiven Kampagnen teil, etwa in Form von Memory- oder Geschicklichkeitsspielen, und beeinflussen damit die Verteilung einer vom Unternehmen bereitgestellten Spendensumme auf soziale Projekte. Dieser partizipative Ansatz verbindet unternehmerische CSR-Maßnahmen mit spielerischer Nutzerinteraktion.
+%Die vorliegende Arbeit entwickelt diesen Ansatz technisch weiter.
+%Sie ersetzt die bestehende Konfigurationslogik, die derzeit auf ACF PRO basiert, durch eine eigenständige, modulare Struktur.
+%Zudem entsteht eine vollständige Integration in den Gutenberg-Editor durch individuell entwickelte Blöcke.
+%Die neue Architektur verbessert die Wartbarkeit, erhöht die Flexibilität für Entwickler und erleichtert die redaktionelle Nutzung im WordPress-Backend.%Ziel der vorliegenden Arbeit ist es, diesen technischen Ansatz weiterzuentwickeln, um sowohl die Funktionalität als auch die Benutzerfreundlichkeit des Plugins zu verbessern.
+
+Das WordPress-\gls{plugin} Charigame der Agentur elancer-team GmbH bietet Unternehmen die Möglichkeit, Spendenaktionen über gamifizierte Inhalte online anzubieten.
+Die Nutzer beteiligen sich an interaktiven Kampagnen, die als Memory- oder Geschicklichkeitsspiele gestaltet sind.
+Je nach Interaktion der Kunden wird bestimmt, welche sozialen Projekte aus einem vom Unternehmen bereitgestellten Spendentopf unterstützt werden.
+Hierdurch werden unternehmerische \gls{csr}-Maßnahmen mit spielerischer Nutzerbeteiligung kombiniert.
+
+\epigraph{``Clean code always looks like it was written by someone who cares."}{--- \textup{Robert C. Martin}}
+
+Diese Philosophie bildet die Grundlage für die Analyse und Weiterentwicklung der bestehenden Struktur.
+Für diese Weiterentwicklung wird ein Konzept erarbeitet, das auf den gesammelten theoretischen Erkenntnissen aufbaut.
+Die Ausarbeitung sieht vor das System Charigame wartungsfreundlicher zu gestalten und Entwicklern mehr Flexibilität bei Anpassungen zu bieten.
+Ferner gilt es Redakteuren eine intuitive Nutzung im Wordpress-Backend zu ermöglichen.
 
 \section{Problemstellung und Motivation}
+
+Die deskriptive Codebasis des WordPress-Plugins Charigame weist einen strukturellen Optimierungsbedarf auf, der auf die Entstehungsgeschichte des Plugins zurückgehen.
+Ursprünglich wurde das Plugin als internes Projekt der elancer-team GmbH entwickelt und später gezielt auf die Bedürfnisse eines spezifischen Kunden angepasst.
+
+Während dieser kundenspezifischen Entwicklung entstanden viele Funktionen, die stark auf diesen besonderen Anwendungsfall zugeschnitten sind.
+Eine übergreifende, flexibel erweiterbare Architektur wurde hierbei nicht berücksichtigt.
+Das Hauptproblem liegt darin, dass die aktuelle Implementierung gängige WordPress-Standards nur unzureichend berücksichtigt.
+Aufgrund des initial gesetzten Zeitrahmens entstand eine Codebasis, die zwar grundsätzlich funktioniert, jedoch nicht etablierten Best Practices der Plugin-Entwicklung entspricht.
+Das zeigt sich beispielsweise in mangelnder Modularität, lückenhafter Dokumentation und einer Struktur, die weitere Anpassungen erschwert.
+
+\textbf{Motivation}
+Die Motivation für diese Arbeit ergibt sich aus drei zentralen Aspekten:
+\begin{itemize}
+    \item \texttt{Eigene Weiterentwicklung}: Die Neuausrichtung des Plugins bietet die Chance, sich intensiv mit modernen WordPress-Entwicklungsmethoden zu beschäftigen. Besonders im Bereich modularer Architektur und Block-Entwicklung im Gutenberg-Umfeld.
+
+    \item \texttt{Technologischer Fortschritt}: Die Integration des Gutenberg-Editors als zukunftsfähiger, visueller Backend-Builder bringt das Plugin auf den neuesten Stand der WordPress-Technologie. Das verbessert nicht nur die redaktionelle Nutzererfahrung, sondern schafft auch die Basis für eine nachhaltigere technische Grundlage.
+
+    \item \texttt{Mehrwert für die Agentur}: Eine klar strukturierte, wartbare Codebasis bringt konkrete Vorteile für die elancer-team GmbH. Sie ermöglicht eine effizientere Teamarbeit, erleichtert den Wissenstransfer und verringert die Abhängigkeit von Einzelpersonen. Langfristig schafft das mehr Flexibilität, Stabilität und Skalierbarkeit im Projekt.
+\end{itemize}
+Die Weiterentwicklung des Plugins ist somit ein logischer nächster Schritt.
+
+
 \section{Zielsetzung der Arbeit}
+
+Das Ziel dieser Arbeit ist die technische Weiterentwicklung des bestehenden WordPress-Plugins Charigame mit besonderem Fokus auf Wartbarkeit, Standardkonformität und redaktionelle Nutzbarkeit.
+Durch die Anpassung der Architektur soll der Code besser strukturiert und anhand der WordPress-Plugin-Standards gestaltet werden.
+
+Die Arbeit beschäftigt sich mit den theoretischen Grundlagen und passt das Plugin an bewährte WordPress-Standards an.
+Zunächst wird der aktuelle Entwicklungsstand gründlich analysiert.
+Auf dieser Grundlage erfolgt dann die praktische Umsetzung.
+Dabei werden verschiedene Lösungsansätze betrachtet und die getroffenen Entscheidungen transparent erläutert.
+
+\section{Methodisches Vorgehen}
+
+Die Zielerreichung erfolgt praxisnah und methodisch strukturiert.
+Damit das gesetzte Ziel erreicht werden kann wird ein methodisches Vorgehen durchgeführt, das sich grob in vier größere Bestandteile gliedern lässt.
+
+\begin{enumerate}
+    \item \texttt{Ermitteln des Deskriptive Stands}: Im ersten Schritt wird die aktuelle Plugin-Struktur auf Basis der offiziellen WordPress-Guidelines beleuchtet.
+    Hier wird grundlegend eine modulare Architektur verfolgt, damit die langfristige Wartbarkeit und Erweiterbarkeit gegeben ist.
+
+    \item \texttt{Anforderungsanalyse und Konzeption}: Die funktionalen und nicht-funktionalen Anforderungen an das Plugin werden im zweiten Schritt erfasst und dienen als Grundlage für die Anpassung des Systems.
+
+    \item \texttt{Reduktion externer Abhängigkeiten}: Im dritten Schritt soll die bisherige Abhängigkeit von \gls{acf} durch eine eigene Lösung ersetzt werden.
+    Dieser Schritt ist wichtig, um den Funktionsumfang lizenzfrei zu halten und zusätzliche Kosten zu vermeiden.
+
+    \item \texttt{Integration des Gutenberg-Editors}: Der letzte Schritt sieht vor eine Block-basierte Verwaltung im Backend zu entwickeln.
+    Diese Lösung soll auf dem Gutenberg-Editor basieren und somit dem aktuellen Standards von WordPress entsprechen.
+\end{enumerate}
+
 \section{Aufbau der Arbeit}
+
+Die Arbeit beginnt mit der erfassen und sammeln der theoretischen Grundlagen hinsichtlich der Wordpress-Entwicklungsstandards.
+Darauf folgt eine Analyse der aktuellen Codebasis und der bestehenden Architektur, wodrauf basierend ein neues technisches Konzept erarbeitet und implementiert wird.
+Die Umsetzung wird schließlich im Hinblick auf Struktur, Funktionalität und redaktionelle Bedienbarkeit evaluiert.
+Der Aufbau der Arbeit spiegelt diesen Ablauf in aufeinander aufbauenden Kapiteln wider.
+
+
+%\section{LA LI LU NUR DER MANN IM MOND SCHAUT ZUUUU}
 %
-Das vorliegende Dokument kann als Muster und Anleitung für wissenschaftliche Abschlussarbeiten verwendet werden. Es beruht ursprünglich auf einem Leitfaden, den Prof.~Dr.~Stephan Freichel als Prüfungsausschussvorsitzender für die Studiengänge B.\,Sc.~Logistik und M.\,Sc.~\emph{Supply Chain and Operations Management} an der Fakultät für Fahrzeugsysteme und Produktion erstellt hat.
-\par
-Der Text in dieser Vorlage beschreibt allgemeine formale Anforderungen, insbesondere zum Inhaltsverzeichnis, zum Einfügen von Quellenverweisen und zum Erstellen eines Literaturverzeichnisses.
-\par
-Die Vorlage kann fachübergreifend als Musterdatei für Abschlussarbeiten an der TH Köln verwendet werden. Allerdings müssen Sie dann unbedingt klären, ob sie den Konventionen in ihrem Studienfach entspricht.
-\par
-Für die Möglichkeit eines fachunabhängigen Gebrauchs wurde das Dokument von Maria-Anna Worth (i.\,R.) und Susanne Neuzerling (Hochschulreferat Planung und Controlling) inhaltlich überarbeitet und modifiziert. Eine erneute Überarbeitung und Aktualisierung erfolgte durch Andreas Bissels (Schreibzentrum). Frau Katharina Bata hat die Dokumentvorlage in LaTeX erstellt. Zuletzt wurde diese Vorlage 2023 von André Ulrich und Jan Salmen überarbeitet und um diverse Hinweise speziell zur Gestaltung mit \LaTeX{} ergänzt (siehe \cref{chap:Textsatz}).
-\par
-Zur Vorbereitung auf Ihre Abschlussarbeit empfehlen wir Ihnen die Angebote des Schreibzentrums der Kompetenzwerkstatt\footnote{\href{https://www.th-koeln.de/schreibzentrum}{https://www.th-koeln.de/schreibzentrum}}; hierzu gehören sowohl eine Schreibberatung als auch Schreibkurse. Das Schreibzentrum ist Ihre Anlaufstelle an der TH Köln in Fragen rund um das wissenschaftliche Schreiben.
-\par
-Sichern Sie diese Dokumentvorlage bitte zweifach auf Ihrem Rechner: Einmal, um weiterhin auf den hier dargestellten Inhalt zugreifen zu können, und ein zweites Mal, um sie mit Ihrer eigenen Abschlussarbeit zu überschreiben.
-\par
-\emph{Bitte beachten Sie: Die Vorlage ersetzt nicht die spezifischen Vorgaben der jeweiligen Prüfungsausschüsse. Sollte es in Ihrem Fach besondere formale Vorgaben geben, so gelten diese.}\enlargethispage{\baselineskip}
+%Das vorliegende Dokument kann als Muster und Anleitung für wissenschaftliche Abschlussarbeiten verwendet werden. Es beruht ursprünglich auf einem Leitfaden, den Prof.~Dr.~Stephan Freichel als Prüfungsausschussvorsitzender für die Studiengänge B.\,Sc.~Logistik und M.\,Sc.~\emph{Supply Chain and Operations Management} an der Fakultät für Fahrzeugsysteme und Produktion erstellt hat.
+%\par
+%Der Text in dieser Vorlage beschreibt allgemeine formale Anforderungen, insbesondere zum Inhaltsverzeichnis, zum Einfügen von Quellenverweisen und zum Erstellen eines Literaturverzeichnisses.
+%\par
+%Die Vorlage kann fachübergreifend als Musterdatei für Abschlussarbeiten an der TH Köln verwendet werden. Allerdings müssen Sie dann unbedingt klären, ob sie den Konventionen in ihrem Studienfach entspricht.
+%\par
+%Für die Möglichkeit eines fachunabhängigen Gebrauchs wurde das Dokument von Maria-Anna Worth (i.\,R.) und Susanne Neuzerling (Hochschulreferat Planung und Controlling) inhaltlich überarbeitet und modifiziert. Eine erneute Überarbeitung und Aktualisierung erfolgte durch Andreas Bissels (Schreibzentrum). Frau Katharina Bata hat die Dokumentvorlage in LaTeX erstellt. Zuletzt wurde diese Vorlage 2023 von André Ulrich und Jan Salmen überarbeitet und um diverse Hinweise speziell zur Gestaltung mit \LaTeX{} ergänzt (siehe \cref{chap:Textsatz}).
+%\par
+%Zur Vorbereitung auf Ihre Abschlussarbeit empfehlen wir Ihnen die Angebote des Schreibzentrums der Kompetenzwerkstatt\footnote{\href{https://www.th-koeln.de/schreibzentrum}{https://www.th-koeln.de/schreibzentrum}}; hierzu gehören sowohl eine Schreibberatung als auch Schreibkurse. Das Schreibzentrum ist Ihre Anlaufstelle an der TH Köln in Fragen rund um das wissenschaftliche Schreiben.
+%\par
+%Sichern Sie diese Dokumentvorlage bitte zweifach auf Ihrem Rechner: Einmal, um weiterhin auf den hier dargestellten Inhalt zugreifen zu können, und ein zweites Mal, um sie mit Ihrer eigenen Abschlussarbeit zu überschreiben.
+%\par
+%\emph{Bitte beachten Sie: Die Vorlage ersetzt nicht die spezifischen Vorgaben der jeweiligen Prüfungsausschüsse. Sollte es in Ihrem Fach besondere formale Vorgaben geben, so gelten diese.}\enlargethispage{\baselineskip}
 %
-\begin{flushright}
-Köln, August 2023
-\end{flushright}
+%\begin{flushright}
+%Köln, August 2023
+%\end{flushright}
