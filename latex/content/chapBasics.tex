@@ -2,7 +2,7 @@
 Dieses Kapitel eruiert die theoretischen Grundlagen für die Ausarbeitung, welche für das Verständnis dieser Arbeit notwendig sind und im praktischen Teil angewendet werden.
 \section{WordPress als Content-Management-System}
 WordPress ist ein freies, unter der \gls{gnu} \gls{gpl} v2 lizenziertes Content-Management-System und mit einem Marktanteil von 61,1\% das weltweit am häufigsten verwendete CMS. \cite{statista2025cms}
-Die Plattform zeichnet sich durch seine flexibilität, erweiterbarkeit und bedienbarkeit aus, was Wordpress zu einer Lösung für simple Webseiten und Blogs bis hin zu komplexe Web-Applikationen. \cite{patel2019review}
+Die Plattform zeichnet sich durch seine flexibilität, erweiterbarkeit und bedienbarkeit aus, was Wordpress zu einer Lösung für simple Webseiten und Blogs bis hin zu komplexe Web-Applikationen macht. \cite{patel2019review}
 Die technische Struktur verfolgt ein modulares Paradigma, das eine klare Trennung zwischen Kernfunktionen, Design und Erweiterungen ermöglicht:
 \begin{itemize}
 
@@ -15,7 +15,7 @@ Die technische Struktur verfolgt ein modulares Paradigma, das eine klare Trennun
 \end{itemize}
 Technisch gesehen besteht Wordpress aus einer \gls{php}-basierten Architektur in Verbindung mit der persistenten Speicherlösung \gls{mysql} als relationale Datenbank.
 Durch diese weit verbreiteten Technologien ist WordPress mit den meisten gängigen Hosting-Umgebungen kompatibel.
-Grundlage hierfür ist lediglich ein Webserver, welcher PHP und MySQL unterstützt.
+Grundlage hierfür ist ein Webserver, welcher PHP und MySQL unterstützt.
 Offiziell ist Apache oder Nginx empfohlen \cite{wordpress2024requirements}.
 
 Darüber hinaus bietet Wordpress eine \gls{rest}-\gls{api} mit der eine entkoppelte Inhaltsverwaltung möglich ist und Inhalte über das \gls{http}-Protokoll in verschiedene Anwendungen und Plattformen integriert werden können.
@@ -24,7 +24,7 @@ Darüber hinaus bietet Wordpress eine \gls{rest}-\gls{api} mit der eine entkoppe
 Wordpress Coding Standards dienen als Richtlinien und Best Practises für Entwickler die an Wordpress Projekten arbeiten.
 Diese Standards haben sich in der Wordpress Community etabliert und ermöglichen eine konsistente Codestruktur.
 Hintergrund ist es die Codebasis für bessere Wartbarkeit und kollaborative Arbeit zu strukturieren.
-Für die Ausarbeitung der Weiterentwicklung sollen die offiziellen Wordpress Coding Standards beachtet und umgesetzt werden.
+Für die Ausarbeitung der Weiterentwicklung von Charigame sollen die offiziellen Wordpress Coding Standards beachtet und umgesetzt werden.
 
 
 \section{Plugin-Entwicklung mit WordPress}
@@ -40,9 +40,9 @@ Die Grundlagen sowie weiterführende Themengebiete sollen im Folgenden ermittelt
 
 \subsection{Grundlagen der Plugin-Architektur}
 
-Die Entwicklung von Plugins in WordPress setzt ein grundlegendes Verständnis der Dateistruktur und des internen Aufbaus des Content-Management-Systems voraus.
+Die Entwicklung von Plugins in WordPress setzt ein Basiswissen der Dateistruktur und des internen Aufbaus des Content-Management-Systems voraus.
 Insbesondere ist es erforderlich, die Plugin-bezogenen Dateien korrekt zu strukturieren und im entsprechenden Verzeichnis innerhalb der WordPress-Installation zu platzieren.\\\\
-Plugins werden standardmäßig im Verzeichnis wp-content/plugins abgelegt.
+Plugins werden standardmäßig im Verzeichnis \texttt{wp-content/plugins} abgelegt.
 Jeder Plugin-Ordner enthält dabei alle notwendigen Dateien zur Funktionalität des jeweiligen Moduls.\\\\
 Im folgenden Schaubild ist eine typische, nicht modifizierte Verzeichnisstruktur einer WordPress-Installation dargestellt.
 Diese dient als Ausgangspunkt für die Entwicklung und Integration von Plugins:
@@ -54,8 +54,8 @@ Diese dient als Ausgangspunkt für die Entwicklung und Integration von Plugins:
  \label{fig:wordpress-verzeichnis}
 \end{figure}
 \newpage
-Abbildung 2.1 visualisiert, dass sich im wp-content Ordner bereits initial in der Standardkonfiguration von Wordpress das Verzeichnis plugins befindet.
-Der plugins Ordner ist die zentrale Destination für alle im Wordpress System erstellten Erweiterungen.
+Abbildung 2.1 visualisiert, dass sich im wp-content Ordner bereits initial in der Standardkonfiguration von Wordpress das Verzeichnis \texttt{plugins} befindet.
+Der \texttt{plugins} Ordner ist die zentrale Destination für alle im Wordpress System erstellten Erweiterungen.
 Die nachfolgende Untersuchung berücksichtigt weitere Bestandteile von WordPress-Plugins, die fortlaufend detailliert beschrieben werden.
 \\\\\\
 \textbf{Aufbau, Plugin-Header und Metadateien}
@@ -139,12 +139,15 @@ Alle möglichen Felder werden in der folgenden Tabelle aufgeführt:
 
 \newpage
 \textbf{Hooks: Action und Filter}\\\\
+Es gibt eine Kardinalregel in der Wordpress Entwicklung die besagt: Don’t touch WordPress core. %TODO: https://developer.wordpress.org/plugins/intro/ maybe verlinken?
+Damit Anpassungen an bestehende Funktionalitäten möglich sind gibt es Hooks und Filter.
 Hooks erlauben es an spezifischen Stellen einzugreifen, um das Verhalten von Wordpress zu ändern ohne dabei die Kern-Dateien bearbeiten zu müssen.
 Allgemein gibt es zwei Arten von hooks in Wordpress: Actions und Filter.
-Mit Actions können Funktionen hinzugefügt oder geändert werden während Filter Inhalte geändert werden können, während diese geladen und dem Website-Nutzer angezeigt werden.
+Mit Actions können Funktionen hinzugefügt oder geändert werden.
+Filter wiederum ändern Inhalte, während diese geladen und dem Website-Nutzer angezeigt werden.
 Hooks sind nicht nur für die Plugin-Entwicklung gedacht, sondern werden ebenfalls häufig verwendet, um Standardfunktionen durch den Wordpress-Kern selbst bereitzustellen.
 
-Zu den drei wichtigsten Hooks im Bereich der Plugins zählen der register\_activation\_hook(), register\_deactivation\_hook() und der register\_uninstall\_hook().
+Drei sehr wichtige Hooks im Bereich der Plugins zählen der \texttt{register\_activation\_hook()}, \texttt{register\_deactivation\_hook()} und der \texttt{register\_uninstall\_hook()}.
 
 \begin{itemize}
  \item register\_activation\_hook(): Dieser Hook wird ausgeführt, wenn das Plugin im Wordpress-Backend aktiviert wird. Dies wird oftmals verwendet um Funktionen zwecks Einrichtung des Plugins bereitzustellen.
@@ -162,47 +165,220 @@ Zu den drei wichtigsten Hooks im Bereich der Plugins zählen der register\_activ
 
 %Plugin-Hauptdatei und Ordnerstruktur
 
-\textbf{Best Practises in der Plugin-Programmierung}\\\\
-Das Plugin Handbuch von Wordpress gibt dem Entwickler einige Best Practises vor, welche helfen den Code zu organisieren.
+\subsection{Best Practises in der Plugin-Programmierung}\
+Die Wordpress Developer Resources geben dem Entwickler einige Best Practises vor, welche helfen den Code zu organisieren.
 Ferner wird durch die Hinweise sichergestellt, dass der Code gut mit dem Wordpress Kern und anderen Plugins funktioniert.
+Nachfolgend sollen wichtige Best Practise aufgeführt werden, welche im Verlauf der Arbeit mit in der Konzeption berücksichtigt werden.
 \\
 \\
-\texttt{Vermeiden von Namenskonflikten:}\\
+\textbf{Vermeiden von Namenskonflikten}\\\\
 Namenskollisionen können durch die gleiche Benennung von Variablen, Funktionen oder Klassen zustandekommen.
-Um einen solchen Namenskonflikt zu vermeiden ist es empfohlen einen globalen Namenspace zu definieren. Dieser Namespace ermöglicht das überschreiben von anderen Variablen, Funktionen und Plugins.
+Um einen solchen Namenskonflikt zu vermeiden ist es empfohlen einen globalen Namenspace zu definieren.
+Dieser Namespace ermöglicht das überschreiben von anderen Variablen, Funktionen und Plugins.
 Variablen die innerhalb von Funktionen oder Klassen definiert sind, sind hiervon nicht betroffen.
 \\
 \\
-\texttt{Voranstellen eines Prefix}\\
+\\
+\textbf{Voranstellen eines Prefix}\\\\
 Unter Zuhilfenahme eines Prefix können potenzielle Konflikte im Hinblick auf Aufrufe und Ausführungen mit anderen Plugins verhindert werden.
-Das Handbuch empfiehlt hierzu ein 4 oder 5 zeichen langes einzigartiges Wort, welches vor verschiedene deklarationen vorangestellt wird.
+Das Handbuch empfiehlt hierzu ein einzigartiges Wort, welches vor verschiedene deklarationen vorangestellt wird.
 Auf das Projekt ChariGame gemünzte Projekt könnte dies dann wie folgt aussehen:
 \begin{itemize}
-
  \item function charigame\_save\_post();
-
  \item define ('CHARIGAME\_LICENSE', true);
-
  \item class CHARIGAME\_Admin{}
-
  \item namespace ChariGame;
-
- \item update\_option('charigame\_settings', $settings)
+ \item update\_option('charigame\_settings', \$settings)
+\end{itemize}
+\vspace{1em}
+\textbf{Prüfung vorhandener Implementierungen}\\\\
+Damit der Code Robust  und weniger fehleranfällig ist, gilt es auf bestehende Implementationen zu prüfen.
+Dies geschieht unter Zuhilfenahme der folgenden von PHP zur Verfügung gestellten Funktionen:
+\begin{itemize}
+ \item Variablen: isset()
+ \item Function\_exists() %NICHT BENÖTIGT IN EIGENEM NAMESPACE
+ \item Classes class\_exists()
+ \item Constants defined()
+\end{itemize}
+\vspace{1em}
+\textbf{Architekturmuster}\\\\
+Die Wordpress Developer Resources geben eine Hand voll mögliche Architekturmuster vor.
+Diese können grob in drei Variationen kategorisiert werden:
+\begin{itemize}
+ \item Einzelne Plugin-Datei, die Funktionen enthält
+ \item Einzelne Plugin-Datei, die eine Klasse, ein instanziiertes Objekt und optional Funktionen enthält
+ \item Haupt-Plugin-Datei, dann eine oder mehrere Klassendateien
 \end{itemize}
 
-Auf vorhandene Implementierungen prüfen:
+Je nachdem welchen Umfang das Plugin anstrebt, gilt es die passende Lösung des Architekturmusters zu wählen.
+Ein einzelne Plugin-Datei, die Funktionen enthält stellt eine solide Basis für ein kleines Plugin zur Verfügung.
+Die Variante eine Haupt-Plugin-Datei zu erstellen und mehrere Klassendateien aufzubauen bietet sich eher für Plugins mit einer größeren Codebasis an.
+
+\subsection{Plugin Security und Privacy}
+Ein wichtiger Aspekt bei der Programmierung von Wordpress Plugins ist die Plugin Security und Privacy.
+Damit die Sicherheit von Eingaben gegeben ist, werden Methoden wie Validating, Sanatizing und Escaping genutzt.
+
+\textbf{Validating}
+
+\begin{quote}
+ Das Validierung von Eingaben ist der Prozess, bei dem Daten anhand eines vordefinierten Musters (oder mehrerer Muster) mit einem eindeutigen Ergebnis getestet werden: gültig oder ungültig.
+ Die Validierung ist im Vergleich zur Bereinigung ein spezifischerer Ansatz, aber beide haben ihre Berechtigung.
+ \\[0.5em]
+ \emph{(eigene Übersetzung nach \cite{wordpress2024plugin_validation})}
+\end{quote}
+
+Es werden auch seitens der Wordpress Developer Ressourcen einfache Validierungsbeispiele genannt:
+\begin{itemize}
+\item Überprüfung, ob Pflichtfelder ausgefüllt wurden
+\item Überprüfung, ob eine eingegebene Telefonnummer nur Zahlen und Satzzeichen enthält
+\item Überprüfung, ob eine eingegebene Zeichenfolge eine von fünf gültigen Optionen ist
+\item Überprüfung, ob ein Mengenfeld größer als 0 ist
+\end{itemize}
+Die Validierung selbst wird in verschiedene Philosophien gegliedert, die nun kurz exemplarisch aufgefasst werden:
+\begin{table}[h]
+ \centering
+ \renewcommand{\arraystretch}{1.3}
+ \begin{tabular}{|p{3cm}|p{5cm}|p{6cm}|}
+  \hline
+  \textbf{Philosophie} & \textbf{Beschreibung} & \textbf{Beispiel Anwendung} \\
+  \hline
+  Safelist \newline (Allowlist)
+  & Nur Werte aus einer vordefinierten Liste erlauben. Alles andere wird abgelehnt.
+  & Dropdown-Auswahl für Sortieroptionen (z.\,B. ``date``, ``author``). Nur erlaubte Keys werden akzeptiert. \\
+  \hline
+  Blocklist \newline (Denylist)
+  & Bestimmte bekannte, unerwünschte Werte verbieten. Unsicher, da neue unerlaubte Werte nicht erfasst werden.
+  & Sperren von bekannten schädlichen Dateiendungen (z.\,B. ``.exe``, ``.bat``). \\
+  \hline
+  Format Detection
+  & Prüfen, ob Eingabe einem bestimmten Muster entspricht.
+  & Postleitzahl-Validierung mit Regex, E-Mail-Prüfung mit \texttt{is\_email()}, nur Ziffern mit \texttt{ctype\_digit()}. \\
+  \hline
+  Format Correction (Sanitization)
+  & Eingaben akzeptieren, aber in ein sicheres Format umwandeln.
+  & Benutzername \newline mit \texttt{sanitize\_title()}, Typ-Cast von String zu Integer \texttt{(int)\$input}. \\
+  \hline
+ \end{tabular}
+ \caption{Übersicht Validierungs-Philosophien mit Beispielen}
+\end{table}
+
+\newpage
+Wenn keine Validierung möglich ist bedienen sich Wordpress Entwickler der Möglichkeit des Sanatizing und Escaping von Werten.
+
+\textbf{Sanitizing}
+\begin{quote}
+ Die Bereinigung von Eingaben ist der Prozess der Sicherung/Bereinigung/Filterung von Eingabedaten.
+ Die Validierung ist der Bereinigung vorzuziehen, da sie spezifischer ist.
+ Wenn jedoch eine „spezifischere“ Lösung nicht möglich ist, ist die Bereinigung die nächstbeste Option.
+ \\[0.5em]
+ \emph{(eigene Übersetzung nach \cite{wordpress2024plugin_sanitizing})}
+\end{quote}
+
+
+Bevor also Daten, die von Nutzenden stammen, in der Datenbank abgelegt oder weiterverarbeitet werden,
+sollten sie bereinigt werden, um sowohl Sicherheitslücken als auch ungewollte Inhalte zu vermeiden.
+Dafür stellt WordPress verschiedene Funktionen bereit, die sicherstellen, dass Eingaben ausschließlich
+die vorgesehenen Zeichen oder Strukturen enthalten.
+Ein häufig genutztes Beispiel ist die Verwendung von \texttt{sanitize\_text\_field()} für Freitextfelder.
+Nachfolgend werden die seitens Wordpress bereitgestellten Funktionen erläutert:
+
+\begin{table}[h]
+ \centering
+ \begin{tabular}{|l|p{8cm}|}
+  \hline
+  \textbf{Funktion} & \textbf{Beschreibung} \\
+  \hline
+  \texttt{sanitize\_text\_field()} & Entfernt Tags, ungültige UTF-8-Zeichen, Zeilenumbrüche, Tabs und überflüssige Leerzeichen. \\
+  \hline
+  \texttt{sanitize\_email()} & Validiert und bereinigt eine E-Mail-Adresse. \\
+  \hline
+  \texttt{sanitize\_file\_name()} & Entfernt unerlaubte Zeichen aus Dateinamen. \\
+  \hline
+  \texttt{sanitize\_hex\_color()} & Prüft und bereinigt Hex-Farbwerte (\#RRGGBB). \\
+  \hline
+  \texttt{sanitize\_html\_class()} & Bereinigt Klassennamen für HTML-Attribute. \\
+  \hline
+  \texttt{sanitize\_key()} & Bereinigt Array-Keys oder Optionsnamen. \\
+  \hline
+  \texttt{sanitize\_option()} & Bereinigt Optionswerte in der Datenbank. \\
+  \hline
+  \texttt{sanitize\_title()} & Macht einen String zu einem URL-freundlichen Titel. \\
+  \hline
+  \texttt{sanitize\_user()} & Bereinigt Benutzernamen. \\
+  \hline
+  \texttt{wp\_kses()} & Filtert HTML nach erlaubten Tags/Attributen. \\
+  \hline
+  \texttt{wp\_kses\_post()} & Wie \texttt{wp\_kses()}, aber mit Standardregeln für Posts. \\
+  \hline
+ \end{tabular}
+ \caption{Auswahl wichtiger WordPress-Sanitization-Funktionen}
+\end{table}
+
+\newpage
+
+\textbf{Escaping}\\\\
+Escaping transformiert Ausgabedaten so, dass gefährliche Zeichen (z.\,B. `<` wird zu `\&lt;`) nicht mehr als Code interpretiert werden. Dies verhindert XSS-Angriffe.\\\\
+Das Prinzip lautet: Daten unverändert speichern, erst bei der Ausgabe escapieren. WordPress bietet kontextspezifische Funktionen wie \texttt{esc\_html()}, \texttt{esc\_attr()}, \texttt{esc\_url()} und \texttt{esc\_js()}.
+Die richtige Funktionswahl je nach Ausgabekontext ist entscheidend für die Sicherheit.
+Genau wie beim Sanatizing bietet Wordpress hier ein Set an Funktionen, welche speziell für das Escaping genutzt werden.
+
+\begin{table}[h]
+ \centering
+ \begin{tabular}{|l|p{9cm}|}
+  \hline
+  \textbf{Funktion} & \textbf{Anwendungsfall / Beschreibung} \\
+  \hline
+  \texttt{esc\_html()} & Escaped Text für den Einsatz innerhalb von HTML-Elementen. Entfernt sämtliches HTML. \\
+  \hline
+  \texttt{esc\_attr()} & Für Werte innerhalb von HTML-Attributen, z.\,B. \texttt{<input value="...">}. \\
+  \hline
+  \texttt{esc\_url()} & Für URLs in \texttt{src} oder \texttt{href}-Attributen. \\
+  \hline
+  \texttt{esc\_url\_raw()} & Roh-URL-Escaping für Speicherung in der Datenbank oder nicht-encodierte Weitergabe. \\
+  \hline
+  \texttt{esc\_js()} & Für Inline-JavaScript oder Übergabe von Variablen in Skripte. \\
+  \hline
+  \texttt{esc\_xml()} & Absicherung von Ausgaben in XML-/XSL-Kontexten. \\
+  \hline
+  \texttt{esc\_textarea()} & Encodiert Texte für die Verwendung innerhalb eines \texttt{<textarea>} Elements. \\
+  \hline
+  \texttt{wp\_kses()} & Filtert HTML-Inhalte und erlaubt nur eine definierte Menge an Tags/Attributen. \\
+  \hline
+  \texttt{wp\_kses\_post()} & Variante von \texttt{wp\_kses()}, die die Standardmenge an Post-HTML erlaubt. \\
+  \hline
+  \texttt{wp\_kses\_data()} & Variante von \texttt{wp\_kses()}, die nur HTML erlaubt, das in Kommentaren zugelassen ist. \\
+  \hline
+ \end{tabular}
+ \caption{Überblick zentraler Escaping-Funktionen in WordPress}
+ \label{tab:escaping}
+\end{table}
+
+Ein wichtiger Grundsatz ist das \emph{späte Escaping}: Daten sollten erst unmittelbar vor der Ausgabe escaped werden.
+Dadurch wird die Code-Überprüfung vereinfacht, das Fehlerrisiko verringert und die Anwendung widerstandsfähiger gegen zukünftige Anpassungen.
+Wenn ein spätes Escaping nicht umsetzbar ist (etwa bei generiertem JavaScript-Code), muss der Entwickler sicherstellen, dass Variablen bereits in einer als \enquote{sicher} gekennzeichneten Form vorliegen (z.\,B. \texttt{\$variable\_escaped}).
+
+\textbf{Nonces}
+
+Ein Nonce (number used once) ist ein Sicherheitsmechanismus in WordPress zum Schutz von URLs und Formularen vor unbefugten Manipulationen.
+Insbesondere wird der Schutz vor Cross-Site Request Forgery (CSRF) sichergestellt.
+Anders als die Definition handelt es sich nicht um Einmalzahlen, sondern um Hash-Werte.
+Diese Hashwerte sind für einen bestimmten Benutzer und Kontext über eine begrenzte Zeit gültig (Standard: 12–24 Stunden).
+
+Erstellung: \texttt{wp\_create\_nonce('action')}, \texttt{wp\_nonce\_url()}, \texttt{wp\_nonce\_field()}
+
+Validierung: \texttt{wp\_verify\_nonce()}, \texttt{check\_admin\_referer()}, \texttt{check\_ajax\_referer()}
+
+Sie sollten stets aktionsspezifisch sein und niemals als alleinige Sicherheitsmaßnahme dienen.
 
 
 
 
 
+\subsection{Weiterführende Funktionen und Paradigma}
+In diesem Kapitel sind weitere für da Projekt verwendete Funktionen und Paradigmen aus Wordpress aufgeführt.
 
-Internationalisierung (i18n)
 
-\subsection{Schnittstellen und Interfaces}
-
-Admin-Menüs und Unterseiten erstellen
-
+Hier noch überlegen welche Funktionen und Paradigmen aufgeführt werden sollten. Effektiv bisschen filler für das kommende dann?
 Meta-Daten // Meta Boxes für Post-Bearbeitung
 
 Einstellungsseiten mit Settings \gls{api}
@@ -210,8 +386,6 @@ Einstellungsseiten mit Settings \gls{api}
 Integration mit \gls{acf} für erweiterte Felder
 
 Shortcodes entwickeln und registrieren
-
-Custom Widgets erstellen
 
 \gls{css} und JavaScript richtig einbinden
 
@@ -225,7 +399,7 @@ Authentifizierung und Berechtigungen
 
 AJAX-Funktionalität implementieren
 
-\subsection{Plugin-Deployment und Distribution}
+Admin-Menüs und Unterseiten erstellen
 
 WordPress Database \gls{api} für Datenbankoperationen
 
@@ -243,21 +417,150 @@ Lizenzierung unter \gls{gpl}
 
 Plugin-Testing und Qualitätssicherung
 
-\subsection{Performance und Sicherheit}
-
-Sicherheitsaspekte (Sanitization, Validation, Nonces)
-
-Performance-Optimierung
-
-Sicherheitslücken vermeiden
-
-Input Validation und Output Escaping
-
-Datenbankabfragen optimieren
+Cron
 
 \section{Gutenberg-Editor: Konzept und technische Grundlagen}
+\begin{quote}
+    Der Block-Editor ist ein modernes Paradigma für die Erstellung und Veröffentlichung von WordPress-Websites.
+    Er verwendet ein modulares System aus Blöcken zum Erstellen und Formatieren von Inhalten und wurde entwickelt,
+    um reichhaltige und flexible Layouts für Websites und digitale Produkte zu erstellen.
+    \\[0.5em]
+    \emph{(eigene Übersetzung nach \cite{wordpress2024plugin_blockeditor})}
+\end{quote}
+
+
+
+Ein Block ist ein eigenständiges Element wie beispielsweise ein Absatz, eine Überschrift, ein Medienelement oder eine Einbettung.
+Jeder Block wird als separates Element mit individuellen Bearbeitungs- und Formatierungsoptionen behandelt.
+Wenn alle diese Komponenten zusammengefügt werden, bilden sie den Inhalt der Seite oder des Beitrags, der dann in der WordPress-Datenbank gespeichert wird.
+\\\\
+Die Developer Resources geben Entwicklern Grundlagen der Blockentwicklung mit, welche nachfolgend erläutert werden.
+
+\subsection{Dateistruktur eines Blocks}
+
+Wenn ein Block entwickelt wird, ist es empfohlen diesen als Plugin und nicht innerhalb des Themes zu registrieren.
+Diese Methode wird empfohlen, damit der erstellte Block unabhängig vom verwendeten Theme genutzt werden kann.
+
+%TODO: HIER BILD ERSTELLEN STRUKTUR EINES BLOCKS
+
+
+
+Die Relevanz des Editors wird durch die Erhobene Statistik der Seite Gutenberg in Numbers deutlich.
+Demnach beträgt die Anzahl aktiver Installationen des Gutenberg-Editors auf WordPress- und Jetpack-Seiten aktuell 87,3 Mio.
+Innerhalb der letzten drei Jahre wurden 282 Mio. Beiträge mit dem Gutenberg-Editor erstellt.
+Die Daten basieren auf einem Dreijahreszeitraum und umfassen nur WordPress.com- und Jetpack-Seiten, die die Nutzung des Editors melden.
+
+This section provides an introduction to the most relevant concepts in block development. Use the following links to learn more:
+
+File structure of a block: The purpose of each file that composes a block plugin, the relationships between them, and their role in the block output.
+block.json: How a block is defined using its block.json metadata and some relevant properties of this file (such as attributes and supports).
+Registration of a block: How a block is registered on both the server and in the client.
+Block wrapper: How to apply the proper attributes to the block’s markup wrapper.
+The block in the Editor: How a block, as a React component, is loaded in the Block Editor and an overview of its structure.
+Markup representation of a block: How blocks are represented in the database, theme templates, and patterns.
+Static or Dynamic rendering of a block: How blocks generate their front-end output either dynamically or statically.
+JavaScript in the Block Editor: How to work with modern JavaScript when developing for the Block Editor.
+
+
 \section{Gamification im Kontext digitaler Anwendungen}
-\section{Überblick über Spendenverteilung und Charity-Plattformen}
+https://www.bpb.de/themen/kultur/digitale-spiele/504558/gamification-grundbegriffe-chancen-und-risiken/
+https://www.bidt.digital/phaenomene/gamification-und-digitale-partizipation-neue-impulse-fuer-die-demokratie/
+https://reposit.haw-hamburg.de/bitstream/20.500.12738/7511/1/BA_Ibel.pdf
+
+\section{Überblick über Coperate Responsibility und Charity-Plattformen}
+
+Marktanalyse für Charigame
+Marktumfeld und Trends
+Gamification-Markt in Deutschland
+Der Gamification-Markt in Deutschland zeigt eine positive Entwicklung mit signifikantem Wachstum. Unternehmen aus verschiedenen Branchen wie Gesundheitswesen, Finanzdienstleistungen und E-Learning setzen zunehmend auf gamifizierte Lösungen, um die Kundeninteraktion und Mitarbeiterbindung zu verbessern.
+
+Europa verzeichnet insgesamt ein starkes Wachstum, das durch Unternehmensinvestitionen in Gamification-Konferenzen und KI-gestützte Engagement-Lösungen angetrieben wird. Länder wie Deutschland, Großbritannien und Frankreich sind Vorreiter bei der Gamification in Einzelhandel, HR und Gesundheitswesen.
+
+CSR-Trends 2025
+Aktuelle Trends im Bereich Corporate Social Responsibility zeigen eine verstärkte Fokussierung auf Mitarbeiterengagement und direkte Beteiligung. Unternehmen suchen nach innovativen Wegen, ihre CSR-Maßnahmen authentischer und partizipativer zu gestalten.
+
+Competitive Landscape
+Direkte Konkurrenz
+Im WordPress-Ökosystem existieren bereits etablierte Spenden-Plugins wie:
+
+Charitable: Das führende WordPress-Plugin für Spenden und Fundraising mit über 10.000 Non-Profit-Organisationen als Nutzer
+
+GiveWP: Ein populäres Plugin mit umfangreichen Funktionen für Online-Spenden, Preise ab \$149 pro Jahr
+
+Gamification-Anbieter in Deutschland
+Der deutsche Markt umfasst verschiedene Gamification-Spezialisten:
+
+Gamewheel (Berlin): One-Stop-Shop für Gamification und Playable Ads
+
+Retrac GmbH (Berlin): White-Label-Gamification-Lösungen
+
+Cluehub (Berlin): Spezialist für Serious Games und Team-Events
+
+Alleinstellungsmerkmale von Charigame
+Einzigartige Positionierung
+Charigame besetzt eine Nischenpositioning an der Schnittstelle von:
+
+Gamification
+
+Corporate Social Responsibility
+
+WordPress-Integration
+
+Diese Kombination ist im deutschen Markt noch nicht etabliert. Bestehende Lösungen fokussieren entweder auf reine Spendenfunktionalität oder allgemeine Gamification, aber nicht auf die spielerische Gestaltung von CSR-Kampagnen.
+
+Zielmarkt und Potenzial
+Primäre Zielgruppe
+Mittelständische Unternehmen und Konzerne mit:
+
+Etablierten CSR-Programmen
+
+WordPress-basierten Websites
+
+Interesse an innovativen Kundenengagement-Strategien
+
+Marktpotenzial
+Der Markt zeigt positive Indikatoren:
+
+Wachsende Nachfrage nach personalisierten und inklusiven Gamification-Designs
+
+Unternehmen suchen nahtlos integrierte Erlebnisse, die über oberflächliche Anreize hinausgehen
+
+Trend zu Micro-Moments und Hyper-Personalisierung in der Kundenbindung
+
+Marktchancen und Herausforderungen
+Chancen
+Zeitgeist: Gamification wird zunehmend zur Förderung von Nachhaltigkeitsinitiativen eingesetzt, was perfekt zu Charigames CSR-Fokus passt.
+
+Technologietrends: KI-gesteuerte Gamification-Designs und personalisierte Benutzererfahrungen werden 2025 dominierend.
+
+Regulatorisches Umfeld: Deutsche DSGVO-Compliance kann als Vertrauensfaktor gegenüber internationalen Konkurrenten genutzt werden.
+
+Herausforderungen
+Marktreife: Kunden sind anspruchsvoller geworden und erwarten zielgerichtete, inklusive Gamification-Designs.
+
+Preisdruck: Viele Kunden suchen "Luxus-Erfahrungen mit kleinem Budget".
+
+Etablierte Konkurrenz: Bestehende Spenden-Plugins haben bereits große Nutzerbasen und umfangreiche Feature-Sets.
+
+Markteintrittsempfehlungen
+Positionierungsstrategie
+Charigame sollte sich als "erste gamifizierte CSR-Lösung für WordPress" positionieren und den Mehrwert der spielerischen Spendererfahrung betonen.
+
+Zielgruppenansprache
+Fokus auf mittelständische Unternehmen, die bereits WordPress nutzen und ihre CSR-Aktivitäten digitalisieren möchten.
+
+Competitive Advantages
+Deutsche Entwicklung mit DSGVO-Compliance
+
+Spezialisierung auf CSR-Gamification
+
+WordPress-native Integration durch elancer-team's Expertise
+
+Maßgeschneiderte Lösungen statt Standardprodukte
+
+Der Markt für Charigame zeigt vielversprechende Perspektiven, da er eine bisher unbesetzte Nische zwischen Gamification und CSR-Management adressiert, während gleichzeitig von den positiven Trends in beiden Bereichen profitiert.
+
+
 \label{chap:formal}
 %
 In diesem Kapitel finden Sie grundlegende Hinweise zum formalen Aufbau Ihrer Arbeit.
