@@ -373,51 +373,93 @@ Sie sollten stets aktionsspezifisch sein und niemals als alleinige Sicherheitsma
 
 
 
-
+%TODO: Mögliche erweiterung ist die wp template hiearchie? nochmal schön n bild rienfetzen hat ja was mit dem template von charigame zu tun FE ? maybe
 \subsection{Weiterführende Funktionen und Paradigma}
-In diesem Kapitel sind weitere für da Projekt verwendete Funktionen und Paradigmen aus Wordpress aufgeführt.
+In diesem Kapitel sind weitere für das Projekt verwendete Funktionen und Paradigmen aus Wordpress aufgeführt.
+\\
+\\
+\textbf{Themes}\\\\
+Ein Theme in WordPress bestimmt das Erscheinungsbild einer Website.
+Es legt Farben, Schriftarten, Layout-Strukturen sowie die gesamte Darstellung des Frontends fest und kann auch Funktionen im Backend hinzufügen.
+Für das Projekt Charigame spielt das konkret gewählte Theme jedoch keine zentrale Rolle.
+Die entwickelte Lösung soll unabhängig von einem bestimmten Theme funktionieren.
+%Die Definition dient hier daher lediglich dazu, ein grundlegendes Verständnis für den Aufbau und die Funktionsweise von WordPress zu vermitteln.
 
 
-Hier noch überlegen welche Funktionen und Paradigmen aufgeführt werden sollten. Effektiv bisschen filler für das kommende dann?
-Meta-Daten // Meta Boxes für Post-Bearbeitung
 
-Einstellungsseiten mit Settings \gls{api}
+%Shortcodes
+%Shortcodes sind im Grunde Makro, die eine komplexe Funktion aufrufen können.
+\\
+\\
+\textbf{Metadaten}\\\\
+Unter Metadaten versteht man ergänzende Informationen zu bestehenden Inhalten sogenannte „Informationen über Informationen".
+Im WordPress-Kontext handelt es sich dabei um zusätzliche Datensätze, die verschiedenen Objekten wie Artikeln, Nutzerprofilen, Kommentaren oder Kategorien hinzugefügt werden können.
+Praktische Anwendungsbeispiele sind etwa Custom Fields in Blogbeiträgen, erweiterte Benutzerinformationen in Profilen oder spezielle Attribute für Kategorienseiten.
+WordPress zeichnet sich durch ein besonders anpassungsfähiges Metadaten-System aus.
+Jedes Element kann mit einer unbegrenzten Anzahl zusätzlicher Informationen ausgestattet werden.
+\\
+\\
+\textbf{API Endpoints}\\\\
+Die WordPress-REST-API stellt unter dem Endpunkt /wp-json/ eine Schnittstelle zur Verfügung, über die Inhalte und Strukturen einer WordPress-Installation abgerufen und verändert werden können.
+Der zentrale Namespace wp/v2/ umfasst dabei alle wesentlichen Ressourcen, wie Beiträge, Seiten, Benutzer, Medien oder Taxonomien.
+\\
+Technisch fundiert die Kommunikation im Gutenberg-Editor selbst auf der REST-API.
+Änderungen im Block Editor werden im Hintergrund als Anfragen an die API umgesetzt.
+Entwickler können über die JavaScript-Schnittstellen wie @wordpress/api-fetch eigene Blöcke implementieren oder externe Datenquellen einbinden.
+\\
+\\
+\textbf{AJAX}\\\\
+Wordpress bietet eine eigene AJAX-Schnittstelle, die auf den Endpunkt admin-ajax.php verweist.
+Entwickler können hier eigene Aktionen registrieren, die bei einer AJAX-Anfrage ausgeführt werden.
+Jede Aktion wird über einen eindeutigen Namen (action) identifiziert, wodurch mehrere unabhängige AJAX-Funktionen parallel existieren können.
+Die Kommunikation erfolgt typischerweise über POST- oder GET-Anfragen, die Daten in JSON- oder URL-kodierter Form zurückliefern.
+\\
+\\
+\textbf{WP-CRON}\\\\
+In WordPress werden zeitgesteuerte Aufgaben über ein eigenes System, das sogenannte WP-Cron.
+WP-Cron bietet eine einfache Möglichkeit, zeitbasierte Prozesse zu implementieren.
+Solche Events werden typischerweise beim Planen von Beiträgen oder dem Versenden von E-Mail-Benachrichtigungen genutzt.
 
-Integration mit \gls{acf} für erweiterte Felder
+%Hier noch überlegen welche Funktionen und Paradigmen aufgeführt werden sollten. Effektiv bisschen filler für das kommende dann?
+%Meta-Daten // Meta Boxes für Post-Bearbeitung
 
-Shortcodes entwickeln und registrieren
+%Einstellungsseiten mit Settings \gls{api}
 
-\gls{css} und JavaScript richtig einbinden
+%Integration mit \gls{acf} für erweiterte Felder
 
-Gutenberg Block-Entwicklung (optional)
+%Shortcodes entwickeln und registrieren
 
-Custom \gls{rest} \gls{api} Endpoints erstellen
+%\gls{css} und JavaScript richtig einbinden
 
-Daten über \gls{http}-Requests bereitstellen
+%Gutenberg Block-Entwicklung (optional)
 
-Authentifizierung und Berechtigungen
+%Custom \gls{rest} \gls{api} Endpoints erstellen
 
-AJAX-Funktionalität implementieren
+%Daten über \gls{http}-Requests bereitstellen
 
-Admin-Menüs und Unterseiten erstellen
+%Authentifizierung und Berechtigungen
 
-WordPress Database \gls{api} für Datenbankoperationen
+%AJAX-Funktionalität implementieren
 
-Custom Post Types und Custom Fields
+%Admin-Menüs und Unterseiten erstellen
 
-Settings und Options verwalten
+%WordPress Database \gls{api} für Datenbankoperationen
 
-Caching mit Transients
+%Custom Post Types und Custom Fields
 
-Plugin für WordPress Repository vorbereiten
+%Settings und Options verwalten
 
-Versionskontrolle und Updates
+%Caching mit Transients
 
-Lizenzierung unter \gls{gpl}
+%Plugin für WordPress Repository vorbereiten
 
-Plugin-Testing und Qualitätssicherung
+%Versionskontrolle und Updates
 
-Cron
+%Lizenzierung unter \gls{gpl}
+
+%Plugin-Testing und Qualitätssicherung
+
+%Cron
 
 \section{Gutenberg-Editor: Konzept und technische Grundlagen}
 \begin{quote}
@@ -433,51 +475,148 @@ Cron
 Ein Block ist ein eigenständiges Element wie beispielsweise ein Absatz, eine Überschrift, ein Medienelement oder eine Einbettung.
 Jeder Block wird als separates Element mit individuellen Bearbeitungs- und Formatierungsoptionen behandelt.
 Wenn alle diese Komponenten zusammengefügt werden, bilden sie den Inhalt der Seite oder des Beitrags, der dann in der WordPress-Datenbank gespeichert wird.
-\\\\
-Die Developer Resources geben Entwicklern Grundlagen der Blockentwicklung mit, welche nachfolgend erläutert werden.
-
-\subsection{Dateistruktur eines Blocks}
-
-Wenn ein Block entwickelt wird, ist es empfohlen diesen als Plugin und nicht innerhalb des Themes zu registrieren.
-Diese Methode wird empfohlen, damit der erstellte Block unabhängig vom verwendeten Theme genutzt werden kann.
-
-%TODO: HIER BILD ERSTELLEN STRUKTUR EINES BLOCKS
-
-
-
+\\
+\\
 Die Relevanz des Editors wird durch die Erhobene Statistik der Seite Gutenberg in Numbers deutlich.
 Demnach beträgt die Anzahl aktiver Installationen des Gutenberg-Editors auf WordPress- und Jetpack-Seiten aktuell 87,3 Mio.
 Innerhalb der letzten drei Jahre wurden 282 Mio. Beiträge mit dem Gutenberg-Editor erstellt.
-Die Daten basieren auf einem Dreijahreszeitraum und umfassen nur WordPress.com- und Jetpack-Seiten, die die Nutzung des Editors melden.
+Die Daten basieren auf einem Dreijahreszeitraum und umfassen nur WordPress.com- und Jetpack-Seiten, die die Nutzung des Editors melden.\cite{gutenstats}
 
-This section provides an introduction to the most relevant concepts in block development. Use the following links to learn more:
+\subsection{Dateistruktur eines Blocks}
+Die Developer Resources geben Entwicklern Grundlagen der Blockentwicklung mit, welche nachfolgend erläutert werden.
 
-File structure of a block: The purpose of each file that composes a block plugin, the relationships between them, and their role in the block output.
-block.json: How a block is defined using its block.json metadata and some relevant properties of this file (such as attributes and supports).
-Registration of a block: How a block is registered on both the server and in the client.
-Block wrapper: How to apply the proper attributes to the block’s markup wrapper.
-The block in the Editor: How a block, as a React component, is loaded in the Block Editor and an overview of its structure.
-Markup representation of a block: How blocks are represented in the database, theme templates, and patterns.
-Static or Dynamic rendering of a block: How blocks generate their front-end output either dynamically or statically.
-JavaScript in the Block Editor: How to work with modern JavaScript when developing for the Block Editor.
+Seitens Wordpress wird eine Dateistrutkur für die Gutenberg Blöcke empfohlen.
+Diese Struktur erleichtert die Trennung von Metadaten, Logik und der Darstellung.
+Abbildung~\ref{fig:block-structure} zeigt den grundsätzlichen Aufbau eines Blocks, wie er in der offiziellen Dokumentation beschrieben ist.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{block-structure.png} % füllt gesamte Textbreite
+    \caption{Dateistruktur eines WordPress-Blocks \cite{wordpress2023}}
+    \label{fig:block-structure}
+\end{figure}
+
+Die Abbildung verdeutlicht, dass zentrale Dateien wie \texttt{block.json} zur Definition der Block-Metadaten,
+sowie Skripte, Stylesheets und Build-Artefakte in klar getrennten Verzeichnissen organisiert werden.
+
+
+%\begin{figure}[tbh]
+%    \centering
+%    \includegraphics[width=0.88\textwidth]{gutenbergblock}
+%    \caption{Gutenberg Block Struktur}
+%    \label{fig:gutenberg-block-struktur}
+%\end{figure}
+
+Wenn ein Block entwickelt wird, ist es angeraten diesen als \gls{Plugin} und nicht innerhalb des Themes zu registrieren.
+Dies hat den Vorteil, dass der erstellte Block unabhängig vom verwendeten Theme genutzt werden kann.
+\newpage
+\subsection{Schlüsselkonzepte im Block Editor}
+\textbf{Kombinierbarkeit}
+\\\\
+Blöcke sind darauf ausgelegt, auf vielfältige Weise miteinander kombiniert zu werden.
+Sie folgen einem hierarchischen Aufbau, bei dem ein Block in einen anderen eingebettet werden kann.
+Verschachtelte Blöcke und ihr umschließender Block werden auch als Kinder und Eltern bezeichnet.
+Ein Spalten-Block kann beispielsweise als übergeordneter Block fungieren und mehrere untergeordnete Blöcke in seinen einzelnen Spalten enthalten.
+\\
+Die Programmierschnittstelle, die die Verwendung von Unter-Blöcken regelt, wird InnerBlocks bezeichnet.
+
+
+\\\\
+\textbf{Daten und Attribute}
+\\\\
+Blöcke verstehen Inhalte als Attribute.
+Ein Block kann eine beliebige Anzahl von Attributen beinhalten und diese werden in einer Key Value Relation definiert.
+Der Key spiegelt den Namen wider und der Value ist der Wert.
+Diese Inhalte sind serialisierbar in HTML und werden im Block HTML gespeichert und so auch in der Datenbank als post\_content abgelegt.
+
+
+\begin{lstlisting}[caption={Beispiel eines Gutenberg-Blocks in WordPress}]
+<!-- wp:paragraph {"key": "value"} -->
+<p>Welcome to the world of blocks.</p>
+<!-- /wp:paragraph -->
+\end{lstlisting}
+
+Blöcke lassen sich in zwei Kategorien unterteilen: statisch und dynamisch.
+Statische Blöcke bestehen aus bereits gerenderten Inhalten sowie einem Attribut-Objekt, das bei Änderungen für das erneute Rendern verwendet wird.
+Dynamische Blöcke hingegen benötigen serverseitige Daten und werden erst während der Inhaltsgenerierung gerendert.
+
+
+
+
+\\\\
+\textbf{Blockmuster}
+\\\\
+Ein Blockermuster oder auch Pattern ist eine Gruppe von Blöcken, die zu einem Designmuster zusammengefasst werden.
+Solche Designmuster bieten für die schnellere Erstellung komplexer Seiten einen Ausgangspunkt.
+Die Größe des Blockmusters ist Variabel und kann von einem einzelnen Block bis hin zu einer gesamten Seite reichen.
+Themes können Designmuster registrieren, um Benutzern schnelle Startpunkte für das Verwenden von Blöcken zu bieten.
+
+\\\\
+\textbf{Block Themes}
+\\\\
+Anders als der Beitragseditor konzentrieren sich die Block Themes auf die Deklaration und das Bearbeiten der gesamten Website.
+Hier können unter Zuhilfenahme von Blöcken die Kopf- bis hin zur Fußzeile Inhalte angepasst werden.
+Die Block Themes selbst werden unterteilt in Vorlagen, die die gesamte Seite beschreiben oder Vorlagenteile, die wiederverwendbare Bereich sein können.
+Angepasste Blockvorlagen umfassen statische als auch dynamische Seiten, wie Archive, Singular, Home, 404 usw. \cite{wordpress2024EditorTemplates}
 
 
 \section{Gamification im Kontext digitaler Anwendungen}
-https://www.bpb.de/themen/kultur/digitale-spiele/504558/gamification-grundbegriffe-chancen-und-risiken/
-https://www.bidt.digital/phaenomene/gamification-und-digitale-partizipation-neue-impulse-fuer-die-demokratie/
-https://reposit.haw-hamburg.de/bitstream/20.500.12738/7511/1/BA_Ibel.pdf
 
+Deterding et al. definieren Gamification als ``the use of game design elements in non-game contexts''.\cite{deterding2011gamification}
+Diese Definition erfasst ein Phänomen, das in seiner Grundform nicht neu ist.
+Leistungsbezogene Vergütungssysteme, Rankings und spielerische Wettkämpfe existieren in Fabriken, dem Vertrieb und Bildungseinrichtungen bereits seit Jahrzehnten.\cite{bpb2023gamification}
+Die Digitalisierung hat seit etwa 2010 eine weitreichende Transformation des Gamification-Konzepts eingeleitet.
+Durch die Verbreitung von Smartphones und insbesondere Wearables wie Smartwatches und Fitnessbändern haben neue Dimensionen der spielerischen Motivationsgestaltung eröffnet.\cite{sailer2016gamification}
+Diese Entwicklung stellt einen Wechsel in der Gestaltung des Mensch-Computer-Interaktionen Paradigma dar.
+
+Gamification hat sich von simplen Belohnungssystemen zu einem komplexen Gesamtkonzept entwickelt, das die Wahl spezifischer Elemente und Mechaniken, die Berücksichtigung des Anwendungskontextes, der Zielgruppe sowie der zu erreichenden Ziele umfasst.\cite{bpb2023gamification}
+\\\\
+\textbf{Abgrenzung von Serious Games}\\\\
+Im Projektkontext von Charigame ist eine klare Abgrenzung zwischen Gamification und Serious Games erforderlich.
+Während Serious Games als eigenständige Spiele konzipiert werden, die primär pädagogische oder Lernziele verfolgen, versteht sich die Gamification-Implementierung in Charigame als funktionale Ergänzung.
+Ziel des gamifizierten Parts ist es, die Nutzerbeteiligung zu steigern und nicht als Wissensvermittlung zu dienen.
+\\
+Charigame verbindet somit die konventionelle Spendenaktionen durch die Integration spielmechanischer Elemente, ohne dabei den ursprünglichen Zweck der Aktion zu verändern.
+Der User Experience-orientierten Ansatz, zielt darauf ab, die Customer Journey zu optimieren und die emotionale Bindung der Nutzer zur Spendenaktion zu erhöhen.
+Dieser spielerische Ansatz dient als Mittel zur Aktivierung und nicht als Selbstzweck.
+\newpage
+\textbf{Strategische Bedeutung von Gamification für Spendenaktionen}
+\\\\
+Die Integration von Gamification in Spendenaktionen adressiert mehrere strukturelle Herausforderungen traditioneller Fundraising-Ansätze.
+Spendenaufrufe leiden häufig unter geringer Nutzerengagement und mangelnder Transparenz bezüglich der Verwendung der Mittel.
+Gamification-Elemente schaffen hier Abhilfe durch die Visualisierung des sozialen Impacts und erhöhte Nutzerbeteiligung\cite{golrang2021applying}.
+\\\\
+Die Integration spielerischer Elemente steigert sowohl die Aufmerksamkeit als auch die Reichweite sozialer Kampagnen.
+Parallel dazu ermöglicht dieser Ansatz eine authentische Kommunikation des Markenimages.
+Das Unternehmen kann dadurch ihre gesellschaftliche Verantwortung auf eine partizipative Weise demonstrieren.
+%TODO: Ziele mit einbeziehen //// Vielleicht jetzt auch nciht mher? genug text dunno
+%8.3.1 Ziele
+%Spielziele beschreiben konkrete, erreichbare Zustände und werden von allen
+%Experten als wichtig betrachtet. Löwe findet gar, dass jedes User-Interface Ziele haben muss.
+%Granaß stimmt zu, was die Wichtigkeit angeht, betont aber, dass das Ziel erreichbar sein
+%muss: „[Das Ziel] darf aber auch nicht zu weit entfernt sein“ (GRANAß Z.109)
 \section{Überblick über Coperate Responsibility und Charity-Plattformen}
+Corporate Social Responsibility (CSR) hat sich in den vergangenen Jahrzehnten von einem optionalen Unternehmensengagement zu einem strategischen Kernbestandteil moderner Unternehmenspolitik entwickelt.
+Die Europäische Kommission definiert CSR als die Verantwortung von Unternehmen für ihre Auswirkungen auf die Gesellschaft und beschreibt damit ein Konzept, das weit über die bloße Einhaltung gesetzlicher Bestimmungen hinausgeht.\cite{european_commission2011csr}
+Diese gesellschaftliche Erwartungshaltung spiegelt sich in der zunehmenden Nachfrage nach transparenten und messbaren CSR-Maßnahmen wider, die sowohl von Stakeholdern als auch von Verbrauchern eingefordert werden.
+
+Parallel zu dieser Entwicklung hat die Digitalisierung neue Möglichkeiten für die Umsetzung und Kommunikation von CSR-Initiativen eröffnet.
+Online-Charity-Plattformen ermöglichen es Unternehmen heute, ihre gesellschaftliche Verantwortung auf innovative Weise wahrzunehmen und dabei gleichzeitig die Reichweite und Transparenz ihrer Aktivitäten zu erhöhen.
+Diese digitalen Plattformen fungieren als Vermittler zwischen Unternehmen, gemeinnützigen Organisationen und der Öffentlichkeit und schaffen neue Formen der partizipativen Philanthropie.
+
 
 Marktanalyse für Charigame
 Marktumfeld und Trends
 Gamification-Markt in Deutschland
-Der Gamification-Markt in Deutschland zeigt eine positive Entwicklung mit signifikantem Wachstum. Unternehmen aus verschiedenen Branchen wie Gesundheitswesen, Finanzdienstleistungen und E-Learning setzen zunehmend auf gamifizierte Lösungen, um die Kundeninteraktion und Mitarbeiterbindung zu verbessern.
+Der Gamification-Markt in Deutschland zeigt eine positive Entwicklung mit signifikantem Wachstum.
+Unternehmen aus verschiedenen Branchen wie Gesundheitswesen, Finanzdienstleistungen und E-Learning setzen zunehmend auf gamifizierte Lösungen, um die Kundeninteraktion und Mitarbeiterbindung zu verbessern.
 
-Europa verzeichnet insgesamt ein starkes Wachstum, das durch Unternehmensinvestitionen in Gamification-Konferenzen und KI-gestützte Engagement-Lösungen angetrieben wird. Länder wie Deutschland, Großbritannien und Frankreich sind Vorreiter bei der Gamification in Einzelhandel, HR und Gesundheitswesen.
+Europa verzeichnet insgesamt ein starkes Wachstum, das durch Unternehmensinvestitionen in Gamification-Konferenzen und KI-gestützte Engagement-Lösungen angetrieben wird.
+Länder wie Deutschland, Großbritannien und Frankreich sind Vorreiter bei der Gamification in Einzelhandel, HR und Gesundheitswesen.
 
 CSR-Trends 2025
-Aktuelle Trends im Bereich Corporate Social Responsibility zeigen eine verstärkte Fokussierung auf Mitarbeiterengagement und direkte Beteiligung. Unternehmen suchen nach innovativen Wegen, ihre CSR-Maßnahmen authentischer und partizipativer zu gestalten.
+Aktuelle Trends im Bereich Corporate Social Responsibility zeigen eine verstärkte Fokussierung auf Mitarbeiterengagement und direkte Beteiligung.
+Unternehmen suchen nach innovativen Wegen, ihre CSR-Maßnahmen authentischer und partizipativer zu gestalten.
 
 Competitive Landscape
 Direkte Konkurrenz
