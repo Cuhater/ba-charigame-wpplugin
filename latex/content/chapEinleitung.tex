@@ -30,51 +30,52 @@
 %Zudem entsteht eine vollständige Integration in den Gutenberg-Editor durch individuell entwickelte Blöcke.
 %Die neue Architektur verbessert die Wartbarkeit, erhöht die Flexibilität für Entwickler und erleichtert die redaktionelle Nutzung im WordPress-Backend.%Ziel der vorliegenden Arbeit ist es, diesen technischen Ansatz weiterzuentwickeln, um sowohl die Funktionalität als auch die Benutzerfreundlichkeit des Plugins zu verbessern.
 
-Die vorliegende Arbeit zeigt die Weiterentwicklung des WordPress-Plugins Charigame.
+Die vorliegende Arbeit behandelt die Weiterentwicklung des WordPress-Plugins Charigame.
 Hierzu wird vornehmlich die Gutenberg-Integration und Plugin-Architektur betrachtet.
 Das WordPress-\gls{plugin} Charigame der Agentur elancer-team GmbH bietet Unternehmen die Möglichkeit, Spendenaktionen über gamifizierte Inhalte online anzubieten.
 Die Nutzer beteiligen sich an interaktiven Kampagnen, die als Memory- oder Geschicklichkeitsspiele gestaltet sind.
 Je nach Interaktion der Kunden wird bestimmt, welche sozialen Projekte aus einem vom Unternehmen bereitgestellten Spendentopf unterstützt werden.
 Hierdurch werden unternehmerische \gls{csr}-Maßnahmen mit spielerischer Nutzerbeteiligung kombiniert.
 
-\epigraph{``Clean code always looks like it was written by someone who cares."}{--- \textup{Robert C. Martin}}
+\epigraph{ \glqq Clean code always looks like it was written by someone who cares.\grqq{}}{--- \textup{Robert C. Martin}}
 
 Diese Philosophie bildet die Grundlage für die Analyse und Weiterentwicklung der bestehenden Struktur.
 Für diese Weiterentwicklung wird der deskriptive Zustand des Projekts beleuchtet.
 Anschließend wird ein Konzept erarbeitet, das auf den zuvor gesammelten theoretischen Erkenntnissen aufbaut.
 Die Ausarbeitung sieht vor das Plugin Charigame wartungsfreundlicher zu gestalten und Entwicklern mehr Flexibilität bei Anpassungen zu bieten.
-Des Weiteren gilt es Redakteuren eine intuitive Nutzung im Wordpress-Backend und die Konfiguration von bestehenden Bereichen zu vereinfachen und neue Anpassungsmöglichkeiten zu ermöglichen.
+Des Weiteren gilt es Redakteuren eine intuitive Nutzung im Wordpress-Backend und die Konfiguration von bestehenden Bereichen zu vereinfachen und neue Anpassungsmöglichkeiten bereitzustellen.
 
 \section{Problemstellung und Motivation}
 
-Die deskriptive Codebasis des WordPress-Plugins Charigame weist einen strukturellen Optimierungsbedarf auf, der auf die Entstehungsgeschichte des Plugins zurückgehen.
+Die deskriptive Codebasis des WordPress-Plugins Charigame weist einen strukturellen Optimierungsbedarf auf, der auf die Entstehungsgeschichte des Plugins zurückzuführen ist.
 Ursprünglich wurde das Plugin als internes Projekt der elancer-team GmbH entwickelt und später gezielt auf die Bedürfnisse eines spezifischen Kunden angepasst.
 
 Während dieser Phase der kundenspezifischen Entwicklung entstanden viele Funktionen, die stark auf diesen besonderen Anwendungsfall zugeschnitten sind.
 Eine übergreifende, flexibel erweiterbare Architektur wurde hierbei nicht berücksichtigt.
 Das Hauptproblem liegt darin, dass die aktuelle Implementierung gängige WordPress-Standards nur unzureichend berücksichtigt.
-Aufgrund des initial gesetzten Zeitrahmens entstand eine Codebasis, die zwar grundsätzlich funktioniert, jedoch nicht etablierten Best Practices der Plugin-Entwicklung des \gls{wdr} entspricht. %TODO: ADD IN VERZEICHNIS
+Aufgrund des ursprünglich gesetzten Zeitrahmens entstand eine funktionale Codebasis, die jedoch nicht vollständig den etablierten Best Practices der WordPress-Plugin-Entwicklung entspricht
 Das zeigt sich beispielsweise in mangelnder Modularität, lückenhafter Dokumentation und einer Struktur, die weitere Anpassungen erschwert.
 
-\textbf{Motivation}
+\textbf{Motivation}\\
 Die Motivation für diese Arbeit ergibt sich aus drei zentralen Aspekten:
 \begin{itemize}
-    \item \texttt{Eigene Weiterentwicklung}: Die Neuausrichtung des Plugins bietet die Chance, sich intensiv mit modernen WordPress-Entwicklungsmethoden zu beschäftigen. Besonders im Bereich modularer Architektur und Block-Entwicklung im Gutenberg-Umfeld.
+    \item \textbf{Eigene Weiterentwicklung}: Die Neuausrichtung des Plugins bietet die Chance, sich intensiv mit modernen WordPress-Entwicklungsmethoden zu beschäftigen.
+    Besonders im Bereich modularer Architektur und Block-Entwicklung im Gutenberg-Umfeld können tiefergehende Erkenntnisse gesammelt werden.
 
-    \item \texttt{Technologischer Fortschritt}: Die Integration des Gutenberg-Editors als zukunftsfähiger, visueller Backend-Builder bringt das Plugin auf den neuesten Stand der WordPress-Technologie. Das verbessert nicht nur die redaktionelle Nutzererfahrung, sondern schafft auch die Basis für eine nachhaltigere technische Grundlage.
+    \item \textbf{Technologischer Fortschritt}: Die Integration des Gutenberg-Editors als zukunftsfähiger, visueller Backend-Builder bringt das Plugin auf den neuesten Stand der WordPress-Technologie. Das verbessert nicht nur die redaktionelle Nutzererfahrung, sondern schafft auch die Basis für eine nachhaltigere technische Grundlage.
 
-    \item \texttt{Mehrwert für die Agentur}: Eine klar strukturierte, wartbare Codebasis bringt konkrete Vorteile für die elancer-team GmbH. Sie ermöglicht eine effizientere Teamarbeit, erleichtert den Wissenstransfer und verringert die Abhängigkeit von Einzelpersonen. Langfristig schafft das mehr Flexibilität, Stabilität und Skalierbarkeit im Projekt.
+    \item \textbf{Mehrwert für die Agentur}: Eine klar strukturierte, wartbare Codebasis bringt konkrete Vorteile für die elancer-team GmbH. Sie ermöglicht eine effizientere Teamarbeit, erleichtert den Wissenstransfer und verringert die Abhängigkeit von Einzelpersonen. Langfristig schafft das mehr Flexibilität, Stabilität und Skalierbarkeit im Projekt.
 \end{itemize}
 Die Weiterentwicklung des Plugins ist somit ein logischer nächster Schritt.
 
 
-\section{Zielsetzung der Arbeit}
+\section{Zielsetzung}
 
 Das Ziel dieser Arbeit ist die technische Weiterentwicklung des bestehenden WordPress-Plugins Charigame mit besonderem Fokus auf Wartbarkeit, Standardkonformität und redaktionelle Nutzbarkeit.
-Durch die Anpassung der Architektur soll der Code besser strukturiert und anhand der WordPress-Plugin-Standards gestaltet werden.
+Durch die Anpassung der Architektur soll der Code strukturierter und anhand der WordPress-Plugin-Standards gestaltet werden.
 
-Die Arbeit beschäftigt sich mit den theoretischen Grundlagen und passt das Plugin an bewährte WordPress-Standards an.
-Zunächst wird der aktuelle Entwicklungsstand gründlich analysiert und potenziale und Anpassungen konzipiert.
+Diese Arbeit beschäftigt sich mit den theoretischen Grundlagen und der Anpassung des Plugins an bewährte WordPress-Standards.
+Zunächst wird der aktuelle Entwicklungsstand analysiert, anschließend werden Potenziale identifiziert und Anpassungen konzipiert.
 Auf Grundlage des Konzepts erfolgt dann die praktische Umsetzung.
 Ein zentraler Aspekt der Zielsetzung ist es den Gutenberg Editor einzubinden und die Struktur der Codegrundlage zu optimieren.
 Dabei werden verschiedene Lösungsansätze betrachtet und die getroffenen Entscheidungen transparent erläutert.
@@ -82,27 +83,27 @@ Dabei werden verschiedene Lösungsansätze betrachtet und die getroffenen Entsch
 \section{Methodisches Vorgehen}
 
 Die Zielerreichung erfolgt praxisnah und methodisch strukturiert.
-Damit das gesetzte Ziel erreicht werden kann wird ein methodisches Vorgehen durchgeführt, das sich grob in vier größere Bestandteile gliedern lässt.
+Damit das gesetzte Ziel erreicht werden kann wird ein methodisches Vorgehen durchgeführt, das sich in vier größere Bestandteile gliedern lässt.
 
 \begin{enumerate}
-    \item \texttt{Recherche und Wissensaufbau der theoretischen Grundlagen}: Zuerst wird theoretisches Fachwissen im Bezug auf die Wordpress Plugin Programmierung und den Gutenberg Editor gebündelt und verschriftlicht.
-    Dies stellt die Grundlage für .
+    \item \textbf{Recherche und Wissensaufbau der theoretischen Grundlagen}: Zuerst wird theoretisches Fachwissen im Bezug auf die Wordpress Plugin Programmierung und den Gutenberg Editor gebündelt und verschriftlicht.
+    Dies stellt die Grundlage für den theoretischen Teil dar.
 
-    \item \texttt{Ermitteln des Deskriptive Stands}: Im zweiten Schritt wird die aktuelle Plugin-Struktur auf Basis der offiziellen WordPress-Guidelines beleuchtet.
+    \item \textbf{Ermitteln des deskriptiven Stands}: Im zweiten Schritt wird die aktuelle Plugin-Struktur auf Basis der offiziellen WordPress-Guidelines beleuchtet.
     Hier wird grundlegend eine modulare Architektur verfolgt, damit die langfristige Wartbarkeit und Erweiterbarkeit gegeben ist.
 
-    \item \texttt{Konzeption der Umsetzung}: Die Konzeption der Änderungen werden im dritten Schritt erfasst und dienen als Grundlage für die Anpassung des Systems.
+    \item \textbf{Konzeption der Umsetzung}: Die Konzeption der Änderungen werden im dritten Schritt erfasst und dienen als Grundlage für die Anpassung des Systems.
 
-    \item \texttt{Reduktion externer Abhängigkeiten}: Im vierten Schritt soll die bisherige Abhängigkeit von \gls{acf} durch eine andere lizenzfreie Lösung ersetzt werden.
-    Dieser Schritt ist wichtig, um zusätzliche Kosten zu vermeiden.
+    \item \textbf{Reduktion externer Abhängigkeiten}: Im vierten Schritt soll die bisherige Abhängigkeit von \gls{acf} durch eine andere lizenzfreie Lösung ersetzt werden.
+    Dieser Schritt ist relevant, um zusätzliche Kosten zu vermeiden.
 
-    \item \texttt{Integration des Gutenberg-Editors}: Der letzte Schritt sieht vor eine Block-basierte Verwaltung im Backend zu entwickeln.
+    \item \textbf{Integration des Gutenberg-Editors}: Der letzte Schritt sieht vor eine Block-basierte Verwaltung im Backend zu entwickeln.
     Diese Lösung soll auf dem Gutenberg-Editor basieren und somit den aktuellen Standards von WordPress entsprechen.
 \end{enumerate}
 
 \section{Aufbau der Arbeit} %TODO: HIER NOCH MAL ANPASSEN
 
-Die Arbeit beginnt mit der erfassen und sammeln der theoretischen Grundlagen hinsichtlich der Wordpress-Entwicklungsstandards.
+Die Arbeit beginnt mit dem Erfassen und Sammeln der theoretischen Grundlagen hinsichtlich der Wordpress-Entwicklungsstandards.
 Darauf folgt eine Analyse der aktuellen Codebasis und der bestehenden Architektur, wodrauf basierend ein neues technisches Konzept erarbeitet und implementiert wird.
 Die Umsetzung wird schließlich im Hinblick auf Struktur, Funktionalität und redaktionelle Bedienbarkeit evaluiert.
 

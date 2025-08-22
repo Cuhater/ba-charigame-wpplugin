@@ -72,8 +72,6 @@
 %
 \appendix
 \addchap{Anhang}
-
-
 \begin{table}[h]
     \centering
     \renewcommand{\arraystretch}{1.3}
@@ -125,8 +123,6 @@
         \hline
         \textbf{Eingabefeld} & \textbf{Beschreibung} & \textbf{Eingabetyp} \\
         \hline
-        Titel & Definition die Bezeichnung in Wordpress & Texteingabe \\
-        \hline
         Logo & Hinterlegen eines Bild oder Logos für den Spendenempfänger & Bild-Upload \\
         \hline
         Name & Eingabe für den angezeigten Namen im Front-End & Texteingabe \\
@@ -138,6 +134,109 @@
     \label{tab:eingabefelder_donation_recipients}
 \end{table}
 
+\begin{table}[h]
+    \centering
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabular}{|p{3cm}|p{6cm}|p{5cm}|}
+        \hline
+        \textbf{Eingabefeld} & \textbf{Beschreibung} & \textbf{Eingabetyp} \\
+        \hline
+        How To Play Headline & Definition der Überschrift der Frontend Sektion & Texteingabe \\
+        \hline
+        Step Icon & Hinterlegen eines Icons oder Bildes für den Spielschritt & Media-Upload \\
+        \hline
+        Step Headline & Definition der Überschrift des Spielschritts & Texteingabe \\
+        \hline
+        Step Text & Festlegung des Beschreibungstext für den Spielschritt  & Texteingabe \\
+        \hline
+        Step Color & Auswahl der Farbgebung (Primär-, Sekundär- oder Teritärfarbe)  & Auswahl \\
+        \hline
+    \end{tabular}
+    \caption{Übersicht über konfigurierbare Eingabefelder der Game Types}
+    \label{tab:eingabefelder_game_types}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabular}{|p{3cm}|p{6cm}|p{5cm}|}
+        \hline
+        \textbf{Eingabefeld} & \textbf{Beschreibung} & \textbf{Eingabetyp} \\
+        \hline
+        First Name & Definition des Vornamen des Teilnehmers & Texteingabe \\
+        \hline
+        Last Name & Definition des Nachnamen des Teilnehmers & Media-Upload \\
+        \hline
+        E-Mail & Hinterlegen der E-Mail-Adresse des Teilnehmers & Texteingabe \\
+        \hline
+        Next Birthday & Festlegung des Geburtstags für des Teilnehmers  & Datums-Auswahl\\
+        \hline
+        Imported & Auswahl ob der Nutzer über das System importiert wurde & Checkbox \\
+        \hline
+        Email sent & Auswahl ob eine Einladung an die Mail-Adresse gesendet wurde  & Checkbox \\
+        \hline
+    \end{tabular}
+    \caption{Übersicht über konfigurierbare Eingabefelder der User}
+    \label{tab:eingabefelder_users}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabular}{|p{3cm}|p{6cm}|p{5cm}|}
+        \hline
+        \textbf{Eingabefeld} & \textbf{Beschreibung}  \\
+        \hline
+        Email & Zeigt die Email-Adresse des Teilnehmers \\
+        \hline
+        Game Type & Gibt den Spieltyp an, der für die Kampagne festgelegt wurde \\
+        \hline
+        Game Code & Zeigt den Code an, mit dem der Teilnehmer sich im Spiel einloggen kann \\
+        \hline
+        Valid From & Stellt das Datum dar, ab welchem Datum der Game Code gültig ist \\
+        \hline
+        Valid Until & Stellt das Datum dar, bis welchem Datum der Game Code gültig ist  \\
+        \hline
+        Code Used & Gibt einen Zeitstempel an, wann der Game Code genutzt wurde um sich anzumelden \\
+        \hline
+        Last Played & Gibt einen Zeitstempel an, wann das Spiel zuletzt beendet wurde  \\
+        \hline
+        Highscore & Zeigt den erspielten Punktestand des Teilnehmers an \\
+        \hline
+        Recipient 1 & Stellt die Verteilung in Prozent dar, die der Teilnehmer für den Spendenempfägner 1 gewählt hat \\
+        \hline
+        Recipient 2 & Stellt die Verteilung in Prozent dar, die der Teilnehmer für den Spendenempfägner 2 gewählt hat \\
+        \hline
+        Recipient 3 & Stellt die Verteilung in Prozent dar, die der Teilnehmer für den Spendenempfägner 3 gewählt hat \\
+        \hline
+        E-Mail Sent & Zeigt durch 0 oder 1 an, ob die E-Mail an den Teilnehmer gesendet wurde  \\
+        \hline
+
+    \end{tabular}
+    \caption{Übersicht über angezeigte Metriken der Data Table}
+    \label{tab:metriken_datatable}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.66\textwidth]{images/legacy_landingpage_frontend}
+    \caption{Gesamte Landingpage von Charigame im WordPress \\Frontend  (eigene Darstellung)}
+    \label{fig:landing-frontend-legacy}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/legacy_verteilung_frontend}
+    \caption{Spendenverteilungsseite von Charigame im WordPress Frontend (eigene Darstellung)}
+    \label{fig:distribution-frontend-legacy}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/legacy_dankesseite_frontend}
+    \caption{Dankesseite von Charigame im WordPress Frontend (eigene Darstellung)}
+    \label{fig:dankesseite-frontend-legacy}
+\end{figure}
 
 \KOMAoptions{open=any}
 %
