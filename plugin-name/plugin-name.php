@@ -1,4 +1,4 @@
-<? php
+<?php
 /*
-* Plugin Name : YOUR PLUGIN NAME
+* Plugin Name: YOUR PLUGIN NAME
 */
