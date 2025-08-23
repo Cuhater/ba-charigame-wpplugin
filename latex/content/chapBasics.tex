@@ -1,8 +1,8 @@
 \chapter{Theoretische Grundlagen}
 Dieses Kapitel eruiert die theoretischen Grundlagen für die Ausarbeitung, welche für das Verständnis dieser Arbeit notwendig sind und im praktischen Teil angewendet werden.
 \section{WordPress als Content-Management-System}
-WordPress ist ein freies, unter der \gls{gnu} \gls{gpl} v2 lizenziertes Content-Management-System und mit einem Marktanteil von 61,1\% das weltweit am häufigsten verwendete CMS. \cite{statista2025cms}
-Die Plattform zeichnet sich durch seine Flexibilität, Erweiterbarkeit und Bedienbarkeit aus, was WordPress zu einer Lösung für simple Webseiten und Blogs bis hin zu komplexe Web-Applikationen macht. \cite{patel2019review}
+WordPress ist ein freies, unter der \gls{gnu} \gls{gpl} v2 lizenziertes Content-Management-System und mit einem Marktanteil von 61,1\% das weltweit am häufigsten verwendete \gls{cms}~\cite{statista2025cms}.
+Die Plattform zeichnet sich durch seine Flexibilität, Erweiterbarkeit und Bedienbarkeit aus, was WordPress zu einer Lösung für simple Webseiten und Blogs bis hin zu komplexe Web-Applikationen macht~\cite{patel2019review}.
 Die technische Struktur verfolgt ein modulares Paradigma, das eine klare Trennung zwischen Kernfunktionen, Design und Erweiterungen ermöglicht:
 \begin{itemize}
 
@@ -10,13 +10,13 @@ Die technische Struktur verfolgt ein modulares Paradigma, das eine klare Trennun
 
  \item Plugins: Erweitern die Funktionalität
 
- \item Core System: Stellt die grundlegenden Funktionen des CMS bereit
+ \item Core System: Stellt die grundlegenden Funktionen des \gls{cms} bereit
 
 \end{itemize}
 Technisch gesehen besteht WordPress aus einer \gls{php}-basierten Architektur in Verbindung mit der persistenten Speicherlösung \gls{mysql} als relationale Datenbank.
 Durch diese weit verbreiteten Technologien ist WordPress mit den meisten gängigen Hosting-Umgebungen kompatibel.
-Grundlage hierfür ist ein Webserver, welcher PHP und MySQL unterstützt.
-Offiziell ist Apache oder Nginx empfohlen \cite{wordpress2024requirements}.
+Grundlage hierfür ist ein Webserver, welcher \gls{php} und \gls{mysql} unterstützt.
+Offiziell ist Apache oder Nginx empfohlen~\cite{wordpress2024requirements}.
 
 Darüber hinaus bietet WordPress eine \gls{rest}-\gls{api} mit der eine entkoppelte Inhaltsverwaltung möglich ist und Inhalte über das \gls{http}-Protokoll in verschiedene Anwendungen und Plattformen integriert werden können.
 \newpage
@@ -24,28 +24,28 @@ Darüber hinaus bietet WordPress eine \gls{rest}-\gls{api} mit der eine entkoppe
 WordPress Coding Standards dienen als Richtlinien und Best Practises für Entwickler die an WordPress Projekten arbeiten.
 Diese Standards haben sich in der Wordpress Community etabliert und ermöglichen eine konsistente Codestruktur.
 Ziel ist es, die Codequalität so zu gestalten, dass Wartung und kollaborative Weiterentwicklung erleichtert werden.
-Für die Ausarbeitung der Weiterentwicklung von Charigame sollen die offiziellen Wordpress Coding Standards beachtet und umgesetzt werden.
+Für die Ausarbeitung der Weiterentwicklung von Charigame sollen die offiziellen Wordpress Coding Standards beachtet und umgesetzt werden~\cite{wordpress2024codingstandards}.
 
 
 \section{Plugin-Entwicklung mit WordPress}
 
-Die offizielle WordPress-Definition besagt: \glqq Plugins sind Codepakete, die die Kernfunktionalität von WordPress erweitern.
-WordPress-Plugins bestehen aus PHP-Code und können weitere Assets wie Bilder,
-CSS und JavaScript enthalten\grqq{} \cite{wordpress2024plugin} (eigene Übersetzung).
-\\
-Für die Entwicklung solcher Plugins ist grundlegend ein tiefergehendes Verständnis des WordPress-CMS vorausgesetzt.
+Die offizielle WordPress-Definition besagt: \glqq \gls{Plugin}s sind Codepakete, die die Kernfunktionalität von WordPress erweitern.
+WordPress-\gls{plugin}s bestehen aus \gls{php}-Code und können weitere Assets wie Bilder,
+\gls{css} und JavaScript enthalten\grqq{} \cite{wordpress2024plugin} (eigene Übersetzung).
+\\ \\
+Für die Entwicklung solcher \gls{plugin}s ist grundlegend ein tiefergehendes Verständnis des WordPress-\gls{cms} vorausgesetzt.
 Die Grundlagen sowie weiterführende Themengebiete sollen im Folgenden ermittelt werden.
 
 
 
 \subsection{Grundlagen der Plugin-Architektur}
 
-Die Entwicklung von Plugins in WordPress setzt ein Basiswissen der Dateistruktur und des internen Aufbaus des Content-Management-Systems voraus.
-Insbesondere ist es erforderlich, die Plugin-bezogenen Dateien korrekt zu strukturieren und im entsprechenden Verzeichnis innerhalb der WordPress-Installation zu platzieren.\\\\
-Plugins werden standardmäßig im Verzeichnis \texttt{wp-content/plugins} abgelegt.
-Jeder Plugin-Ordner enthält dabei alle notwendigen Dateien zur Funktionalität des jeweiligen Moduls.\\\\
+Die Entwicklung von \gls{plugin}s in WordPress setzt ein Basiswissen der Dateistruktur und des internen Aufbaus des Content-Management-Systems voraus.
+Insbesondere ist es erforderlich, die \gls{plugin}-bezogenen Dateien korrekt zu strukturieren und im entsprechenden Verzeichnis innerhalb der WordPress-Installation zu platzieren.\\\\
+\gls{plugin}s werden standardmäßig im Verzeichnis \texttt{wp-content/plugins} abgelegt.
+Jeder \gls{plugin}-Ordner enthält dabei alle notwendigen Dateien zur Funktionalität des jeweiligen Moduls.\\\\
 Im folgenden Schaubild ist eine typische, nicht modifizierte Verzeichnisstruktur einer WordPress-Installation dargestellt.
-Diese dient als Ausgangspunkt für die Entwicklung und Integration von Plugins:
+Diese dient als Ausgangspunkt für die Entwicklung und Integration von \gls{plugin}s:
 
 \begin{figure}[tbh]
  \centering
@@ -54,54 +54,41 @@ Diese dient als Ausgangspunkt für die Entwicklung und Integration von Plugins:
  \label{fig:wordpress-verzeichnis}
 \end{figure}
 \newpage
-Abbildung~\ref{fig:wordpress-verzeichnis} visualisiert, dass sich im wp-content Ordner bereits initial in der Standardkonfiguration von Wordpress das Verzeichnis \texttt{plugins} befindet.
-Der \texttt{plugins} Ordner ist die zentrale Destination für alle im WordPress System erstellten Erweiterungen.
-Die nachfolgende Untersuchung berücksichtigt weitere Bestandteile von WordPress-Plugins, die fortlaufend detailliert beschrieben werden.
+Abbildung~\ref{fig:wordpress-verzeichnis} visualisiert, dass sich im wp-content Ordner bereits initial in der Standardkonfiguration von Wordpress das Verzeichnis plugins befindet.
+Der plugins Ordner ist die zentrale Destination für alle im WordPress System erstellten Erweiterungen.
+Die nachfolgende Untersuchung berücksichtigt weitere Bestandteile von WordPress-\gls{plugin}s, die fortlaufend detailliert beschrieben werden.
 \\\\\\
 \textbf{Aufbau, Plugin-Header und Metadateien}
 
-Für die Entwicklung von WordPress-Plugins empfehlen die offiziellen WordPress Developer Resources eine klare und strukturierte Ordnerorganisation. \cite{wordpress2024BestPractices}
-Als empfohlen wird folgende grundlegende Verzeichnisstruktur vorgeschlagen:
+Für die Entwicklung von WordPress-\gls{plugin}s empfehlen die offiziellen WordPress Developer Resources eine klare und strukturierte Ordnerorganisation. \cite{wordpress2024BestPractices}
+Als empfohlen wird folgende grundlegende Verzeichnisstruktur vorgeschlagen (vgl. Abbildung~\ref{fig:wp-plugin-structure}):
 \\\\\\
-\begin{lstlisting}[caption={Beispielhafte Plugin-Verzeichnisstruktur in WordPress}, label={lst:plugin-structure}]
-/plugin-name
-│
-├── plugin-name.php
-├── uninstall.php
-│
-├── /languages
-├── /includes
-│
-├── /admin
-│   ├── /js
-│   ├── /css
-│   └── /images
-│
-└── /public
-    ├── /js
-    ├── /css
-    └── /images
-\end{lstlisting}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{images/wp_plugin_structure}
+    \caption{Empfohlene Plugin Ordnerstruktur (eigene Darstellung angelehnt an Wordpress Developer Resources \cite{wordpress2024FolderStructure})}
+    \label{fig:wp-plugin-structure}
+\end{figure}
 
 Die Datei plugin-name.php stellt im gezeigten Beispielaufbau die zentrale Plugindatei dar.
 In dieser Datei muss eine von WordPress vorgegebene Headerstruktur enthalten sein, damit das System die Datei als Plugin erkennt und korrekt lädt.
-Das minimale erforderliche Header-Format ist dabei wie folgt definiert:
+Das minimale erforderliche Header-Format ist dabei wie in Abbildung~\ref{fig:wp-plugin-min} definiert:
 
-\begin{lstlisting}[caption={Minimaler Plugin-Header in WordPress}, label={lst:plugin-header}]
-<?php
-/*
- * Plugin Name: YOUR PLUGIN NAME
- */
-\end{lstlisting}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{images/wp_plugin_min}
+    \caption{Minimaler Plugin-Header in WordPress (eigene Darstellung angelehnt an Wordpress Developer Resources \cite{wordpress2024HeaderRequirement})}
+    \label{fig:wp-plugin-min}
+\end{figure}
 
 Darüber hinaus können weitere optionale Felder definiert werden wie:
-\texttt{Author URI} für die Website des Plugin-Entwicklers, \texttt{Text Domain}
-zur Internationalisierung und \texttt{Domain Path} für den Pfad zu Sprachdateien.
+Author URI für die Website des Plugin-Entwicklers, Text Domain
+zur Internationalisierung und Domain Path für den Pfad zu Sprachdateien.
 Alle möglichen Felder werden in der folgenden Tabelle aufgeführt:
 \renewcommand{\arraystretch}{1.3}
 
 \begin{longtable}{>{\bfseries}p{4cm} p{10cm}}
- \caption{Übersicht der Plugin-Header-Felder in WordPress nach \cite{WPHeaderReq}} \\
+ \caption{Übersicht der Plugin-Header-Felder in WordPress nach \cite{wordpress2024HeaderRequirement}} \\
  \hline
  Feldname & Beschreibung \\
  \hline
@@ -121,7 +108,7 @@ Alle möglichen Felder werden in der folgenden Tabelle aufgeführt:
  \endlastfoot
 
  Plugin Name (erforderlich) & Der Name des Plugins, wie er in der Plugin-Übersicht im WordPress-Adminbereich angezeigt wird. \\
- Plugin URI & Eine eindeutige URL zur Startseite des Plugins, idealerweise auf der eigenen Website. WordPress.org-URLs sind hier nicht erlaubt. \\
+ Plugin \gls{uri} & Eine eindeutige \gls{url} zur Startseite des Plugins, idealerweise auf der eigenen Website. WordPress.org-URLs sind hier nicht erlaubt. \\
  Description & Eine kurze Beschreibung des Plugins (max. 140 Zeichen), wie sie im WordPress-Adminbereich angezeigt wird. \\
  Version & Die aktuelle Versionsnummer des Plugins, z.\,B. \texttt{1.0} oder \texttt{1.0.3}. \\
  Requires at least & Die minimale WordPress-Version, mit der das Plugin kompatibel ist. \\
@@ -139,7 +126,7 @@ Alle möglichen Felder werden in der folgenden Tabelle aufgeführt:
 
 \newpage
 \textbf{Hooks: Action und Filter}\\\\
-Es gibt eine Kardinalregel in der Wordpress Entwicklung die besagt: Don’t touch WordPress core. %TODO: https://developer.wordpress.org/plugins/intro/ maybe verlinken?
+Es gibt eine Kardinalregel in der Wordpress Entwicklung die besagt: Don’t touch WordPress core \cite{wordpress2024Intro}. %TODO: https://developer.wordpress.org/plugins/intro/ maybe verlinken?
 Damit Anpassungen an bestehende Funktionalitäten möglich sind gibt es Hooks und Filter.
 Hooks erlauben es an spezifischen Stellen einzugreifen, um das Verhalten von WordPress zu ändern ohne dabei die Kern-Dateien bearbeiten zu müssen.
 Allgemein gibt es zwei Arten von hooks in WordPress: Actions und Filter.
@@ -147,7 +134,7 @@ Mit Actions können Funktionen hinzugefügt oder geändert werden.
 Filter wiederum ändern Inhalte, während diese geladen und dem Website-Nutzer angezeigt werden.
 Hooks sind nicht nur für die Plugin-Entwicklung gedacht, sondern werden ebenfalls häufig verwendet, um Standardfunktionen durch den WordPress-Kern selbst bereitzustellen.
 
-Zu den zentralen Hooks im Kontext von WordPress-Plugins gehören insbesondere \texttt{register\_activation\_hook()}, \texttt{register\_deactivation\_hook()} sowie \\ \texttt{register\_uninstall\_hook()}.
+Zu den zentralen Hooks im Kontext von WordPress-Plugins gehören insbesondere \texttt{register\_activation\_hook()}, \texttt{register\_deactivation\_hook()} sowie \\ \texttt{register\_uninstall\_hook()}~\cite{wordpress2024ActionsHooks}.
 
 \begin{itemize}
  \item \textbf{register\_activation\_hook()}: Dieser Hook wird ausgeführt, wenn das Plugin im WordPress-Backend aktiviert wird. Dies wird oftmals verwendet um Funktionen zwecks Einrichtung des Plugins bereitzustellen.
@@ -175,13 +162,13 @@ Nachfolgend sollen zentrale Best Practises aufgeführt werden, welche im Verlauf
 Namenskollisionen können durch die gleiche Benennung von Variablen, Funktionen oder Klassen zustandekommen.
 Um einen solchen Namenskonflikt zu vermeiden wird es empfohlen einen globalen Namenspace zu definieren.
 Dieser Namespace ermöglicht das Überschreiben von anderen Variablen, Funktionen und Plugins.
-Innerhalb von Funktionen und Klassen definierte Variablen, sind hiervon nicht betroffen.
+Innerhalb von Funktionen und Klassen definierte Variablen, sind hiervon nicht betroffen~\cite{wordpress2024Naming}.
 \\
 \\
 \\
 \textbf{Voranstellen eines Prefix}\\\\
 Unter Zuhilfenahme eines Prefix können potenzielle Konflikte im Hinblick auf Aufrufe und Ausführungen mit anderen Plugins verhindert werden.
-Das Handbuch empfiehlt hierzu ein einzigartiges Wort, welches vor verschiedene Deklarationen vorangestellt wird.
+Das Handbuch empfiehlt hierzu ein einzigartiges Wort, welches vor verschiedene Deklarationen vorangestellt wird~\cite{wordpress2024ProceduralCodingMethod}.
 Auf das ChariGame gemünzte Projekt könnte dies dann wie folgt aussehen:
 \begin{itemize}
  \item function charigame\_save\_post();
@@ -192,8 +179,8 @@ Auf das ChariGame gemünzte Projekt könnte dies dann wie folgt aussehen:
 \end{itemize}
 \vspace{1em}
 \textbf{Prüfung vorhandener Implementierungen}\\\\
-Damit der Code robust und weniger fehleranfällig ist, gilt es auf bestehende Implementationen von Programmierelementen zu prüfen.
-Dies geschieht unter Zuhilfenahme der folgenden von PHP zur Verfügung gestellten Funktionen:
+Damit der Code robust und weniger fehleranfällig ist, gilt es in Anbetracht der Best Practises auf bestehende Implementationen von Programmierelementen zu prüfen \cite{wordpress2024CheckExisting}.
+Dies geschieht unter Zuhilfenahme der folgenden von \gls{php} zur Verfügung gestellten Funktionen:
 \begin{itemize}
  \item Variablen: isset()
  \item Function\_exists() %NICHT BENÖTIGT IN EIGENEM NAMESPACE
@@ -227,7 +214,7 @@ Damit die Sicherheit von Eingaben gegeben ist, werden Methoden wie Validating, S
  \emph{(eigene Übersetzung nach \cite{wordpress2024plugin_validation})}
 \end{quote}
 
-Es werden auch seitens der WordPress Developer Ressourcen einfache Validierungsbeispiele genannt:
+Es werden auch seitens der WordPress Developer Ressourcen einfache Validierungsbeispiele genannt \cite{wordpress2024plugin_validation}:
 \begin{itemize}
 \item Überprüfung, ob Pflichtfelder ausgefüllt wurden
 \item Überprüfung, ob eine eingegebene Telefonnummer nur Zahlen und Satzzeichen enthält
@@ -259,7 +246,7 @@ Die Validierung selbst wird in verschiedene Philosophien gegliedert, die nun kur
   & Benutzername mit  \newline \texttt{sanitize\_title()}, Typ-Cast von String zu Integer \texttt{(int)\$input}. \\
   \hline
  \end{tabular}
- \caption{Übersicht Validierungs-Philosophien mit Beispielen}
+ \caption{Übersicht Validierungs-Philosophien mit Beispielen (eigene Darstellung)}
 \end{table}
 
 \newpage
@@ -297,7 +284,7 @@ Nachfolgend werden die seitens WordPress bereitgestellten Funktionen erläutert:
   \hline
   \texttt{sanitize\_hex\_color()} & Prüft und bereinigt Hex-Farbwerte (\#RRGGBB). \\
   \hline
-  \texttt{sanitize\_html\_class()} & Bereinigt Klassennamen für HTML-Attribute. \\
+  \texttt{sanitize\_html\_class()} & Bereinigt Klassennamen für \gls{html}-Attribute.                                                    \\
   \hline
   \texttt{sanitize\_key()} & Bereinigt Array-Keys oder Optionsnamen. \\
   \hline
@@ -312,28 +299,29 @@ Nachfolgend werden die seitens WordPress bereitgestellten Funktionen erläutert:
   \texttt{wp\_kses\_post()} & Wie \texttt{wp\_kses()}, aber mit Standardregeln für Posts. \\
   \hline
  \end{tabular}
- \caption{Auswahl wichtiger WordPress-Sanitization-Funktionen}
+ \caption{Auswahl wichtiger WordPress-Sanitization-Funktionen \\(eigene Darstellung)}
 \end{table}
 
 \newpage
 
 \textbf{Escaping}\\\\
-Escaping transformiert Ausgabedaten so, dass kritische Zeichen (z.\,B. `<` wird zu `\&lt;`) nicht mehr als Code interpretiert werden. Dies verhindert \gls{xss}-Angriffe.\\\\
-Das Prinzip lautet: Daten unverändert speichern, erst bei der Ausgabe escapieren. WordPress bietet kontextspezifische Funktionen wie \texttt{esc\_html()}, \texttt{esc\_attr()}, \texttt{esc\_url()} und \texttt{esc\_js()}.
+Escaping transformiert Ausgabedaten so, dass kritische Zeichen (z.\,B. \grqq{}<\grqq{} wird zu \grqq{}\&lt;\grqq{}) nicht mehr als Code interpretiert werden. Dies verhindert \gls{xss}-Angriffe.\\\\
+Das Prinzip lautet: Daten unverändert speichern, erst bei der Ausgabe escapen.
+WordPress bietet kontextspezifische Funktionen wie \texttt{esc\_html()}, \texttt{esc\_attr()}, \texttt{esc\_url()} und \texttt{esc\_js()}~\cite{wordpress2024escapingfunc}.
 Die richtige Funktionswahl je nach Ausgabekontext ist entscheidend für die Sicherheit.
 Genau wie beim Sanatizing bietet WordPress hier ein Set an Funktionen, welche speziell für das Escaping genutzt werden.
 
-\begin{table}[h]
+\begin{table}[H]
  \centering
  \begin{tabular}{|l|p{9cm}|}
   \hline
   \textbf{Funktion} & \textbf{Anwendungsfall / Beschreibung} \\
   \hline
-  \texttt{esc\_html()} & Escaped Text für den Einsatz innerhalb von HTML-Elementen. Entfernt sämtliches HTML. \\
+  \texttt{esc\_html()}      & Escaped Text für den Einsatz innerhalb von \gls{html}-Elementen. Entfernt sämtliches HTML. \\
   \hline
-  \texttt{esc\_attr()} & Für Werte innerhalb von HTML-Attributen, z.\,B. \texttt{<input value="...">}. \\
+  \texttt{esc\_attr()} & Für Werte innerhalb von HTML-Attributen, z.\,B. \texttt{<input value=\grqq{}...\grqq{}>}. \\
   \hline
-  \texttt{esc\_url()} & Für URLs in \texttt{src} oder \texttt{href}-Attributen. \\
+  \texttt{esc\_url()}       & Für \gls{url}s in \texttt{src} oder \texttt{href}-Attributen. \\
   \hline
   \texttt{esc\_url\_raw()} & Roh-URL-Escaping für Speicherung in der Datenbank oder nicht-encodierte Weitergabe. \\
   \hline
@@ -350,20 +338,20 @@ Genau wie beim Sanatizing bietet WordPress hier ein Set an Funktionen, welche sp
   \texttt{wp\_kses\_data()} & Variante von \texttt{wp\_kses()}, die nur HTML erlaubt, das in Kommentaren zugelassen ist. \\
   \hline
  \end{tabular}
- \caption{Überblick zentraler Escaping-Funktionen in WordPress}
+ \caption{Überblick zentraler Escaping-Funktionen in WordPress \\(eigene Darstellung)}
  \label{tab:escaping}
 \end{table}
 
 Ein wichtiger Grundsatz ist das späte Escaping: Daten sollten erst unmittelbar vor der Ausgabe escaped werden.
 Dadurch wird die Code-Überprüfung vereinfacht, das Fehlerrisiko verringert und die Anwendung widerstandsfähiger gegen zukünftige Anpassungen.
-Wenn ein spätes Escaping nicht umsetzbar ist (etwa bei generiertem JavaScript-Code), muss der Entwickler sicherstellen, dass Variablen bereits in einer als \enquote{sicher} gekennzeichneten Form vorliegen (z.\,B. \texttt{\$variable\_escaped}).
+Wenn ein spätes Escaping nicht umsetzbar ist (etwa bei generiertem JavaScript-Code), muss der Entwickler sicherstellen, dass Variablen bereits in einer als \enquote{sicher} gekennzeichneten Form vorliegen (z.\,B. \texttt{\$variable\_escaped})~\cite{wordpress2024escapingcant}.
 
 \textbf{Nonces}
 
-Ein Nonce (number used once) ist ein Sicherheitsmechanismus in WordPress zum Schutz von URLs und Formularen vor unbefugten Manipulationen.
+Ein Nonce (number used once) ist ein Sicherheitsmechanismus in WordPress zum Schutz von \gls{url}s und Formularen vor unbefugten Manipulationen.
 Insbesondere wird der Schutz vor \gls{csrf} sichergestellt.
 Anders als die Definition von Nonces handelt es sich nicht um Einmalzahlen, sondern um Hash-Werte.
-Diese Hashwerte sind für einen bestimmten Benutzer und Kontext über eine begrenzte Zeit gültig (Standard: 12–24 Stunden).
+Diese Hashwerte sind für einen bestimmten Benutzer und Kontext über eine begrenzte Zeit gültig (Standard: 12–24 Stunden) \cite{wordpress2024nonces}.
 
 Erstellung: \texttt{wp\_create\_nonce('action')}, \texttt{wp\_nonce\_url()}, \texttt{wp\_nonce\_field()}
 
@@ -401,7 +389,7 @@ Jedes Element kann mit einer unbegrenzten Anzahl zusätzlicher Informationen aus
 \\
 \\
 \textbf{API Endpoints}\\\\
-Die WordPress-REST-API stellt unter dem Endpunkt /wp-json/ eine Schnittstelle zur Verfügung, über die Inhalte und Strukturen einer WordPress-Installation abgerufen und verändert werden können.
+Die WordPress-\gls{rest}-\gls{api} stellt unter dem Endpunkt /wp-json/ eine Schnittstelle zur Verfügung, über die Inhalte und Strukturen einer WordPress-Installation abgerufen und verändert werden können.
 Der zentrale Namespace wp/v2/ umfasst dabei alle wesentlichen Ressourcen, wie Beiträge, Seiten, Benutzer, Medien oder Taxonomien.
 \\
 Technisch fundiert die Kommunikation im Gutenberg-Editor selbst auf der REST-API.
@@ -411,13 +399,13 @@ Entwickler können über die JavaScript-Schnittstellen wie @wordpress/api-fetch 
 \\
 \textbf{AJAX}\\\\
 Wordpress bietet eine eigene \gls{ajax}-Schnittstelle, die auf den Endpunkt admin-ajax.php verweist.
-Entwickler können hier eigene Aktionen registrieren, die bei einer AJAX-Anfrage ausgeführt werden.
+Entwickler können hier eigene Aktionen registrieren, die bei einer \gls{ajax}-Anfrage ausgeführt werden.
 Jede Aktion wird über einen eindeutigen Namen (action) identifiziert, wodurch mehrere unabhängige AJAX-Funktionen parallel existieren können.
 Die Kommunikation erfolgt typischerweise über POST- oder GET-Anfragen, die Daten in \gls{json}- oder \gls{url}-kodierter Form zurückliefern.
 \\
 \\
 \textbf{WP-CRON}\\\\
-In WordPress werden zeitgesteuerte Aufgaben über ein eigenes System gesteuert, das sogenannte WP-Cron.
+In WordPress werden zeitgesteuerte Aufgaben über ein eigenes System gesteuert, das sogenannte \gls{wp}-Cron.
 WP-Cron bietet eine einfache Möglichkeit, zeitbasierte Prozesse zu implementieren.
 Solche Events werden typischerweise beim Planen von Beiträgen oder dem Versenden von E-Mail-Benachrichtigungen genutzt.
 
@@ -511,7 +499,6 @@ sowie Skripte, Stylesheets und Build-Artefakte in klar getrennten Verzeichnissen
 
 Wenn ein Block entwickelt wird, ist es angeraten diesen als \gls{Plugin} und nicht innerhalb des Themes zu registrieren.
 Dies hat den Vorteil, dass der erstellte Block unabhängig vom verwendeten Theme genutzt werden kann.
-\newpage
 \subsection{Schlüsselkonzepte im Block Editor}
 \textbf{Kombinierbarkeit}
 \\\\
@@ -529,7 +516,7 @@ Die Programmierschnittstelle, die die Verwendung von Unter-Blöcken regelt, wird
 Blöcke verstehen Inhalte als Attribute.
 Ein Block kann eine beliebige Anzahl von Attributen beinhalten und diese werden in einer Key Value Relation definiert.
 Der Key spiegelt den Namen wider und der Value ist der Wert.
-Diese Inhalte sind serialisierbar in HTML und werden im Block HTML gespeichert und so auch in der Datenbank als post\_content abgelegt.
+Diese Inhalte sind serialisierbar in \gls{html} und werden im Block HTML gespeichert und so auch in der Datenbank als post\_content abgelegt.
 
 %TODO: Listing tauschen gegen bild
 \begin{lstlisting}[caption={Beispiel eines Gutenberg-Blocks in WordPress}]
