@@ -12,8 +12,8 @@ Aufgrund der erfolgreichen Durchführung äußerte ein Kunde der Agentur den Wun
 
 Diese erste kundenspezifische Umsetzung basierte auf einer abgewandelten Kopie der Weihnachts-Spendenaktion.
 Die Anfrage stellte dann den Übergang von einem internen Projekt zu einem eigenständigen Dienstleistungsangebot dar.
-Daraufhin wurde durch den Autor das Projekt Charigame als eigenständiges Wordpress-Plugin realisiert.
-Das daraus resultierende Wordpress-Plugin befindet sich aktuell bei einem Kunden im produktiven Einsatz und bildet die Grundlage für die in dieser Arbeit dokumentierten technischen Analyse und Weiterentwicklung.
+Daraufhin wurde durch den Autor das Projekt Charigame als eigenständiges WordPress-Plugin realisiert.
+Das daraus resultierende WordPress-Plugin befindet sich aktuell bei einem Kunden im produktiven Einsatz und bildet die Grundlage für die in dieser Arbeit dokumentierten technischen Analyse und Weiterentwicklung.
 \\\\
 \textbf{Funktionsweise von Charigame}
 \\\\
@@ -49,16 +49,16 @@ Die Funktionsweise von Charigame lässt sich grob in 5 Schritte unterteilen, die
 \section{Deskriptiver Stand}
 \subsection{Wordpress Front- und Backend}
 Der deskriptive Stand von Charigame befindet sich in einem funktionsfähigen, jedoch technisch und konzeptionell ausbaufähigen Zustand.
-Das Wordpress-Plugin integriert sich in das CMS Wordpress und erweitert den Funktionsumfang, um gamifizierte Spendenaktionen.
+Das WordPress-Plugin integriert sich in das CMS WordPress und erweitert den Funktionsumfang, um gamifizierte Spendenaktionen.
 Bevor die Spendenaktion bereitsteht ist es notwendig, dass verschiedene Einstellungen getroffen.
-Die notwendigen Einstellungen können über das Wordpress-Backend Menü aufgerufen werden.
+Die notwendigen Einstellungen können über das WordPress-Backend Menü aufgerufen werden.
 \\
-Hierzu erzeugt ein Charigame Menüpunkt im Wordpress Dashboard wie in Abbildung~\ref{fig:charigame-menu-legacy}: visualisiert.
+Hierzu erzeugt ein Charigame Menüpunkt im WordPress Dashboard wie in Abbildung~\ref{fig:charigame-menu-legacy}: visualisiert.
 In diesem Menü sind die wichtigsten Einstellmöglichkeiten als Menüpunkte definiert.
 \begin{figure}[tbh]
     \centering
     \includegraphics[width=0.2\textwidth]{images/legacy_charigame_wordpress_menu}
-    \caption{Charigame Menü im Wordpress Dashboard (eigene Darstellung)}
+    \caption{Charigame Menü im WordPress Dashboard (eigene Darstellung)}
     \label{fig:charigame-menu-legacy}
 \end{figure}
 
@@ -148,7 +148,7 @@ Im Bereich der Users werden die Teilnehmer der Spendenkampagnen verwaltet und di
     \item Flags: Imported, Email sent
 \end{itemize}
 Die genauen Werte und Eingabetypen können aus der Tabelle~\ref{tab:eingabefelder_users} entnommen werden.
-Im Wordpress Backend wird die User Sektion wie folgt Dargestellt (vgl. Abbildung~\ref{fig:users-backend-legacy})
+Im WordPress Backend wird die User Sektion wie folgt Dargestellt (vgl. Abbildung~\ref{fig:users-backend-legacy})
 
 \begin{figure}[H]
     \centering
@@ -157,7 +157,7 @@ Im Wordpress Backend wird die User Sektion wie folgt Dargestellt (vgl. Abbildung
     \label{fig:users-backend-legacy}
 \end{figure}
 
-Der Bereich der Pipedrive Integration bietet die Möglichkeit Nutzer direkt über die API des CMS Systems Pipedrive zu beziehen.
+Der Bereich der Pipedrive Integration bietet die Möglichkeit Nutzer direkt über die API des \gls{crm} Systems Pipedrive zu beziehen.
 Diese Funktion wurde spezifisch für ein Kundenprojekt entwickelt und bietet deshalb eine angepasst und keine universelle Funktionalität.
 Die Darstellung im Backend der Piperdrive Integration zeigt Abbildung~\ref{fig:pipedrive-backend-legacy}
 
@@ -170,12 +170,14 @@ Die Darstellung im Backend der Piperdrive Integration zeigt Abbildung~\ref{fig:p
 
 \\\\
 \textbf{E-Mail-Settings}\\\\
-Das Plugin erlaubt es, anstelle des standardmäßigen WordPress-Mailers einen eigenen SMTP-Server einzubinden.
+Das Plugin erlaubt es, anstelle des standardmäßigen WordPress-Mailers einen eigenen \gls{smtp}-Server einzubinden.
 Dafür stehen folgende Eingabefelder bereit:
 \begin{itemize}
     \item SMTP-Host
     \item SMTP-Port
     \item Benutzername
+    \item Passwort
+    \item Verschlüsselung (\gls{tls} oder \gls{ssl})
     \item Absender-E-Mail
     \item Absender-Name
 \end{itemize}
@@ -254,7 +256,7 @@ Optional können Social-Media-Kanäle angegeben werden, welche dann in der Mail 
 
 \item \textbf{Call-to-Action} \\
 Abschließend lassen sich Call-to-Action Bereiche aufbauen. Hierzu werden Headline, Beschreibungstext, Button-Beschriftung und Ziel-URL definiert.
-Der CTA motiviert Teilnehmende nach Abschluss des Spiels zu weiteren Aktionen, beispielsweise dem Besuch einer Unternehmensseite.
+Der \gls{cta} motiviert Teilnehmende nach Abschluss des Spiels zu weiteren Aktionen, beispielsweise dem Besuch einer Unternehmensseite.
 \end{itemize}
 
 Im Anhang der Arbeit ist die gesamte Landingpage (vgl. Abbildung~\ref{fig:landing-frontend-legacy}), die Seite der Spendenverteilung (vgl. Abbildung~\ref{fig:distribution-frontend-legacy}) und die Dankesseite (vgl. Abbildung~\ref{fig:dankesseite-frontend-legacy}) dargestellt.
@@ -266,22 +268,22 @@ Im Folgenden werden diese näher vorgestellt und in ihrem technischen Kontext er
 \begin{itemize}
     \item \textbf{WordPress Plugin-Stack}\\
     Die Kernfunktionalität basiert auf WordPress-APIs.
-    Eingesetzt wurden u. a. WP List Table für die Darstellung von Tabellen im Admin-Dashboard, die Enqueue-Mechanismen von WordPress zum Einbinden von Skripten und Styles, sowie AJAX-Hooks für asynchrone Requests.\\
+    Eingesetzt wurden u. a. \gls{wp} List Table für die Darstellung von Tabellen im Admin-Dashboard, die Enqueue-Mechanismen von WordPress zum Einbinden von Skripten und Styles, sowie AJAX-Hooks für asynchrone Requests.\\
     Zusätzlich werden Register Activation Hooks und Template Include genutzt, um das Plugin beim Aktivieren einzubinden und die Views zu steuern.\\
-    jQuery wird aus einem CDN eingebunden und dient an einigen Stellen als Hilfsbibliothek für Interaktionen.\\
+    jQuery wird aus einem \gls{cdn} eingebunden und dient an einigen Stellen als Hilfsbibliothek für Interaktionen.\\
     Für den E-Mail-Versand und Tests kommt PHPMailer über die WordPress-Funktion wp\_mail zum Einsatz.\\
     Mit Advanced Custom Fields (ACF/ACF Pro) werden zusätzliche Metadaten für Inhalte verwaltet, die über die funktionen get\_field() intensiv genutzt werden.\\
     Außerdem wurden WP Cron Jobs bzw. Scheduled Tasks vorbereitet, um zeitgesteuerte Abläufe im Plugin zu ermöglichen.
 
     \item \textbf{Frontend und JavaScript}\\
-    Für Animationen wird die GreenSock Animation Platform (GSAP 3) eingesetzt.
+    Für Animationen wird die \gls{GSAP} 3 eingesetzt.
     Neben der Kernbibliothek sind auch Plugins von GSAP wie Observer, ScrollTrigger, MotionPathPlugin und Draggable integriert, die komplexe Animationen und Interaktionen ermöglichen.\\
-    Visuell wird ebenfalls Confetti JS für animierte Partikeleffekte eingesetzt.\\
-    Für das Tower-Spiel wird Three.js genutzt, eine leistungsfähige 3D-Bibliothek, die sowohl lokal eingebunden als auch als npm-Abhängigkeit installiert ist.\\
+    Visuell wird ebenfalls Confetti \gls{js} für animierte Partikeleffekte eingesetzt.\\
+    Für das Tower-Spiel wird Three.js genutzt, eine leistungsfähige 3D-Bibliothek, die sowohl lokal eingebunden als auch als \gls{npm}-Abhängigkeit installiert ist.\\
     Darüber hinaus existiert ein eigenes kleines Spiele-Framework im Ordner „games“, das z. B. Memory- und Tower-Spiele enthält und durch eigene Hilfsskripte wie helper.js und picker.js ergänzt wird.
 
     \item \textbf{CSS und Build-Prozess}\\
-    Das Styling basiert auf Tailwind CSS, das über einen CLI-Buildprozess in Kombination mit npm-Skripten (build:css, watch:css) verarbeitet wird.
+    Das Styling basiert auf Tailwind CSS, das über einen \gls{cli}-Buildprozess in Kombination mit npm-Skripten (build:css, watch:css) verarbeitet wird.
     Zusätzlich werden dynamische Theme-Farben generiert, die in einer tailwind-colors.css gespeichert und über eine PHP-Funktion automatisch aktualisiert werden.
 
     \item \textbf{Package- und Task-Runner}\\
@@ -305,7 +307,7 @@ Die Architektur des Plugins ist insgesamt einfach gehalten und stark auf eine ze
     Das Frontend umfasst die Einbindung von Tailwind CSS, die Spiele-Module sowie externe Bibliotheken wie GSAP und Three.js. Über Template-Overrides werden eigene Views in WordPress eingebracht, was eine gewisse Anpassung erlaubt. Die Gestaltung bleibt insgesamt funktional, aber ohne ausgeprägtes visuelles Design.
 
     \item \textbf{Datenzugriff}\\
-    Der Datenzugriff erfolgt direkt über die WordPress-Datenbankschnittstelle \emph{wpdb}. Eine eigene Tabelle (wp\_edg\_game\_data) wird per dbDelta angelegt, ohne zusätzliche Abstraktionsschicht oder ORM. Inhalte und Konfigurationen basieren stark auf ACF Pro, das an vielen Stellen über get\_field() aufgerufen wird. Dynamische Farben werden über eine in PHP generierte CSS-Datei (tailwind-colors.css) eingebunden.
+    Der Datenzugriff erfolgt direkt über die WordPress-Datenbankschnittstelle \emph{wpdb}. Eine eigene Tabelle (wp\_edg\_game\_data) wird per dbDelta angelegt, ohne zusätzliche Abstraktionsschicht oder \gls{orm}. Inhalte und Konfigurationen basieren stark auf ACF Pro, das an vielen Stellen über get\_field() aufgerufen wird. Dynamische Farben werden über eine in PHP generierte CSS-Datei (tailwind-colors.css) eingebunden.
 
     \item \textbf{Build- und Tooling-Umfeld}\\
     Für den Build-Prozess kommt ein Tailwind-CLI-Workflow zum Einsatz, gesteuert über npm-Skripte. Grunt unterstützt Aufgaben wie Internationalisierung und die Generierung von Readme-Dateien. Composer, PHP CodeSniffer (inklusive WPCS und PHPCompatibility) sowie PHPUnit sorgen für Codequalität. Ergänzend prüft eine CircleCI-Pipeline die Kompatibilität des Plugins mit verschiedenen PHP-Versionen.

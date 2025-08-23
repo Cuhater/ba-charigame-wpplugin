@@ -2,7 +2,7 @@
 Dieses Kapitel eruiert die theoretischen Grundlagen für die Ausarbeitung, welche für das Verständnis dieser Arbeit notwendig sind und im praktischen Teil angewendet werden.
 \section{WordPress als Content-Management-System}
 WordPress ist ein freies, unter der \gls{gnu} \gls{gpl} v2 lizenziertes Content-Management-System und mit einem Marktanteil von 61,1\% das weltweit am häufigsten verwendete CMS. \cite{statista2025cms}
-Die Plattform zeichnet sich durch seine Flexibilität, Erweiterbarkeit und Bedienbarkeit aus, was Wordpress zu einer Lösung für simple Webseiten und Blogs bis hin zu komplexe Web-Applikationen macht. \cite{patel2019review}
+Die Plattform zeichnet sich durch seine Flexibilität, Erweiterbarkeit und Bedienbarkeit aus, was WordPress zu einer Lösung für simple Webseiten und Blogs bis hin zu komplexe Web-Applikationen macht. \cite{patel2019review}
 Die technische Struktur verfolgt ein modulares Paradigma, das eine klare Trennung zwischen Kernfunktionen, Design und Erweiterungen ermöglicht:
 \begin{itemize}
 
@@ -13,15 +13,15 @@ Die technische Struktur verfolgt ein modulares Paradigma, das eine klare Trennun
  \item Core System: Stellt die grundlegenden Funktionen des CMS bereit
 
 \end{itemize}
-Technisch gesehen besteht Wordpress aus einer \gls{php}-basierten Architektur in Verbindung mit der persistenten Speicherlösung \gls{mysql} als relationale Datenbank.
+Technisch gesehen besteht WordPress aus einer \gls{php}-basierten Architektur in Verbindung mit der persistenten Speicherlösung \gls{mysql} als relationale Datenbank.
 Durch diese weit verbreiteten Technologien ist WordPress mit den meisten gängigen Hosting-Umgebungen kompatibel.
 Grundlage hierfür ist ein Webserver, welcher PHP und MySQL unterstützt.
 Offiziell ist Apache oder Nginx empfohlen \cite{wordpress2024requirements}.
 
-Darüber hinaus bietet Wordpress eine \gls{rest}-\gls{api} mit der eine entkoppelte Inhaltsverwaltung möglich ist und Inhalte über das \gls{http}-Protokoll in verschiedene Anwendungen und Plattformen integriert werden können.
+Darüber hinaus bietet WordPress eine \gls{rest}-\gls{api} mit der eine entkoppelte Inhaltsverwaltung möglich ist und Inhalte über das \gls{http}-Protokoll in verschiedene Anwendungen und Plattformen integriert werden können.
 \newpage
 \textbf{WordPress Coding Standards}\\
-Wordpress Coding Standards dienen als Richtlinien und Best Practises für Entwickler die an Wordpress Projekten arbeiten.
+WordPress Coding Standards dienen als Richtlinien und Best Practises für Entwickler die an WordPress Projekten arbeiten.
 Diese Standards haben sich in der Wordpress Community etabliert und ermöglichen eine konsistente Codestruktur.
 Ziel ist es, die Codequalität so zu gestalten, dass Wartung und kollaborative Weiterentwicklung erleichtert werden.
 Für die Ausarbeitung der Weiterentwicklung von Charigame sollen die offiziellen Wordpress Coding Standards beachtet und umgesetzt werden.
@@ -33,7 +33,7 @@ Die offizielle WordPress-Definition besagt: \glqq Plugins sind Codepakete, die d
 WordPress-Plugins bestehen aus PHP-Code und können weitere Assets wie Bilder,
 CSS und JavaScript enthalten\grqq{} \cite{wordpress2024plugin} (eigene Übersetzung).
 \\
-Für die Entwicklung solcher Plugins ist grundlegend ein tiefergehendes Verständnis des Wordpress-CMS vorausgesetzt.
+Für die Entwicklung solcher Plugins ist grundlegend ein tiefergehendes Verständnis des WordPress-CMS vorausgesetzt.
 Die Grundlagen sowie weiterführende Themengebiete sollen im Folgenden ermittelt werden.
 
 
@@ -55,7 +55,7 @@ Diese dient als Ausgangspunkt für die Entwicklung und Integration von Plugins:
 \end{figure}
 \newpage
 Abbildung~\ref{fig:wordpress-verzeichnis} visualisiert, dass sich im wp-content Ordner bereits initial in der Standardkonfiguration von Wordpress das Verzeichnis \texttt{plugins} befindet.
-Der \texttt{plugins} Ordner ist die zentrale Destination für alle im Wordpress System erstellten Erweiterungen.
+Der \texttt{plugins} Ordner ist die zentrale Destination für alle im WordPress System erstellten Erweiterungen.
 Die nachfolgende Untersuchung berücksichtigt weitere Bestandteile von WordPress-Plugins, die fortlaufend detailliert beschrieben werden.
 \\\\\\
 \textbf{Aufbau, Plugin-Header und Metadateien}
@@ -133,7 +133,7 @@ Alle möglichen Felder werden in der folgenden Tabelle aufgeführt:
  Text Domain & Die Textdomain für die Internationalisierung des Plugins, erforderlich für Übersetzungen mit \texttt{gettext}. \\
  Domain Path & Das Verzeichnis, in dem WordPress die Übersetzungsdateien findet (z.\,B. \texttt{/languages}). \\
  Network & Gibt an, ob das Plugin netzwerkweit (Multisite) aktiviert werden kann. Nur \texttt{true} ist erlaubt, andernfalls Feld weglassen. \\
- Update URI & Eine eindeutige URI zur Updatequelle, um versehentliche Überschreibungen durch gleichnamige Plugins im WordPress.org-Verzeichnis zu vermeiden. \\
+ Update URI & Eine eindeutige \gls{uri} zur Updatequelle, um versehentliche Überschreibungen durch gleichnamige Plugins im WordPress.org-Verzeichnis zu vermeiden. \\
  Requires Plugins & Eine durch Kommas getrennte Liste von Plugin-Slugs aus dem WordPress.org-Verzeichnis, die als Abhängigkeit benötigt werden. Kommas innerhalb der Slugs sind nicht erlaubt. \\
 \end{longtable}
 
@@ -141,18 +141,18 @@ Alle möglichen Felder werden in der folgenden Tabelle aufgeführt:
 \textbf{Hooks: Action und Filter}\\\\
 Es gibt eine Kardinalregel in der Wordpress Entwicklung die besagt: Don’t touch WordPress core. %TODO: https://developer.wordpress.org/plugins/intro/ maybe verlinken?
 Damit Anpassungen an bestehende Funktionalitäten möglich sind gibt es Hooks und Filter.
-Hooks erlauben es an spezifischen Stellen einzugreifen, um das Verhalten von Wordpress zu ändern ohne dabei die Kern-Dateien bearbeiten zu müssen.
-Allgemein gibt es zwei Arten von hooks in Wordpress: Actions und Filter.
+Hooks erlauben es an spezifischen Stellen einzugreifen, um das Verhalten von WordPress zu ändern ohne dabei die Kern-Dateien bearbeiten zu müssen.
+Allgemein gibt es zwei Arten von hooks in WordPress: Actions und Filter.
 Mit Actions können Funktionen hinzugefügt oder geändert werden.
 Filter wiederum ändern Inhalte, während diese geladen und dem Website-Nutzer angezeigt werden.
-Hooks sind nicht nur für die Plugin-Entwicklung gedacht, sondern werden ebenfalls häufig verwendet, um Standardfunktionen durch den Wordpress-Kern selbst bereitzustellen.
+Hooks sind nicht nur für die Plugin-Entwicklung gedacht, sondern werden ebenfalls häufig verwendet, um Standardfunktionen durch den WordPress-Kern selbst bereitzustellen.
 
-Zu den zentralen Hooks im Kontext von WordPress-Plugins gehören insbesondere \texttt{register\_activation\_hook()}, \texttt{register\_deactivation\_hook()} sowie \texttt{register\_uninstall\_hook()}.
+Zu den zentralen Hooks im Kontext von WordPress-Plugins gehören insbesondere \texttt{register\_activation\_hook()}, \texttt{register\_deactivation\_hook()} sowie \\ \texttt{register\_uninstall\_hook()}.
 
 \begin{itemize}
- \item register\_activation\_hook(): Dieser Hook wird ausgeführt, wenn das Plugin im Wordpress-Backend aktiviert wird. Dies wird oftmals verwendet um Funktionen zwecks Einrichtung des Plugins bereitzustellen.
- \item register\_deactivation\_hook(): Der Deaktivierungs-Hook wird ausgeführt, wenn das Plugin deaktiviert wird. Diese Funktion ermöglicht es die vom Plugin temporär gespeicherten Daten und Einträge zu entfernen.
- \item register\_uninstall\_hook(): Die Ausführung findet statt, wenn das Plugin aus dem Backend gelöscht wird. Die Verwendung zielt häufig darauf ab alle vom Plugin erstellen Optionen oder Datenbanktabellen restlos zu löschen.
+ \item \textbf{register\_activation\_hook()}: Dieser Hook wird ausgeführt, wenn das Plugin im WordPress-Backend aktiviert wird. Dies wird oftmals verwendet um Funktionen zwecks Einrichtung des Plugins bereitzustellen.
+ \item \textbf{register\_deactivation\_hook()}: Der Deaktivierungs-Hook wird ausgeführt, wenn das Plugin deaktiviert wird. Diese Funktion ermöglicht es die vom Plugin temporär gespeicherten Daten und Einträge zu entfernen.
+ \item \textbf{register\_uninstall\_hook()}: Die Ausführung findet statt, wenn das Plugin aus dem Backend gelöscht wird. Die Verwendung zielt häufig darauf ab alle vom Plugin erstellen Optionen oder Datenbanktabellen restlos zu löschen.
 \end{itemize}
 
 %Plugin-Struktur und -Organisation
@@ -166,8 +166,8 @@ Zu den zentralen Hooks im Kontext von WordPress-Plugins gehören insbesondere \t
 %Plugin-Hauptdatei und Ordnerstruktur
 
 \subsection{Best Practises in der Plugin-Programmierung}
-Die Wordpress Developer Resources geben dem Entwickler einige Best Practises vor, welche helfen den Code zu organisieren.
-Ferner wird durch die Hinweise sichergestellt, dass der Code verlässlich mit dem Wordpress Kern und anderen Plugins funktioniert.
+Die WordPress Developer Resources geben dem Entwickler einige Best Practises vor, welche helfen den Code zu organisieren.
+Ferner wird durch die Hinweise sichergestellt, dass der Code verlässlich mit dem WordPress Kern und anderen Plugins funktioniert.
 Nachfolgend sollen zentrale Best Practises aufgeführt werden, welche im Verlauf der Arbeit mit in der Konzeption berücksichtigt werden.
 \\
 \\
@@ -202,7 +202,7 @@ Dies geschieht unter Zuhilfenahme der folgenden von PHP zur Verfügung gestellte
 \end{itemize}
 \vspace{1em}
 \textbf{Architekturmuster}\\\\
-Die Wordpress Developer Resources geben eine Hand voll mögliche Architekturmuster vor.
+Die WordPress Developer Resources geben eine Hand voll mögliche Architekturmuster vor.
 Diese können grob in drei Variationen kategorisiert werden:
 \begin{itemize}
  \item Einzelne Plugin-Datei, die Funktionen enthält
@@ -215,7 +215,7 @@ Eine einzelne Plugin-Datei, die Funktionen enthält, stellt eine solide Basis f�
 Die Variante eine Haupt-Plugin-Datei zu erstellen und mehrere Klassendateien aufzubauen bietet sich eher für Plugins mit einer größeren Codebasis an.
 
 \subsection{Plugin Security und Privacy}
-Ein essenzieller Aspekt bei der Programmierung von Wordpress Plugins ist die Plugin Security und Privacy.
+Ein essenzieller Aspekt bei der Programmierung von WordPress Plugins ist die Plugin Security und Privacy.
 Damit die Sicherheit von Eingaben gegeben ist, werden Methoden wie Validating, Sanatizing und Escaping genutzt.
 
 \textbf{Validating}
@@ -227,7 +227,7 @@ Damit die Sicherheit von Eingaben gegeben ist, werden Methoden wie Validating, S
  \emph{(eigene Übersetzung nach \cite{wordpress2024plugin_validation})}
 \end{quote}
 
-Es werden auch seitens der Wordpress Developer Ressourcen einfache Validierungsbeispiele genannt:
+Es werden auch seitens der WordPress Developer Ressourcen einfache Validierungsbeispiele genannt:
 \begin{itemize}
 \item Überprüfung, ob Pflichtfelder ausgefüllt wurden
 \item Überprüfung, ob eine eingegebene Telefonnummer nur Zahlen und Satzzeichen enthält
@@ -263,7 +263,7 @@ Die Validierung selbst wird in verschiedene Philosophien gegliedert, die nun kur
 \end{table}
 
 \newpage
-Wenn keine Validierung möglich ist, bedienen sich Wordpress Entwickler der Möglichkeit des Sanatizing und Escaping von Werten.
+Wenn keine Validierung möglich ist, bedienen sich WordPress Entwickler der Möglichkeit des Sanatizing und Escaping von Werten.
 
 \textbf{Sanitizing}
 \begin{quote}
@@ -281,7 +281,7 @@ Damit werden Sicherheitslücken als auch ungewollte Inhalte zu vermieden.
 Dafür stellt WordPress verschiedene Funktionen bereit, die sicherstellen, dass Eingaben ausschließlich
 die vorgesehenen Zeichen oder Strukturen enthalten.
 Ein häufig genutztes Beispiel ist die Verwendung von \texttt{sanitize\_text\_field()} für Freitextfelder.
-Nachfolgend werden die seitens Wordpress bereitgestellten Funktionen erläutert:
+Nachfolgend werden die seitens WordPress bereitgestellten Funktionen erläutert:
 
 \begin{table}[h]
  \centering
@@ -318,10 +318,10 @@ Nachfolgend werden die seitens Wordpress bereitgestellten Funktionen erläutert:
 \newpage
 
 \textbf{Escaping}\\\\
-Escaping transformiert Ausgabedaten so, dass kritische Zeichen (z.\,B. `<` wird zu `\&lt;`) nicht mehr als Code interpretiert werden. Dies verhindert XSS-Angriffe.\\\\
+Escaping transformiert Ausgabedaten so, dass kritische Zeichen (z.\,B. `<` wird zu `\&lt;`) nicht mehr als Code interpretiert werden. Dies verhindert \gls{xss}-Angriffe.\\\\
 Das Prinzip lautet: Daten unverändert speichern, erst bei der Ausgabe escapieren. WordPress bietet kontextspezifische Funktionen wie \texttt{esc\_html()}, \texttt{esc\_attr()}, \texttt{esc\_url()} und \texttt{esc\_js()}.
 Die richtige Funktionswahl je nach Ausgabekontext ist entscheidend für die Sicherheit.
-Genau wie beim Sanatizing bietet Wordpress hier ein Set an Funktionen, welche speziell für das Escaping genutzt werden.
+Genau wie beim Sanatizing bietet WordPress hier ein Set an Funktionen, welche speziell für das Escaping genutzt werden.
 
 \begin{table}[h]
  \centering
@@ -339,7 +339,7 @@ Genau wie beim Sanatizing bietet Wordpress hier ein Set an Funktionen, welche sp
   \hline
   \texttt{esc\_js()} & Für Inline-JavaScript oder Übergabe von Variablen in Skripte. \\
   \hline
-  \texttt{esc\_xml()} & Absicherung von Ausgaben in XML-/XSL-Kontexten. \\
+  \texttt{esc\_xml()}       & Absicherung von Ausgaben in \gls{xml} -/\gls{xsl}-Kontexten.                             \\
   \hline
   \texttt{esc\_textarea()} & Encodiert Texte für die Verwendung innerhalb eines \texttt{<textarea>} Elements. \\
   \hline
@@ -354,14 +354,14 @@ Genau wie beim Sanatizing bietet Wordpress hier ein Set an Funktionen, welche sp
  \label{tab:escaping}
 \end{table}
 
-Ein wichtiger Grundsatz ist das \emph{späte Escaping}: Daten sollten erst unmittelbar vor der Ausgabe escaped werden.
+Ein wichtiger Grundsatz ist das späte Escaping: Daten sollten erst unmittelbar vor der Ausgabe escaped werden.
 Dadurch wird die Code-Überprüfung vereinfacht, das Fehlerrisiko verringert und die Anwendung widerstandsfähiger gegen zukünftige Anpassungen.
 Wenn ein spätes Escaping nicht umsetzbar ist (etwa bei generiertem JavaScript-Code), muss der Entwickler sicherstellen, dass Variablen bereits in einer als \enquote{sicher} gekennzeichneten Form vorliegen (z.\,B. \texttt{\$variable\_escaped}).
 
 \textbf{Nonces}
 
 Ein Nonce (number used once) ist ein Sicherheitsmechanismus in WordPress zum Schutz von URLs und Formularen vor unbefugten Manipulationen.
-Insbesondere wird der Schutz vor Cross-Site Request Forgery (CSRF) sichergestellt.
+Insbesondere wird der Schutz vor \gls{csrf} sichergestellt.
 Anders als die Definition von Nonces handelt es sich nicht um Einmalzahlen, sondern um Hash-Werte.
 Diese Hashwerte sind für einen bestimmten Benutzer und Kontext über eine begrenzte Zeit gültig (Standard: 12–24 Stunden).
 
@@ -376,7 +376,7 @@ Sie sollten stets aktionsspezifisch sein und niemals als alleinige Sicherheitsma
 
 %TODO: Mögliche erweiterung ist die wp template hiearchie? nochmal schön n bild rienfetzen hat ja was mit dem template von charigame zu tun FE ? maybe
 \subsection{Weiterführende Funktionen und Paradigma}
-In diesem Kapitel sind weitere für das Projekt verwendete Funktionen und Paradigmen aus Wordpress aufgeführt.
+In diesem Kapitel sind weitere für das Projekt verwendete Funktionen und Paradigmen aus WordPress aufgeführt.
 \\
 \\
 \textbf{Themes}\\\\
@@ -393,7 +393,7 @@ Die entwickelte Lösung soll unabhängig von einem bestimmten Theme funktioniere
 \\
 \\
 \textbf{Metadaten}\\\\
-Unter Metadaten versteht man ergänzende Informationen zu bestehenden Inhalten, sogenannte „Informationen über Informationen".
+Unter Metadaten versteht man ergänzende Informationen zu bestehenden Inhalten, sogenannte \grqq{}Informationen über Informationen\grqq{}.
 Im WordPress-Kontext handelt es sich dabei um zusätzliche Datensätze, die verschiedenen Objekten wie Artikeln, Nutzerprofilen, Kommentaren oder Kategorien hinzugefügt werden können.
 Praktische Anwendungsbeispiele sind etwa Custom Fields in Blogbeiträgen, erweiterte Benutzerinformationen in Profilen oder spezielle Attribute für Kategorienseiten.
 WordPress zeichnet sich durch ein besonders anpassungsfähiges Metadaten-System aus.
@@ -410,10 +410,10 @@ Entwickler können über die JavaScript-Schnittstellen wie @wordpress/api-fetch 
 \\
 \\
 \textbf{AJAX}\\\\
-Wordpress bietet eine eigene AJAX-Schnittstelle, die auf den Endpunkt admin-ajax.php verweist.
+Wordpress bietet eine eigene \gls{ajax}-Schnittstelle, die auf den Endpunkt admin-ajax.php verweist.
 Entwickler können hier eigene Aktionen registrieren, die bei einer AJAX-Anfrage ausgeführt werden.
 Jede Aktion wird über einen eindeutigen Namen (action) identifiziert, wodurch mehrere unabhängige AJAX-Funktionen parallel existieren können.
-Die Kommunikation erfolgt typischerweise über POST- oder GET-Anfragen, die Daten in JSON- oder URL-kodierter Form zurückliefern.
+Die Kommunikation erfolgt typischerweise über POST- oder GET-Anfragen, die Daten in \gls{json}- oder \gls{url}-kodierter Form zurückliefern.
 \\
 \\
 \textbf{WP-CRON}\\\\
@@ -487,7 +487,7 @@ Die Daten basieren auf einem Dreijahreszeitraum und umfassen nur WordPress.com- 
 \subsection{Dateistruktur eines Blocks}
 Die Developer Resources geben Entwicklern Grundlagen der Blockentwicklung mit, welche nachfolgend erläutert werden.
 
-Seitens Wordpress wird eine Dateistrutkur für die Gutenberg Blöcke empfohlen.
+Seitens WordPress wird eine Dateistrutkur für die Gutenberg Blöcke empfohlen.
 Diese Struktur erleichtert die Trennung von Metadaten, Logik und der Darstellung.
 Abbildung~\ref{fig:block-structure} zeigt den grundsätzlichen Aufbau eines Blocks, wie er in der offiziellen Dokumentation beschrieben ist.
 
@@ -564,7 +564,7 @@ Angepasste Blockvorlagen umfassen statische als auch dynamische Seiten, wie Arch
 
 \section{Gamification im Kontext digitaler Anwendungen}
 
-Deterding et al. definieren Gamification als ``the use of game design elements in non-game contexts''. \cite{deterding2011gamification}
+Deterding et al. definieren Gamification als \grqq{}the use of game design elements in non-game contexts\grqq{}. \cite{deterding2011gamification}
 Diese Definition erfasst ein Phänomen, das in seiner Grundform nicht neu ist.
 Leistungsbezogene Vergütungssysteme, Rankings und spielerische Wettkämpfe existieren in Fabriken, dem Vertrieb und Bildungseinrichtungen bereits seit Jahrzehnten. \cite{bpb2023gamification}
 Die Digitalisierung hat seit etwa 2010 eine weitreichende Transformation des Gamification-Konzepts eingeleitet.
