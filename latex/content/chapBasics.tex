@@ -29,7 +29,7 @@ Für die Ausarbeitung der Weiterentwicklung von Charigame sollen die offiziellen
 
 \section{Plugin-Entwicklung mit WordPress}
 
-Die offizielle WordPress-Definition besagt: \glqq \gls{Plugin}s sind Codepakete, die die Kernfunktionalität von WordPress erweitern.
+Die offizielle WordPress-Definition besagt: \glqq \gls{plugin}s sind Codepakete, die die Kernfunktionalität von WordPress erweitern.
 WordPress-\gls{plugin}s bestehen aus \gls{php}-Code und können weitere Assets wie Bilder,
 \gls{css} und JavaScript enthalten\grqq{} \cite{wordpress2024plugin} (eigene Übersetzung).
 \\ \\
@@ -57,7 +57,7 @@ Diese dient als Ausgangspunkt für die Entwicklung und Integration von \gls{plug
 Abbildung~\ref{fig:wordpress-verzeichnis} visualisiert, dass sich im wp-content Ordner bereits initial in der Standardkonfiguration von Wordpress das Verzeichnis plugins befindet.
 Der plugins Ordner ist die zentrale Destination für alle im WordPress System erstellten Erweiterungen.
 Die nachfolgende Untersuchung berücksichtigt weitere Bestandteile von WordPress-\gls{plugin}s, die fortlaufend detailliert beschrieben werden.
-\\\\\\
+\\\\
 \textbf{Aufbau, Plugin-Header und Metadateien}
 
 Für die Entwicklung von WordPress-\gls{plugin}s empfehlen die offiziellen WordPress Developer Resources eine klare und strukturierte Ordnerorganisation. \cite{wordpress2024BestPractices}
@@ -125,7 +125,8 @@ Alle möglichen Felder werden in der folgenden Tabelle aufgeführt:
 \end{longtable}
 
 \newpage
-\textbf{Hooks: Action und Filter}\\\\
+\textbf{Hooks: Action und Filter}
+
 Es gibt eine Kardinalregel in der Wordpress Entwicklung die besagt: Don’t touch WordPress core \cite{wordpress2024Intro}. %TODO: https://developer.wordpress.org/plugins/intro/ maybe verlinken?
 Damit Anpassungen an bestehende Funktionalitäten möglich sind gibt es Hooks und Filter.
 Hooks erlauben es an spezifischen Stellen einzugreifen, um das Verhalten von WordPress zu ändern ohne dabei die Kern-Dateien bearbeiten zu müssen.
@@ -157,16 +158,18 @@ Die WordPress Developer Resources geben dem Entwickler einige Best Practises vor
 Ferner wird durch die Hinweise sichergestellt, dass der Code verlässlich mit dem WordPress Kern und anderen Plugins funktioniert.
 Nachfolgend sollen zentrale Best Practises aufgeführt werden, welche im Verlauf der Arbeit mit in der Konzeption berücksichtigt werden.
 \\
-\\
-\textbf{Vermeiden von Namenskonflikten}\\\\
+\\\\
+\textbf{Vermeiden von Namenskonflikten}
+
 Namenskollisionen können durch die gleiche Benennung von Variablen, Funktionen oder Klassen zustandekommen.
 Um einen solchen Namenskonflikt zu vermeiden wird es empfohlen einen globalen Namenspace zu definieren.
 Dieser Namespace ermöglicht das Überschreiben von anderen Variablen, Funktionen und Plugins.
 Innerhalb von Funktionen und Klassen definierte Variablen, sind hiervon nicht betroffen~\cite{wordpress2024Naming}.
 \\
 \\
-\\
-\textbf{Voranstellen eines Prefix}\\\\
+\\\\
+\textbf{Voranstellen eines Prefix}
+
 Unter Zuhilfenahme eines Prefix können potenzielle Konflikte im Hinblick auf Aufrufe und Ausführungen mit anderen Plugins verhindert werden.
 Das Handbuch empfiehlt hierzu ein einzigartiges Wort, welches vor verschiedene Deklarationen vorangestellt wird~\cite{wordpress2024ProceduralCodingMethod}.
 Auf das ChariGame gemünzte Projekt könnte dies dann wie folgt aussehen:
@@ -204,7 +207,7 @@ Die Variante eine Haupt-Plugin-Datei zu erstellen und mehrere Klassendateien auf
 \subsection{Plugin Security und Privacy}
 Ein essenzieller Aspekt bei der Programmierung von WordPress Plugins ist die Plugin Security und Privacy.
 Damit die Sicherheit von Eingaben gegeben ist, werden Methoden wie Validating, Sanatizing und Escaping genutzt.
-
+\\\\
 \textbf{Validating}
 
 \begin{quote}
@@ -251,8 +254,9 @@ Die Validierung selbst wird in verschiedene Philosophien gegliedert, die nun kur
 
 \newpage
 Wenn keine Validierung möglich ist, bedienen sich WordPress Entwickler der Möglichkeit des Sanatizing und Escaping von Werten.
-
+\\\\
 \textbf{Sanitizing}
+
 \begin{quote}
  Die Bereinigung von Eingaben ist der Prozess der Sicherung/Bereinigung/Filterung von Eingabedaten.
  Die Validierung ist der Bereinigung vorzuziehen, da sie spezifischer ist.
@@ -345,7 +349,7 @@ Genau wie beim Sanatizing bietet WordPress hier ein Set an Funktionen, welche sp
 Ein wichtiger Grundsatz ist das späte Escaping: Daten sollten erst unmittelbar vor der Ausgabe escaped werden.
 Dadurch wird die Code-Überprüfung vereinfacht, das Fehlerrisiko verringert und die Anwendung widerstandsfähiger gegen zukünftige Anpassungen.
 Wenn ein spätes Escaping nicht umsetzbar ist (etwa bei generiertem JavaScript-Code), muss der Entwickler sicherstellen, dass Variablen bereits in einer als \enquote{sicher} gekennzeichneten Form vorliegen (z.\,B. \texttt{\$variable\_escaped})~\cite{wordpress2024escapingcant}.
-
+\\\\
 \textbf{Nonces}
 
 Ein Nonce (number used once) ist ein Sicherheitsmechanismus in WordPress zum Schutz von \gls{url}s und Formularen vor unbefugten Manipulationen.
@@ -367,9 +371,10 @@ Sie sollten stets aktionsspezifisch sein und niemals als alleinige Sicherheitsma
 In diesem Kapitel sind weitere für das Projekt verwendete Funktionen und Paradigmen aus WordPress aufgeführt.
 \\
 \\
-\textbf{Themes}\\\\
+\textbf{Themes}
+
 Ein Theme in WordPress bestimmt das Erscheinungsbild einer Website.
-Es legt Farben, Schriftarten, Layout-Strukturen sowie die gesamte Darstellung des Frontends fest und kann auch Funktionen im Backend hinzufügen.
+Es legt Farben, Schriftarten, Layout-Strukturen sowie die gesamte Darstellung des Frontends fest und kann auch Funktionen im Backend hinzufügen. \cite{wordpress2024theme}
 Für das Projekt Charigame spielt das konkret gewählte Theme jedoch keine zentrale Rolle.
 Die entwickelte Lösung soll unabhängig von einem bestimmten Theme funktionieren.
 %Die Definition dient hier daher lediglich dazu, ein grundlegendes Verständnis für den Aufbau und die Funktionsweise von WordPress zu vermitteln.
@@ -380,34 +385,38 @@ Die entwickelte Lösung soll unabhängig von einem bestimmten Theme funktioniere
 %Shortcodes sind im Grunde Makro, die eine komplexe Funktion aufrufen können.
 \\
 \\
-\textbf{Metadaten}\\\\
+\textbf{Metadaten}
+
 Unter Metadaten versteht man ergänzende Informationen zu bestehenden Inhalten, sogenannte \grqq{}Informationen über Informationen\grqq{}.
 Im WordPress-Kontext handelt es sich dabei um zusätzliche Datensätze, die verschiedenen Objekten wie Artikeln, Nutzerprofilen, Kommentaren oder Kategorien hinzugefügt werden können.
 Praktische Anwendungsbeispiele sind etwa Custom Fields in Blogbeiträgen, erweiterte Benutzerinformationen in Profilen oder spezielle Attribute für Kategorienseiten.
 WordPress zeichnet sich durch ein besonders anpassungsfähiges Metadaten-System aus.
-Jedes Element kann mit einer unbegrenzten Anzahl zusätzlicher Informationen ausgestattet werden.
+Jedes Element kann mit einer unbegrenzten Anzahl zusätzlicher Informationen ausgestattet werden~\cite{wordpress2024metadata}.
 \\
 \\
-\textbf{API Endpoints}\\\\
+\textbf{API Endpoints}
+
 Die WordPress-\gls{rest}-\gls{api} stellt unter dem Endpunkt /wp-json/ eine Schnittstelle zur Verfügung, über die Inhalte und Strukturen einer WordPress-Installation abgerufen und verändert werden können.
 Der zentrale Namespace wp/v2/ umfasst dabei alle wesentlichen Ressourcen, wie Beiträge, Seiten, Benutzer, Medien oder Taxonomien.
 \\
 Technisch fundiert die Kommunikation im Gutenberg-Editor selbst auf der REST-API.
 Änderungen im Block Editor werden im Hintergrund als Anfragen an die API umgesetzt.
-Entwickler können über die JavaScript-Schnittstellen wie @wordpress/api-fetch eigene Blöcke implementieren oder externe Datenquellen einbinden.
+Entwickler können über die JavaScript-Schnittstellen wie @wordpress/api-fetch eigene Blöcke implementieren oder externe Datenquellen einbinden~\cite{wordpress2024restApi}.
 \\
 \\
-\textbf{AJAX}\\\\
+\textbf{AJAX}
+
 Wordpress bietet eine eigene \gls{ajax}-Schnittstelle, die auf den Endpunkt admin-ajax.php verweist.
 Entwickler können hier eigene Aktionen registrieren, die bei einer \gls{ajax}-Anfrage ausgeführt werden.
 Jede Aktion wird über einen eindeutigen Namen (action) identifiziert, wodurch mehrere unabhängige AJAX-Funktionen parallel existieren können.
-Die Kommunikation erfolgt typischerweise über POST- oder GET-Anfragen, die Daten in \gls{json}- oder \gls{url}-kodierter Form zurückliefern.
+Die Kommunikation erfolgt typischerweise über POST- oder GET-Anfragen, die Daten in \gls{json}- oder \gls{url}-kodierter Form zurückliefern~\cite{wordpress2024Ajax}.
 \\
 \\
-\textbf{WP-CRON}\\\\
+\textbf{WP-CRON}
+
 In WordPress werden zeitgesteuerte Aufgaben über ein eigenes System gesteuert, das sogenannte \gls{wp}-Cron.
 WP-Cron bietet eine einfache Möglichkeit, zeitbasierte Prozesse zu implementieren.
-Solche Events werden typischerweise beim Planen von Beiträgen oder dem Versenden von E-Mail-Benachrichtigungen genutzt.
+Solche Events werden typischerweise beim Planen von Beiträgen oder dem Versenden von E-Mail-Benachrichtigungen genutzt~\cite{wordpress2024Cron}.
 
 %Hier noch überlegen welche Funktionen und Paradigmen aufgeführt werden sollten. Effektiv bisschen filler für das kommende dann?
 %Meta-Daten // Meta Boxes für Post-Bearbeitung
@@ -463,29 +472,21 @@ Solche Events werden typischerweise beim Planen von Beiträgen oder dem Versende
 
 Ein Block ist ein eigenständiges Element wie beispielsweise ein Absatz, eine Überschrift, ein Medienelement oder eine Einbettung.
 Jeder Block wird als separates Element mit individuellen Bearbeitungs- und Formatierungsoptionen behandelt.
-Wenn alle diese Komponenten zusammengefügt werden, bilden sie den Inhalt der Seite oder des Beitrags, der dann in der WordPress-Datenbank gespeichert wird.
-%TODO: QUELLEN CHECKEN UND PRÜFEN: https://developer.wordpress.org/block-editor/ DIE HIER HINTERLEGEN
+Wenn alle diese Komponenten zusammengefügt werden, bilden sie den Inhalt der Seite oder des Beitrags, der dann in der WordPress-Datenbank gespeichert wird~\cite{wordpress2024plugin_blockeditor}.
 \\
 \\
 Die Relevanz des Editors wird durch die Erhobene Statistik der Seite Gutenberg in Numbers deutlich.
 Demnach beträgt die Anzahl aktiver Installationen des Gutenberg-Editors auf WordPress- und Jetpack-Seiten aktuell 87,3 Mio.
 Innerhalb der letzten drei Jahre wurden 282 Mio. Beiträge mit dem Gutenberg-Editor erstellt.
-Die Daten basieren auf einem Dreijahreszeitraum und umfassen nur WordPress.com- und Jetpack-Seiten, die die Nutzung des Editors melden. \cite{gutenstats}
+Die Daten basieren auf einem Dreijahreszeitraum und umfassen nur WordPress.com- und Jetpack-Seiten, die die Nutzung des Editors melden~\cite{gutenstats}.
 
 \subsection{Dateistruktur eines Blocks}
 Die Developer Resources geben Entwicklern Grundlagen der Blockentwicklung mit, welche nachfolgend erläutert werden.
 
 Seitens WordPress wird eine Dateistrutkur für die Gutenberg Blöcke empfohlen.
 Diese Struktur erleichtert die Trennung von Metadaten, Logik und der Darstellung.
-Abbildung~\ref{fig:block-structure} zeigt den grundsätzlichen Aufbau eines Blocks, wie er in der offiziellen Dokumentation beschrieben ist.
+Abbildung~\ref{fig:block-structure} im Anhang der Arbeit zeigt den grundsätzlichen Aufbau eines Blocks, wie er in der offiziellen Dokumentation beschrieben ist.
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=\textwidth]{block-structure} % füllt gesamte Textbreite
-    \caption{Dateistruktur eines WordPress-Blocks \cite{wordpress2023}}
-    \label{fig:block-structure}
-\end{figure}
-%TODO: Quelle in den Anhang ballern
 Die Abbildung verdeutlicht, dass zentrale Dateien wie \texttt{block.json} zur Definition der Block-Metadaten,
 sowie Skripte, Stylesheets und Build-Artefakte in klar getrennten Verzeichnissen organisiert werden.
 
@@ -501,48 +502,44 @@ Wenn ein Block entwickelt wird, ist es angeraten diesen als \gls{Plugin} und nic
 Dies hat den Vorteil, dass der erstellte Block unabhängig vom verwendeten Theme genutzt werden kann.
 \subsection{Schlüsselkonzepte im Block Editor}
 \textbf{Kombinierbarkeit}
-\\\\
+
 Blöcke sind darauf ausgelegt, auf vielfältige Weise miteinander kombiniert zu werden.
 Sie folgen einem hierarchischen Aufbau, bei dem ein Block in einen anderen eingebettet werden kann.
 Verschachtelte Blöcke und ihr umschließender Block werden auch als Kinder und Eltern bezeichnet.
 Ein Spalten-Block kann beispielsweise als übergeordneter Block fungieren und mehrere untergeordnete Blöcke in seinen einzelnen Spalten enthalten.
-\\
-Die Programmierschnittstelle, die die Verwendung von Unter-Blöcken regelt, wird InnerBlocks bezeichnet.
-
-
+Die Programmierschnittstelle, die die Verwendung von Unter-Blöcken regelt, wird InnerBlocks bezeichnet~\cite{wordpress2024combination}.
 \\\\
 \textbf{Daten und Attribute}
-\\\\
+
 Blöcke verstehen Inhalte als Attribute.
 Ein Block kann eine beliebige Anzahl von Attributen beinhalten und diese werden in einer Key Value Relation definiert.
 Der Key spiegelt den Namen wider und der Value ist der Wert.
-Diese Inhalte sind serialisierbar in \gls{html} und werden im Block HTML gespeichert und so auch in der Datenbank als post\_content abgelegt.
-
-%TODO: Listing tauschen gegen bild
-\begin{lstlisting}[caption={Beispiel eines Gutenberg-Blocks in WordPress}]
-<!-- wp:paragraph {"key": "value"} -->
-<p>Welcome to the world of blocks.</p>
-<!-- /wp:paragraph -->
-\end{lstlisting}
+Diese Inhalte sind serialisierbar in \gls{html} und werden im Block HTML (vgl. Abbildung~\ref{fig:wp-block-example}) gespeichert und so auch in der Datenbank als post\_content abgelegt.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{wp_block_example}
+    \caption{Dateistruktur eines WordPress-Blocks (eigene Darstellung)}
+    \label{fig:wp-block-example}
+\end{figure}
 
 Blöcke lassen sich in zwei Kategorien unterteilen: statisch und dynamisch.
 Statische Blöcke bestehen aus bereits gerenderten Inhalten sowie einem Attribut-Objekt, das bei Änderungen für das erneute Rendern verwendet wird.
-Dynamische Blöcke hingegen benötigen serverseitige Daten und werden erst während der Inhaltsgenerierung gerendert.
+Dynamische Blöcke hingegen benötigen serverseitige Daten und werden erst während der Inhaltsgenerierung gerendert~\cite{wordpress2024dataflow}.
 
 
 
 
 \\\\
 \textbf{Blockmuster}
-\\\\
+
 Ein Blockermuster oder auch Pattern ist eine Gruppe von Blöcken, die zu einem Designmuster zusammengefasst werden.
 Solche Designmuster bieten für die schnellere Erstellung komplexer Seiten einen Ausgangspunkt.
 Die Größe des Blockmusters ist variabel und kann von einem einzelnen Block bis hin zu einer gesamten Seite reichen.
-Themes können Designmuster registrieren, um Benutzern schnelle Startpunkte für das Verwenden von Blöcken zu bieten.
+Themes können Designmuster registrieren, um Benutzern schnelle Startpunkte für das Verwenden von Blöcken zu bieten~\cite{wordpress2024blockpattern}.
 
 \\\\
 \textbf{Block Themes}
-\\\\
+
 Anders als der Beitragseditor konzentrieren sich die Block Themes auf die Deklaration und das Bearbeiten der gesamten Website.
 Hier können unter Zuhilfenahme von Blöcken die Kopf- bis hin zur Fußzeile Inhalte angepasst werden.
 Die Block Themes selbst werden unterteilt in Vorlagen, die die gesamte Seite beschreiben oder Vorlagenteile, die wiederverwendbare Bereiche sein können.
@@ -560,7 +557,8 @@ Diese Entwicklung stellt einen Wechsel in der Gestaltung des Mensch-Computer-Int
 
 Gamification hat sich von simplen Belohnungssystemen zu einem komplexen Gesamtkonzept entwickelt, das die Wahl spezifischer Elemente und Mechaniken, die Berücksichtigung des Anwendungskontextes, der Zielgruppe sowie der zu erreichenden Ziele umfasst. \cite{bpb2023gamification}
 \\\\
-\textbf{Abgrenzung von Serious Games}\\\\
+\textbf{Abgrenzung von Serious Games}
+
 Im Projektkontext von Charigame ist eine klare Abgrenzung zwischen Gamification und Serious Games erforderlich.
 Während Serious Games als eigenständige Spiele konzipiert werden, die primär pädagogische oder Lernziele verfolgen, versteht sich die Gamification-Implementierung in Charigame als funktionale Ergänzung.
 Ziel des gamifizierten Parts ist es, die Nutzerbeteiligung zu steigern und nicht als Wissensvermittlung zu dienen.
@@ -568,39 +566,39 @@ Ziel des gamifizierten Parts ist es, die Nutzerbeteiligung zu steigern und nicht
 Charigame verbindet somit die konventionelle Spendenaktion durch die Integration spielmechanischer Elemente, ohne dabei den ursprünglichen Zweck der Aktion zu verändern.
 Der User Experience-orientierte Ansatz zielt darauf ab, die Customer Journey zu optimieren und die emotionale Bindung der Nutzer zur Spendenaktion zu erhöhen.
 Dieser spielerische Ansatz dient als Mittel zur Aktivierung und nicht als Selbstzweck.
-\newpage
-\textbf{Strategische Bedeutung von Gamification für Spendenaktionen}
 \\\\
+\textbf{Strategische Bedeutung von Gamification für Spendenaktionen}
+
 Die Integration von Gamification in Spendenaktionen adressiert mehrere strukturelle Herausforderungen traditioneller Fundraising-Ansätze.
 Spendenaufrufe leiden häufig unter geringer Nutzerengagement und mangelnder Transparenz bezüglich der Verwendung der Mittel.
-Gamification-Elemente schaffen hier Abhilfe durch die Visualisierung des sozialen Impacts und erhöhte Nutzerbeteiligung. \cite{golrang2021applying}
+Gamification-Elemente schaffen hier Abhilfe durch die Visualisierung des sozialen Impacts und erhöhte Nutzerbeteiligung~\cite{golrang2021applying}.
 \\\\
 Die Integration spielerischer Elemente steigert sowohl die Aufmerksamkeit als auch die Reichweite sozialer Kampagnen.
 Parallel dazu ermöglicht dieser Ansatz eine authentische Kommunikation des Markenimages.
-Das Unternehmen kann dadurch ihre gesellschaftliche Verantwortung auf eine partizipative Weise demonstrieren.
+Das Unternehmen kann dadurch ihre gesellschaftliche Verantwortung auf eine partizipative Weise demonstrieren~\cite{golrang2021applying}.
 %TODO: QUELLE MELLE
-
+\\\\
 \section{Überblick über Coperate Social Responsibility und Charity-Plattformen}
 \gls{csr} (CSR) hat sich von einem optionalen Unternehmensengagement zu einer Strategie moderner Unternehmensmaßnahmen entwickelt.
 Die Europäische Kommission definiert CSR als die Verantwortung von Unternehmen für ihre Auswirkungen auf die Gesellschaft.
-Hier wird ein Konzept beschrieben, das weit über die Einhaltung gesetzlicher Bestimmungen hinausgeht.\cite{european_commission2011csr}
+Hier wird ein Konzept beschrieben, das weit über die Einhaltung gesetzlicher Bestimmungen hinausgeht~\cite{european_commission2011csr}.
 Diese gesellschaftliche Erwartungshaltung spiegelt sich in der zunehmenden Nachfrage nach transparenten und messbaren CSR-Maßnahmen wider, die von Verbrauchern eingefordert werden.
-Wie aus der Studie der Bertelsmann-Stiftung zur gesellschaftlichen Verantwortung von Unternehmen hervorgeht, identifizieren 60\% der befragten Unternehmen die Erwartungen der Kunden als einen der wichtigsten äußeren Faktoren für ihr gesellschaftliches Engagement.\cite{bertelsmann2006gesellschaftliche}
+Wie aus der Studie der Bertelsmann-Stiftung zur gesellschaftlichen Verantwortung von Unternehmen hervorgeht, identifizieren 60\% der befragten Unternehmen die Erwartungen der Kunden als einen der wichtigsten äußeren Faktoren für ihr gesellschaftliches Engagement~\cite{bertelsmann2006gesellschaftliche}.
 
 Die Verbindung von CSR-Maßnahmen mit digitalen, interaktiven Ansätzen stellt eine potenzielle Antwort auf diese gestiegenen Erwartungen dar.
 Eine gamifizierte Charity-Plattform ermöglichen es dabei, Transparenzanforderungen zu erfüllen als auch das häufig geringe Engagement bei konventionellen Spendenaktionen zu erhöhen.
 \\\\
 \textbf{Charity-Plattformen}
-\\\\
+
 Parallel zu dieser Entwicklung hat die Digitalisierung neue Möglichkeiten für die Umsetzung und Kommunikation von CSR-Initiativen eröffnet.
 Online-Charity-Plattformen ermöglichen es Unternehmen ihre gesellschaftliche Verantwortung digital abzubilden und dabei gleichzeitig die Reichweite zu erhöhen.
-Diese digitalen Plattformen fungieren als Vermittler zwischen Unternehmen, gemeinnützigen Organisationen und der Öffentlichkeit.
+Diese digitalen Plattformen fungieren als Vermittler zwischen Unternehmen, gemeinnützigen Organisationen und der Öffentlichkeit~\cite{csr40_2020}.
 \\\\
-\textbf{Gamifizierte Charity-Plattformen} \\\\
+\textbf{Gamifizierte Charity-Plattformen}
+
 Die Kombination von CSR-Maßnahmen mit spielerischen Inhalten eröffnet Unternehmen neue Möglichkeiten, gesellschaftliches Engagement sichtbar und interaktiv zu gestalten.
 Gamification wirkt hier als Verbindungsstück, das das in CSR-Anwendungen häufig geringe Nutzerengagement adressiert und erhöht.
 Charity-Plattformen, die auf Gamification-Elemente setzen, verbinden damit zwei wesentliche Aspekte.
 Die wachsende Erwartungshaltung an transparente CSR-Initiativen und den Trend zu interaktiven, nutzerzentrierten digitalen Anwendungen.
-
 Damit ist der theoretische Rahmen gesetzt, innerhalb dessen das Projekt \textit{Charigame} verortet werden kann.
 Im folgenden Kapitel wird der Projektkontext dargestellt, um die praktische Umsetzung und Weiterentwicklung der \gls{Plugin}-Architektur nachvollziehbar zu machen.
