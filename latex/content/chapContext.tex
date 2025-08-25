@@ -6,7 +6,7 @@ Diese Darstellung bildet die Grundlage für die anschließende Analyse und dient
 
 Das Projekt Charigame entstand ursprünglich als interne Initiative der elancer-team GmbH mit dem Ziel eine digitale Spendenaktion zu ermöglichen.
 Diese Idee des Projekts lässt sich auf eine durch die Agentur erstellte Weihnachtsaktion zurückführen, die auf der Website \texttt{https://hohoho.elancer-team.de/} implementiert wurde.
-Bei der Spendenaktion hat die elancer-team GmbH die Spendensumme bereitgestellt und die Agenturkunden wurden eingeladen teilzunehmen und durch ihr engagement den Spendentopf zu erhöhen.
+Bei der Spendenaktion hat die elancer-team GmbH die Spendensumme bereitgestellt und die Agenturkunden wurden eingeladen teilzunehmen und durch ihr Engagement den Spendentopf zu erhöhen.
 Diese Plattform ermöglichte es den Kunden der Agentur erstmals, über die gamifizierte Benutzeroberfläche Spenden zu erspielen und zu verteilen.
 \\\\
 Die positive Resonanz der Agenturkunden auf diesen gamifizierten Ansatz führte zu der Überlegung das Konzept weiterzuentwickeln.
@@ -51,8 +51,8 @@ Die Funktionsweise von Charigame lässt sich grob in 5 Schritte unterteilen, die
 \subsection{Wordpress Front- und Backend}
 \label{subsec:front-backend}
 Der deskriptive Stand von Charigame befindet sich in einem funktionsfähigen, jedoch technisch und konzeptionell ausbaufähigen Zustand.
-Das WordPress-Plugin integriert sich in das CMS WordPress und erweitert den Funktionsumfang, um gamifizierte Spendenaktionen.
-Bevor die Spendenaktion bereitsteht ist es notwendig, dass verschiedene Einstellungen getroffen.
+Das WordPress-Plugin integriert sich in das CMS WordPress und erweitert den Funktionsumfang um gamifizierte Spendenaktionen.
+Bevor die Spendenaktion bereitsteht ist es notwendig, dass verschiedene Einstellungen getroffen werden.
 Die notwendigen Einstellungen können über das WordPress-Backend Menü aufgerufen werden.
 \\
 Hierzu erzeugt ein Charigame Menüpunkt im WordPress Dashboard wie in Abbildung~\ref{fig:charigame-menu-legacy}: visualisiert.
@@ -103,7 +103,7 @@ Die getroffenen Einstellungen bestimmen direkt das Erscheinungsbild der Login-Fo
 Die Donation Recipients stellen die Empfänger der Spenden dar.
 Für jede Kampagne müssen mindestens drei Empfänger angelegt werden.
 Pro Empfänger werden ein Name, ein Bild sowie ein beschreibender Text hinterlegt (vgl. Tabelle~\ref{tab:eingabefelder_donation_recipients}).
-Das vorab erstellen der Recipients ist im Verlauf der Einstellungen zwingend erforderlich, da sie in den Kampagneneinstellungen referenziert werden.
+Die Voraberstellung der Recipients ist im Verlauf der Einstellungen zwingend erforderlich, da sie in den Kampagneneinstellungen referenziert werden.
 Die Backendansicht der Donation Recipients ist in Abbildung~\ref{fig:donation-recipients-settings-legacy} veranschaulicht.
 \begin{figure}[H]
     \centering
@@ -308,7 +308,7 @@ Im Folgenden werden diese näher vorgestellt und in ihrem technischen Kontext er
 \end{itemize}
 \subsection{Architektur}
 
-Trotz der vielzahl an Funktionalität ist die Architektur des Plugins ist insgesamt einfach gehalten und stark auf eine zentrale Datei ausgerichtet.
+Trotz der Vielzahl an Funktionalität ist die Architektur des Plugins insgesamt einfach gehalten und stark auf eine zentrale Datei ausgerichtet.
 Sämtliche Kernfunktionen laufen in der Hauptdatei elancer-donate-games-plugin.php zusammen.\\
 Hier sind die Custom Post Types, Admin-Menüs, Datenbankoperationen, \gls{ajax}-Endpunkte, Template-Overrides sowie das Enqueueing von Skripten und Styles koordiniert.
 

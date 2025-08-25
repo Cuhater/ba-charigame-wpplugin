@@ -4,29 +4,67 @@ Auf Basis der in Kapitel 4 entwickelten Konzeption folgt in diesem Kapitel die p
 \section{Entwicklungsumgebung und Tools}
 Für die Umsetzung des Projekts wurden verschiedene Tools eingesetzt.
 Als Entwicklungsumgebung kam PHPStorm zum Einsatz, ergänzt durch PHPCS zur Einhaltung der WordPress-Codestandards.
-Google Chrome diente als Browser, während die lokale Entwicklung mit WP Local erfolgte.
-Zur Verwaltung von Paketen und Abhängigkeiten wurde NPM verwendet und die Versionierung des Projekts erfolgte über GitHub.
+Google Chrome diente als Browser, während die lokale Entwicklung mit \gls{WP} Local eingerichtet wurde.
+Zur Verwaltung von Paketen und Abhängigkeiten wurde \gls{NPM} verwendet und die Versionierung des Projekts erfolgte über GitHub.
 
 \section{Projektsetup}
-Im ersten Schritt der Implementierung wurde eine lokale Entwicklungsumgebung mit WP Local aufgesetzt.
-Hierzu nginx Server mit PHP Version 8.4.10 und einer MySQL 8.0.35 Database.
-Wordpress kommt in Version 6.8.2 zum Einsatz.
-Die einstellung normal keine weiteren Anpassungen getroffen.
-Keine weiteren Plugins in WP hinterlegt.
+Im ersten Schritt der Implementierung wurde eine lokale Entwicklungsumgebung mittels Local WP eingerichtet.
+Die Entwicklungsumgebung basiert auf einem nginx-Webserver mit PHP Version 8.4.10 und einer MySQL-Datenbank in Version 8.0.35.
+WordPress wurde in der Version 6.8.2 installiert und mit den Standardkonfigurationen eingesetzt.
+Es wurden keine zusätzlichen Anpassungen an der Grundkonfiguration vorgenommen und keine weiteren Plugins implementiert, um eine möglichst neutrale Ausgangsbasis für die Implementierung zu gewährleisten.
 
-Einrichtung des Projekts auf GitHub / Versionskontrolle
-Github neuer Branch des bestehenden Projekts auf dem internen Elancer GitHub erstellt
-Projekt importiert ansonsten erstmal nichts
+Zwecks Versionierung wurde Git auf der GitHub-Instanz der elancer-team GmbH verwendet und ein neuer Branch des bestehenden Repository angelegt.
+Der deskriptive Stand des Plugins ist abschließend in Wordpress importiert worden und die eigentliche Implementation konnte begonnen werden.
 
 \section{Plugin-Struktur und Architektur}
 Vorgehen der Implementierung
-Architektur
-Plugin bereinigt von altlasten. hierzu zählen diverse assets und abhängigkeiten die nicht mehr benötigt wurden.
-Carbon fields hinterlegt als klassenaufruf instanziiert den boot
+Boilerplate bezogen von %https://github.com/DevinVinson/WordPress-Plugin-Boilerplate
+Daten aus bestehenden Plugin übertragen
+Plugin bereinigt von altlasten. hierzu zählen diverse assets und abhängigkeiten die nicht mehr benötigt wurden. mit bestehenden altlasten ist gemeint daten die zum zeitpunkt des übertrags schon keine verwendung oder funktoin hatten
+dann
+Carbon fields hinterlegt als klassenaufruf instanziiert den boot via composer auch reingeladen Hierzu wie konzipiert eine klasse für den boot von carbon fields erstellt und in die neue projektstrutkur eingebunden
 Dann alle get field aufrufe identifiziert und durch carbon fields ersetzt
 Dann alle CPTs neu aufgebaut. Einheitlichen ductus von Charigame realisiert.
 Namespace angepasst und klassen bezeichnungen und datenbank bezeichnungen angeeglichen
-Verzeichnisstrutkur aufgebaut - includes,
+Verzeichnisstrutkur aufgebaut - includes,admin, frontend, blocks, assets, src, templates separiert
+tailwind config aufgebaut
+
+datei edg bla genommen und die ganzen funktionen in entsprechende klassen seperiert
+
+angefangen asset manager und tmeplate loader anzupassen
+hier template loader kümemrt sich darum das die Campaign ordnetliches tempalte bezieeht. Landing aufgebaut aber brauhc man eigtl nicht weil man die gar nicht alleinig betrachtet sonder diese nur den content ausgibt auf campaign
+
+Login logik aus dem front end sepertiert und ein login manager aufgebaut. hier dann weil landingpage als neuer cpt genommen wird ein shortcode erstellt, der den content von der landingpage überträgt und einsetzt
+
+color manager aufgebaut (erklären was wie wo)
+
+
+
+main Part: aufbau der gutenberg blöcke
+hierzu sturktur gebaut automaitsche initialisierung der blöcke. alle bestehenden normalen blöcke rausgenomme.
+die blöcke intro-section, donation-section, how-to-play-section, recipient-section, game-section. spiegelt den deskriptiven stand dar. das dann aber anpassbar mit gutenberg
+auf die einzelnen blöcke eingehen
+how to bspsweise die icons aus heroicons genommen im svg zur verfügung gestellt
+Weiter blöcke wie container, columns columns headline gebaut. dann im projektverlauf dagegen entschieden, weil sonst zu viele freiheiten bestheen. dies könnte man im weiteren verlauf ncoh detaillierter auseinanderziehen.
+für implement war wichtig den bestehenden stand erstmal möglichst effizient so umzusetzen 1.1
+Blöcken utils verwendet wie childblocks colorpalette iconlist sizes useimage use campaign data.js hier eingehen
+compontnes wie backgroundselect und borderstyle ausgelagert, da diese widerholend im projektverlauf aufgetaucht sind und redundanzen vermieden werden sollten
+
+gemerkt das die spendenvertilung so nicht mehr funktoinert den donation manager aufgebaut
+
+stetig die helper.php erweitert um getter und setter functions
+
+
+
+dann
+dann e-mail-template für das html template so gebaut, dass es als cpt im block editor verfügbar ist.
+dashboard - angepasst und shadcn implementiert um bessere visuals zu gewährleisten und darüber hinaus auch neue metriken mit aufgebaut wie:
+games maßgeblich übernommen aber einzelne einstellungsmöglcihkeiten bei dem memory spiel ausgelagert in die settuings.php %TODO WICHTIG PRÜFEN
+
+weitere einstellungen
+email smtp dafür ein partial erstellt welches dann da eingebunden wird (auch shadcn)
+admin components als php aufgebaut in components ui wiederverwendbar button card progress udn table
+
 Überblick über die Dateien und Verzeichnisse
 
 Custom Post Types, Shortcodes, Blocks
