@@ -1,5 +1,7 @@
 \chapter{Projektkontext}
-
+In diesem Kapitel wird der Kontext des Projekts vorgestellt, um ein Verständnis für dessen Ursprung, Zielsetzung und aktuellen Entwicklungsstand zu schaffen.
+Neben der Entstehungsgeschichte von \textit{Charigame} werden die derzeitige Systemarchitektur sowie die Funktionsweise des bestehenden WordPress-Plugins beschrieben.
+Diese Darstellung bildet die Grundlage für die anschließende Analyse und dient als Ausgangspunkt für die konzeptionelle Weiterentwicklung in Kapitel 4.
 \section{Das Projekt Charigame}
 
 Das Projekt Charigame entstand ursprünglich als interne Initiative der elancer-team GmbH mit dem Ziel eine digitale Spendenaktion zu ermöglichen.
@@ -196,7 +198,6 @@ Zusätzlich bietet die Oberfläche eine Funktion zum Versand einer Testmail, mit
 \end{figure}
 
 Darüber hinaus bietet der Backend-View der E-Mail-Settings eine Funktion, eine Testmail an eine ausgewählte Adresse zu senden, um die Einstellungen auf Ihre Richtigkeit prüfen zu können.
-
 \\\\
 \textbf{Data Table}
 
@@ -284,7 +285,7 @@ Im Folgenden werden diese näher vorgestellt und in ihrem technischen Kontext er
     Außerdem wurden WP Cron Jobs bzw. Scheduled Tasks vorbereitet, um zeitgesteuerte Abläufe im Plugin zu ermöglichen.
 
     \item \textbf{Frontend und JavaScript}\\
-    Für Animationen wird die \gls{GSAP} 3 eingesetzt.
+    Für Animationen wird die \gls{gsap} 3 eingesetzt.
     Neben der Kernbibliothek sind auch Plugins von \gls{gsap} wie Observer, ScrollTrigger, MotionPathPlugin und Draggable integriert, die komplexe Animationen und Interaktionen ermöglichen.
 
     Visuell wird ebenfalls Confetti \gls{js} für animierte Partikeleffekte eingesetzt.
@@ -298,7 +299,7 @@ Im Folgenden werden diese näher vorgestellt und in ihrem technischen Kontext er
 
     \item \textbf{Package- und Task-Runner}\\
     \gls{npm} dient als zentraler Package Manager für JavaScript-Bibliotheken und Build-Skripte.
-    Ergänzend kommt Grunt als Task-Runner zum Einsatz, unter anderem für Internationalisierung (grunt-wp-i18n) und die automatisierte Erstellung von Readme-Dateien (grunt-wp-readme-to-markdown).
+    Ergänzend kommt Grunt als Task-Runner zum Einsatz, unter anderem für Internationalisierung und die automatisierte Erstellung von Readme-Dateien.
     Grunt selbst wurde in der praktischen Anwendung jedoch nie verwendet.
 
     \item \textbf{Weitere Aspekte}\\
@@ -324,7 +325,7 @@ Der Code ist überwiegend prozedural, enthält aber einzelne objektorientierte E
     Der Datenzugriff erfolgt direkt über die WordPress-Datenbankschnittstelle wpdb. Eine eigene Tabelle (wp\_edg\_game\_data) wird per dbDelta angelegt, ohne zusätzliche Abstraktionsschicht oder \gls{orm}. Inhalte und Konfigurationen basieren stark auf ACF Pro, das an vielen Stellen über get\_field() aufgerufen wird. Dynamische Farben werden über eine in PHP generierte CSS-Datei (tailwind-colors.css) eingebunden.
 
     \item \textbf{Build- und Tooling-Umfeld}\\
-    Für den Build-Prozess kommt ein Tailwind-\gls{cli}-Workflow zum Einsatz, gesteuert über npm-Skripte. Grunt unterstützt Aufgaben wie Internationalisierung und die Generierung von Readme-Dateien. Composer, PHP CodeSniffer (inklusive WPCS und PHPCompatibility) sowie PHPUnit sorgen für Codequalität.
+    Für den Build-Prozess kommt ein Tailwind-\gls{cli}-Workflow zum Einsatz, gesteuert über npm-Skripte. Grunt unterstützt Aufgaben wie Internationalisierung und die Generierung von Readme-Dateien.
 
     \item \textbf{Einschränkungen und Schwächen}\\
     Die Bearbeitung von Landingpages ist nur eingeschränkt möglich, viele Texte sind fest im Code hinterlegt und bieten damit wenig Flexibilität. Das Dashboard liefert nur eine einfache Datenübersicht und bleibt visuell schlicht. Sicherheitsaspekte wurden nur teilweise berücksichtigt: Manche AJAX-Endpunkte verzichten auf Nonce- oder Berechtigungsprüfungen, und an einigen Stellen fehlt sauberes Escaping. Auch die Datenbank-Constraints sind uneinheitlich, wodurch doppelte Spielcodes möglich sind. Darüber hinaus erschwert die starke Bündelung der Logik in einer Datei die Wartbarkeit. Designprinzipien wie Service- oder Repository-Muster sind nicht umgesetzt, und auch die Einbindung von Assets ist wenig optimiert, da Skripte und Bibliotheken ohne Bündelung oder Minifizierung geladen werden.

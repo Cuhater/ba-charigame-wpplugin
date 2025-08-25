@@ -1,106 +1,175 @@
 \chapter{Konzeption und Design}
+Aufbauend auf der Analyse des Projektkontexts in Kapitel 3 werden in diesem Kapitel die konzeptionellen Überlegungen und das technische Design der Lösung vorgestellt. Ziel ist es, die identifizierten Schwachstellen zu adressieren und eine tragfähige Architektur für die Umsetzung des WordPress-Plugins zu entwerfen. Dabei werden sowohl die Struktur von Backend, Frontend und Helper-Layer als auch die Integration des Gutenberg-Editors konzeptionell beschrieben, um die Basis für die Implementierung in Kapitel 5 zu schaffen. %TODO: CHapter verlinken
+\section{Stakeholderanalyse und Nutzungskontext}
+Zuerst werden die Stakeholder und der Nutzungskontext des Projekts Charigame beleuchtet.
+Je nach Branche und Geschäftsmodell ergeben sich dabei unterschiedliche Anforderungen an die Funktionalität und den Einsatzkontext.
+Eine Übersicht der Stakeholdergruppen ist in Abbildung~\ref{fig:stakeholder} veranschaulicht.
+\begin{figure}[H]
+    \centering
+    \includesvg[width=0.75\textwidth]{images/stakeholder}
+    \caption{Stakeholderanalyse Matrix (eigene Darstellung)}
+    \label{fig:stakeholder}
+\end{figure}
 
-\section{Stakeholder und Nutzungskontext}
-Als Stakeholder wurden seitens der elancer-team GmbH die folgenden Gruppen identifiziert:
-Viereck mit den Stakeholdern.
+\begin{enumerate}
+    \item \textbf{Dienstleistungsunternehmen}
 
-Nutzungskontext: Für
+Dienstleistungsunternehmen mit langfristigen Kundenbeziehungen fokussieren sich oft primär auf die Erhaltung ihrer bestehenden Geschäftspartnerschaften.
+Hier geht es weniger um die Neukundengewinnung als mehr um die Pflege des bestehenden Kundenstamms.
+Eine gamifizierte CSR-Lösung bietet die Möglichkeit die soziale Verantwortung sichtbar zu machen und die Bindung zu stärken.
 
-CPTs nice
-Screenshots Frontend Backend zeigen
-\section{Gesetzte Anforderungen an die Weiterentwicklung}
+    \item \textbf{Konzerne}
 
-Für den zu bearbeitenden Part im Kaptiel 4 sind Praxispart mindestens die folgenden Anforderungen gesetzt:
+Großunternehmen nutzen CSR-Maßnahmen strategisch zur Stärkung von Geschäftspartnerschaften und zur Förderung des Markenimages.
+Für diese Zielgruppe ist es wichtig, dass die Skalierbarkeit nahtlos und ohne Probleme geschieht.
+Charigame kann hier einen innovativen Ansatz bieten, um Mitarbeitende, Partner und die Öffentlichkeit einzubinden.
+
+    \item \textbf{Vermittler}
+
+Unternehmen mit direktem Endkundenkontakt in wettbewerbsintensiven Märkten, profitieren von Alleinstellungsmerkmalen.
+Charigame schafft durch seinen spielerischen Ansatz einen niedrigschwelligen Zugang zu CSR-Aktivitäten.
+Dies kann die Kundenerfahrung emotional aufwerten, wodurch sich Wettbewerbsvorteile erschließen.
+
+    \item \textbf{Produzenten}
+
+Für produzierende Unternehmen bietet gamifizierte CSR die Möglichkeit, eine emotionale Bindung zwischen Endverbrauchern und der Marke herzustellen.
+Spielerisch gestaltete Spendenaktionen lassen sich nahtlos in Marketingkampagnen integrieren.
+Diese Aktionen stärken das Markenimage und erhöhen die Reichweite in digitalen Kanälen.\\\\
+Zusammenfassend lässt sich festhalten, dass das Plugin \textit{Charigame} sowohl im \gls{b2b}- als auch im \gls{b2c}-Kontext unterschiedliche Mehrwerte schaffen kann.
+Während im \gls{b2b}-Bereich die Aspekte Reputation und Kundenbindung im Vordergrund stehen, sind es im \gls{b2c}-Bereich vor allem Markenerlebnis und Differenzierung, die den Einsatz attraktiv machen.
+\end{enumerate}
+%TODO: Quellen hinterlegen zu aussagen in den texten oben
+
+\section{Anforderungen an die Weiterentwicklung}
+Aus den Erkenntnissen der Stakeholderanalyse und den identifizierten Schwächen des deskriptiven Stands, sowie der zu bearbeitenden These dieser Arbeit lassen sich diverse Anforderungen ableiten.
+Diese Anforderungen wurden entsprechend dem definierten Projektumfang auf die wesentlichsten Aspekte fokussiert und werden nachfolgend adressiert.
+
 \subsection{Technische Anforderungen}
 \begin{itemize}
-    \item Das System muss die Abhängigkeit von der PRO-Version des Plugins ACF (Advanced Custom Fields) entfernen.
-    \item Das System muss gängige WordPress-Plugin-Best-Practices befolgen.
-    \item Das System soll gängige Security-Best-Practices der WordPress-Developer-Ressourcen berücksichtigen.
+    \item [T1]: Das System muss die Abhängigkeit von der PRO-Version des Plugins ACF (Advanced Custom Fields) entfernen.
+    \item [T2]: Das System muss gängige WordPress-Plugin-Best-Practices befolgen.
+    \item [T3]: Das System soll gängige Security-Best-Practices der WordPress-Developer-Ressourcen berücksichtigen.
 \end{itemize}
-
-
 
 \subsection{Funktionale Anforderungen}
 \begin{itemize}
-    \item Das System muss die Landingpage mit dem Gutenberg-Editor editierbar machen.
-    \item Das System muss Gutenberg-Blöcke bereitstellen, die die bestehende Landingpage abbilden können.
-    \item Das System soll eine verbesserte Version des Dashboards bereitstellen.
-    \item Das System soll eine bessere Übersicht für Nutzer bieten.
-    \item Das System soll eine verbesserte Möglichkeit bieten, Inhalte zu bearbeiten.
+    \item [F1]: Das System muss die Landingpage mit dem Gutenberg-Editor editierbar machen.
+    \item [F2]: Das System muss Gutenberg-Blöcke bereitstellen, die die bestehende Landingpage abbilden können.
+    \item [F3]: Das System soll eine verbesserte Möglichkeit bieten, Inhalte zu bearbeiten.
+    \item [F4]: Das System kann eine verbesserte Version des Dashboards bereitstellen.
+    \item [F5]: Das System kann eine bessere Übersicht für Nutzer bieten.
 \end{itemize}
 
 \section{Abgrenzung des Projektumfangs}
-Zur Abgrenzung des Projektumfangs wurden jetzt hier die Anforderungen aufgebaut.
-Ferner gilt es begleitend die schriftliche Ausarbetiung auszuführen.
-Damit ein wissenschaftlicher konsens gefunden werden kann muss das ergebnis am ende evaluiert werden und das ergebnis kritisch betrachtet werden.
-Ferner soll der weitere horizont für das zukünfitge vorgehen festgelegt werden und mögliche erweiterungen oder anpassungen angesprochen werden.
+Zur Abgrenzung des Projektumfangs der Arbeit wurden die Anforderungen im Muss-Kann-Soll-Schema definiert.
+Das bestehende Projekt bietet weiterführendes Potenzial wesentlich mehr Anforderungen zu definieren, die nicht abgedeckt wurden, um den Umfang im Rahmen zu halten.
+Die definierten Anforderungen werden im weiteren Verlauf der Konzeption tiefergehend betrachtet, damit der angestrebte präskriptive Zustand erreicht wird.
 
-
-\label{chap:literature}
-%
-Fremdes Gedankengut muss immer kenntlich gemacht werden. Vor allem muss es überprüfbar und auffindbar sein. Hierzu dient die Technik des Zitierens und Belegens.
-\par
-Verschiedene Fachrichtungen und Studiengänge folgen spezifischen Zitierkonventionen. Wichtige Hinweise zu gängigen Zitationssystem und -stilen finden Sie in den E-Learning-Kursen des Schreibzentrums\footnote{\href{https://ilu.th-koeln.de/goto.php?target=cat\_52109\&client\_id=thkilu}{https://ilu.th-koeln.de/goto.php?target=cat\_52109\&client\_id=thkilu}}.
-%
-\section{Anforderungsanalyse}
-%Bitte legen Sie den Zitierstil immer am Anfang fest und wechseln sie ihn nicht.
-\par
-Wörtlich übernommene Textpassagen werden durch Anführungszeichen unten und oben (\enquote{\ldots}) kenntlich gemacht.
-\par
-Wenn Ihr Zitat bereits ein Zitat enthält, müssen Sie die \enquote{doppelten Anführungszeichen} im Text durch \enquote*{einfache Anführungszeichen} ersetzen. Dazu vergleiche auch Abschnitt~\ref{sec:specialCases}.
-%Verwechseln Sie diese bitte nicht mit dem Apostroph oder dem Zoll-Zeichen auf Ihrer Tastatur. Die Tastaturkürzel für korrekte Anführungszeichen und andere Sonderzeichen sind bei Typefacts aufgelistet.
-%
-\subsection{Funktionale Anforderungen}
-Für alle Zitate muss ein Quellenverweis erstellt werden. Der Quellenverweis ist eine im Zitationsstil festgelegte Kurznotation, die auf die vollständige Literaturangabe im Literaturverzeichnis verweist. Quellenverweise können \emph{entweder} im laufenden Text (anglo-amerikanische Zitierweise bzw. Harvard-Stil) \emph{oder} über eine Fußnote am unteren Ende der Seite \emph{oder} in einer Endnote am Ende des gesamten Textes erfolgen. Hier gelten unterschiedliche fachliche Konventionen, die unbedingt beachtet werden müssen.
-\par
-Entscheidet man sich für Kurzverweise im Textfluss oder für Endnoten, kann der Fußnotenbereich für Kommentare und für Verweise auf Stellen im eigenen Text genutzt werden.
-\par
-\emph{Beachten Sie die Positionen von Hochzahl und Satzzeichen:}
-\par
-Wenn das wörtliche Zitat selbst mit einem Punkt endet, steht dieser vor dem beendenden Anführungszeichen. Die Hochzahl folgt dann direkt danach ohne Leerzeichen. Ein Punkt für den eigenen Satz entfällt dann.
-\par
-Wenn das wörtliche Zitat nicht mit einem Punkt endet gibt es zwei Fälle: Steht das Zitat mitten im eigenen Satz, folgt die Hochzahl direkt nach den Anführungszeichen. Steht das Zitat am Ende des eigenen Satzes, notiert man zuerst die Anführungszeichen, dann den eigenen Satzpunkt und erst dann die Hochzahl.
-\par
-Damit die Quellenverweise auch bei mehreren gleichlautenden Kurztiteln oder Jahreszahlen eines Autors eindeutig bleiben, erhalten die Jahreszahlen einen zusätzlichen kleinen Buchstaben.
-%Oftmals ergibt sich dies erst gegen Ende der Arbeit. Daher kann es helfen, bei der Manuskripterstellung der Jahreszahl einen vorläufigen Kurztitel beizufügen. In der Endphase lässt sich dieser durch Suchen/Ersetzen über das Textverarbeitungsprogramm austauschen bzw. entfernen.
-%
-\subsection{Nicht-funktionale Anforderungen}
-Textverarbeitungsprogramme machen das Verweisen über \emph{derselbe} und \emph{ebenda} heute überflüssig, da man nicht mehr gezwungen ist, die gleichen Angaben wieder und wieder abzutippen. Sollten Sie sich (zum Beispiel auf Anraten Ihres Prüfenden) dennoch für dieses Verfahren entscheiden, empfehlen wir dringend, \emph{ebenda} und \emph{derselbe} etc. \emph{erst in der redaktionellen Endphase} einzufügen, weil die Bezüge erst dann klar sind.
-%
-\subsection{Stakeholder-Analyse (elancer-team GmbH)}
-Bei Zitaten aus zweiter Hand, sog. Sekundärzitaten, übernimmt man ein Zitat eines Autors oder einer Autorin, ohne sich in der Originalquelle über den Sinnzusammenhang informiert zu haben. Zitate aus zweiter Hand sind nur zulässig, wenn die Originalquelle nicht beschaffbar ist. Bei allgemein zugänglicher wissenschaftlicher Literatur sind Zitate aus zweiter Hand unbedingt zu vermeiden. Ist es nicht möglich, ein Zitat mit dem Originaltext zu vergleichen, dann notiert man zitiert nach (es folgt die Quelle, der man das Zitat entnommen hat) oder zitiert in. Dies kommt zum Beispiel vor, wenn man wissenschaftsgeschichtliche Sachverhalte aus Lehrbüchern zitiert.
-%
-\textbf{Abbildungen und Tabellen zitieren}
-\label{sec:refFigures}
-Hier gelten die gleichen Richtlinien wie für Textzitate, d.\,h. auch hier gibt es getreue und abgeänderte Übernahmen. Beim originalgetreuen Zitat können Sie eine Abbildung z. B. in PowerPoint oder einem Zeichen-/Vektorprogramm genau nachbilden. Beim Scannen ist das Copyright zu berücksichtigen; es ist nur dann erlaubt, wenn der Autor bzw. der Verlag die~--~zumeist kostenpflichtige~--~Erlaubnis dazu erteilt hat. Der Quellenverweis ist in diesem Fall wie beim wörtlichen Zitat zu gestalten. Bei eigenen Veränderungen, muss dem Quellenverweis ein Zusatz angehängt werden (z.\,B. \emph{mit geringfügigen Veränderungen}, \emph{mit eigenen Berechnungen}, usw.).
-\par
-Weil Grafiken häufig übernommen werden, empfiehlt es sich, eigene Grafiken oder Bebilderungen auch als solche zu kennzeichnen.
-\par
-In Tabellen- und Abbildungsunterschriften wird die Quelle immer direkt unter der Abbildung angegeben und nicht in einer Fuß- oder Endnote. Ins Abbildungs- und Tabellenverzeichnis gehören die Quellenangaben allerdings nicht. Dazu siehe Abschnitt~\ref{sec:captions}.
-% Da sie jedoch automatisch übernommen werden, denken Sie bitte beim Aktualisieren des Verzeichnisses daran, Quellenangaben dort händisch zu löschen.
-%
-%
 \section{Plugin-Architektur}
-%
-Nachfolgend wird die Gestaltung des obligatorischen Literaturverzeichnisses erläutert.
-%
-\subsection{Modularer Aufbau und Komponenten}
-\label{sec:bib-content}
-Im Literaturverzeichnis werden alle verwendeten Schriften in alphabetischer Reihenfolge nach Autorennamen gelistet. Das Literaturverzeichnis muss alle im Text zitierten Quellen beinhalten, aber auch keine darüber hinaus gehenden. Sind Werke nicht nur in gedruckter Form, sondern auch elektronisch publiziert, sollte die Literaturangabe der Druckfassung folgen. Es sei denn, das digitale Dokument hat eine feste Dokumentennummer (DOI). Wurde im Textteil in den Quellenverweisen statt des Titels ein Buchstabenkürzel verwendet, so ist diese Angabe auch im Literaturverzeichnis kenntlich zu machen.
-\par
-Mehrere Werke, die ein Autor innerhalb eines Jahres veröffentlicht hat, müssen differenziert werden. Für die Kurztitel im Text sind die Jahreszahlen daher durch angehängte Kleinbuchstaben zu unterscheiden. Die Jahreszahl in der Quellenangabe bleibt jedoch unverändert ohne angehängte Buchstaben. Die Reihenfolge von a, b, c etc. richtet sich nach der Reihenfolge der Quellenverweise. Ob Vornamen abgekürzt oder ausgeschrieben werden, hängt von den Konventionen Ihres Faches ab. Bleiben Sie jedoch einheitlich.
-%\par
-%Die vollständige Literaturangabe wird immer mit einem Punkt abgeschlossen. Es werden nie zwei Punkte oder Komma und Punkt hintereinander gesetzt.
-%
-\subsection{Datenmodell und Datenbankstruktur}
-Die Reihenfolge in der Notation der Literaturangabe hängt vom Dokumententyp und von fachlichen Konventionen ab. Bei Monografien sieht sie also anders aus als bei Zeitschriftenaufsätzen, in der Chemie wieder anders als in den Geisteswissenschaften oder der Mathematik. Auch für die \emph{Interpunktion} gibt es keine einheitlichen Vorgaben.
-\par
-Die Daten einer Literaturangabe entnehmen Sie bei Büchern dem so genannten Titelblatt. Dies ist nicht der Buchdeckel, sondern ein bedrucktes Blatt am Buchbeginn mit den wichtigsten werk- und buchidentifizierenden Angaben. Zunächst werden Verfasser oder Herausgeber zusammen mit dem Titel genannt, darauf folgen Erscheinungs- und Druckvermerke wie Verlag, Ort und Erscheinungsjahr. Es gibt zwar eine DIN-Regel für die Titelbeschriftung, die aber sehr unterschiedlich ausgelegt wird.
-\par
-In den E-Learning-Kursen des Schreibzentrums\footnote{\href{https://ilu.th-koeln.de/goto.php?target=cat\_52109\&client\_id=thkilu}{https://ilu.th-koeln.de/goto.php?target=cat\_52109\&client\_id=thkilu}} finden Sie weitere Informationen zu den bibliographischen Angaben für verschiedene Publikationstypen. Die hier folgende Literaturliste ist nur ein Beispiel für ein mögliches Format.
+Die Weiterentwicklung des Plugins \emph{Charigame} strebt eine modulare und wartungsfreundliche Plugin Architektur an, wie einleitend in Kapitel 1 skizziert. %TODO:CHAPTER VERLINKEN
+Dabei wird das Ziel verfolgt, eine klare Trennung von Verantwortlichkeiten umzusetzen.
+Ferner wird die Erweiterbarkeit und die Möglichkeit das Projekt skalierbar zu entwickeln ein wesentlicher Bestandteil der Architektur.
+Grundlegend wird ein objektorientierter Ansatz verfolgt, um die Wiederverwendbarkeit des Codes zu gewährleisten.
+Folgend werden die wichtigsten definierten Anforderungen im Zusammenhang mit den einzusetzenden Technologien adressiert.
+\\\\
+\subsection{Einzusetzende Technologien}
+\textbf{Carbon Fields}
 
-\subsection{API-Design und Schnittstellen}
+Die Abhängigkeit des externen Plugins ACF Pro vollständig zu entfernen geht aus der zuvor definierten Anforderung [T1] hervor.
+Anstelle von ACF Pro wird das Framework Carbon Fields genutzt, das über Composer eingebunden werden kann.
+Carbon Fields ermöglicht die flexible Definition und Verwaltung von Metafeldern innerhalb von WordPress.
+Im Vergleich zu ACF hat diese Lösung den Vorteil, dass sie als Bibliothek in das Plugin integriert werden kann.
+Darüber hinaus ist Carbon Fields eine Open Source Lösung und es ist keine kostengebundene Lizenz notwendig.
+\\\\
+\textbf{Gutenberg Blockeditor}
 
-\section{Gutenberg-Integration}
-\subsection{Block-Design und -Funktionalität}
-\subsection{Editor-Integration}
+Ein weiterer Kernbestandteil der Technologieauswahl ist die Integration von Gutenberg.
+Dies erlaubt die Entwicklung maßgeschneiderter Blöcke für den Editor und stellt sicher, dass Inhalte direkt im Backend in einer Live-Vorschau bearbeitet werden können.
+Für das Editor-UI wird React verwendet, da es die von WordPress empfohlene und im Gutenberg-Editor standardmäßig eingesetzte Technologie ist.
+Die Kopplung von PHP im Backend und React im Editor ermöglicht eine klare Trennung von Daten- und Darstellungsschicht.
+Durch den Einsatz dieser Lösung können die Anforderungen [F1], [F2] und [F3] behandelt werden.
+\\\\
+\textbf{PHPCS}
+
+Eine weitere zentrale Thematik der Weiterentwicklung bildet die Anforderung [T2].
+Unter Zuhilfenahme des \gls{phpcs} wird sichergestellt, dass die Wordpress Coding Standards konsequent eingehalten werden.
+Diese Verwendung ermöglicht eine automatisierte Überprüfung des Codes, sodass Verstöße gegen die definierten Standards unmittelbar angezeigt werden.
+Auf diese Weise wird nicht nur die Lesbarkeit, sondern auch die langfristige Wartbarkeit des Codes erheblich verbessert.
+\\\\
+Aus der geplanten Architektur und den eingesetzten Technologien geht weiterführend der Aufbau der Komponenten hervor.
+
+\subsection{Aufbau der Komponenten}
+Das Plugin soll eine eine zentrale Einstiegsklasse \texttt{Charigame} besitzen, die in der Hauptdatei des Plugins initialisiert wird.
+Durch den definierten Plugin-Header sowie die Implementierung der WordPress-Hooks für Aktivierung und Deaktivierung wird diese Klasse geladen und stößt die Instanziierung aller weiteren benötigten Abhängigkeiten an.
+Die Architektur sieht eine Reihe spezialisierter Klassen vor, welche die unterschiedlichen Funktionsbereiche des Plugins abbilden.
+Dazu gehören unter anderem:
+
+\begin{itemize}
+    \item \textbf{Charigame Blocks:} Verantwortlich für die Registrierung und Bereitstellung der im Plugin genutzten Gutenberg-Blöcke. Darüber hinaus wird eine eigene Block-Kategorie eingeführt und die notwendigen Assets werden eingebunden.
+    \item \textbf{Login Handler:} Kümmert sich um die Verwaltung der Loginsessions der Teilnehmer, prüft Gamecodes und stößt das Rendering der Landingpage an.
+    \item \textbf{Color Manager:} Ermöglicht die Registrierung von Kampagnenfarben und deren dynamische Integration in das DOM.
+    \item \textbf{Donation Manager:} Übernimmt die Logik der Spendenverteilung, speichert und aktualisiert Ergebnisse, berechnet Anteile und stellt diese für die weitere Verarbeitung bereit.
+    \item \textbf{Email Sender:} Implementiert Funktionen zum E-Mail-Versand. Dazu gehören die Konfiguration des SMTP, das Versenden von Test- und Kampagnenmails, die Generierung des HTML-Templates sowie das Bereitstellen von Variablen.
+    \item \textbf{Carbon Fields:} Verantwortlich für die Initialisierung und Bereitstellung des Frameworks Carbon Fields, das zur Verwaltung individueller Metafelder eingesetzt wird.
+\end{itemize}
+
+Ergänzend wird eine statische Konfigurationsdatei vorgesehen, die allgemeine Design-Mappings wie Abstände, Textausrichtungen oder Flexbox-Alignments enthält.
+Diese statischen Definitionen basieren auf TailwindCSS und werden innerhalb der Gutenberg-Blöcke genutzt.
+\newpage
+\subsection{Custom Post Types}
+Die zentrale Datenstruktur des Plugins wird über die Definition mehrerer Custom Post Types (\gls{CPT}) realisiert.
+Folgende Post Types werden vorgesehen:
+
+\begin{itemize}
+    \item \textbf{Campaign:} Enthält alle zentralen Informationen einer Kampagne.
+    Dazu gehören die Wahl des Spieltyps, spezifische Spieleinstellungen, Verlinkungen zu Landingpages und E-Mail-Templates sowie die Konfigurationen zur Spendenverteilung und der Zeitsteuerung.
+    Zudem werden in der Campaign die Einstellungen für das Login-Formular hinterlegt.
+
+    \item \textbf{Landingpage:} Stellt einen CPT zur Verfügung, der die Bearbeitung von Landingpages direkt im Gutenberg-Editor ermöglicht.
+    \item \textbf{Game:} Dient als Zuordnungstyp für die verschiedenen im Plugin angebotenen Spiele.
+    \item \textbf{Game-Settings:} Wird als neuer CPT erstellt, der die Spieleinstellungen aus der Kampagne nimmt und diese wiederverwendbar macht.
+    \item \textbf{Recipient:} Enthält Informationen zu den begünstigten Empfängern einer Kampagne, darunter Name, Logo und Beschreibung.
+    \item \textbf{User:} Speichert Teilnehmendeninformationen wie Vorname, Nachname, E-Mail-Adresse und Geburtsdatum.
+    Außerdem werden hier Import- und E-Mail-Versand-Status dokumentiert.
+    Die ursprüngliche Implementierung mit ACF wird durch Carbon Fields ersetzt.
+    \item \textbf{Email Template:} Ermöglicht die Verwaltung von E-Mail-Templates innerhalb des Gutenberg-Editors.
+\end{itemize}
+
+Die verwendeten Custom Post Types stehen wie in Abbildung~\ref{fig:datenmodell} visualisiert in Relation zueinander.
+Hier ist ersichtlich, dass die Campaign als zentraler Punkt die diversen Custom Post Types nutzt, um alle notwendigen Informationen für die Spendenkampagne zu aggregieren.
+Zudem kann man erkennen, dass das geplante Dashboard die Daten aus der Kampagne und den Nutzern bezieht und diese durch weitere Parameter anreichert.
+\begin{figure}[H]
+    \centering
+    \includesvg[width=1.0\textwidth]{images/datenmodell}
+    \caption{Relation der Custom Post Types (eigene Darstellung)}
+    \label{fig:datenmodell}
+\end{figure}
+
+
+\subsection{Verwaltungs- und Darstellungsebene}
+Für den Administrationsbereich ist die Bereitstellung eines eigenen Dashboards geplant, das als zentrales Menü im WordPress-Backend integriert wird.
+Dieses ersetzt die bisherige Lösung, die auf Data Tables basierte, und stellt eine intuitivere Verwaltung der Kampagneninhalte bereit und adressiert die Anforderung [F4].
+
+Im Frontend-Bereich wird ein Template Loader eingesetzt, der die Darstellung der Campaign- und Landingpage-Inhalte übernimmt.
+Zusätzlich steuert ein Asset Manager das Einbinden und Entfernen aller benötigten Skripte und Styles, wie beispielsweise backend.js.
+
+Ergänzend zur Trennung von Frontend und Backend ist ein dedizierter Helper-Layer vorgesehen.
+Dieser beinhaltet eine Helper-Komponente, die verschiedene serverseitige Funktionen bereitstellt.
+Dazu gehören unter anderem die Registrierung von \gls{ajax}-Actions sowie öffentliche Methoden zur Abfrage von Spendenverteilungen oder zur Verwaltung aggregierter Kampagnenergebnisse.
+Die Trennung in einen dedizierten Layer ermöglicht es, wiederkehrende Aufgaben zentral zu verwalten.
+%\\\\
+%\textbf{Datenmodell der Klassen}
+
+
+%Geplante Struktur bietet bessere Wartbarkeit blabla
+%Die Struktur erlaubt Redakteuren die Pflege mit vertrauten WP-Mechanismen; Ent-
+%wickler profitieren von einer sauberen Trennung von Geschäftslogik und Präsentati-
+%on.
+%
+%Dann gutenberg blabla
+%Keine stanni blöcke, um den fokus auf die wesentlichen und erklären warum man weniger optionen bieten sollte
+%Dann Farben und Abstände regulieren das ganze mit Tailwind als CSS, sodass keine eigene blockcss notwendig ist
+%Blöcke maßgeblich statisch programmiert also mit allen möglichen elementen die der block vorgesehen hat aber alles anpassbar individualisierbar
+%bei how-to auch das Paradigma der blöcke mit innerblocks umgesetzt.
+%dann noch nicht aufnehmen game-settings
+%Dann extra bonus block-design für Email TEmplate aufgebaut --
