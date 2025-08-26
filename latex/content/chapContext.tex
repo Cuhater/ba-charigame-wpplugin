@@ -48,7 +48,7 @@ Die Funktionsweise von Charigame lässt sich grob in 5 Schritte unterteilen, die
 \end{enumerate}
 
 \section{Deskriptiver Stand}
-\subsection{Wordpress Front- und Backend}
+\subsection{WordPress Front- und Backend}
 \label{subsec:front-backend}
 Der deskriptive Stand von Charigame befindet sich in einem funktionsfähigen, jedoch technisch und konzeptionell ausbaufähigen Zustand.
 Das WordPress-Plugin integriert sich in das CMS WordPress und erweitert den Funktionsumfang um gamifizierte Spendenaktionen.
@@ -316,19 +316,35 @@ Der Code ist überwiegend prozedural, enthält aber einzelne objektorientierte E
 
 \begin{itemize}
     \item \textbf{Backend}\\
-    Im Backend werden Menüs und Tabellenansichten sowie eine \gls{smtp}-Konfigurationsseite bereitgestellt. Das Dashboard ist jedoch sehr rudimentär: Es zeigt lediglich Rohdaten in Tabellenform, bietet aber weder aussagekräftige \gls{kpi}s noch visuelle Darstellungen oder interaktive Analysefunktionen.
+    Im Backend werden Menüs und Tabellenansichten sowie eine \gls{smtp}-Konfigurationsseite bereitgestellt.
+    Das Dashboard ist jedoch sehr rudimentär: Es zeigt lediglich Rohdaten in Tabellenform, bietet aber weder aussagekräftige \gls{kpi}s noch visuelle Darstellungen oder interaktive Analysefunktionen.
 
     \item \textbf{Frontend}\\
-    Das Frontend umfasst die Einbindung von Tailwind \gls{css}, die Spiele-Module sowie externe Bibliotheken wie \gls{gsap} und Three.js. Über Template-Overrides werden eigene Views in WordPress eingebracht, was eine gewisse Anpassung erlaubt. Die Gestaltung bleibt insgesamt funktional, aber ohne ausgeprägtes visuelles Design. Es ist anzumerken, dass sich viele Texte, die im Frontend dargestellt werden nicht bearbeitbar sind. Die Views selbst sind in \ref{subsec:front-backend} beschrieben und visualisiert.
+    Das Frontend umfasst die Einbindung von Tailwind \gls{css}, die Spiele-Module sowie externe Bibliotheken wie \gls{gsap} und Three.js.
+    Über Template-Overrides werden eigene Views in WordPress eingebracht, was eine gewisse Anpassung erlaubt.
+    Die Gestaltung bleibt insgesamt funktional, aber ohne ausgeprägtes visuelles Design.
+    Es ist anzumerken, dass sich viele Texte, die im Frontend dargestellt nicht bearbeitbar sind.
+    Die Views selbst sind in \ref{subsec:front-backend} beschrieben und visualisiert.
 
     \item \textbf{Datenzugriff}\\
-    Der Datenzugriff erfolgt direkt über die WordPress-Datenbankschnittstelle wpdb. Eine eigene Tabelle (wp\_edg\_game\_data) wird per dbDelta angelegt, ohne zusätzliche Abstraktionsschicht oder \gls{orm}. Inhalte und Konfigurationen basieren stark auf ACF Pro, das an vielen Stellen über get\_field() aufgerufen wird. Dynamische Farben werden über eine in PHP generierte CSS-Datei (tailwind-colors.css) eingebunden.
+    Der Datenzugriff erfolgt direkt über die WordPress-Datenbankschnittstelle wpdb.
+    Eine eigene Tabelle (wp\_edg\_game\_data) wird per dbDelta angelegt, ohne zusätzliche Abstraktionsschicht oder \gls{orm}.
+    Inhalte und Konfigurationen basieren stark auf ACF Pro, das an vielen Stellen über get\_field() aufgerufen wird.
+    Dynamische Farben werden über eine in PHP generierte CSS-Datei (tailwind-colors.css) eingebunden.
 
     \item \textbf{Build- und Tooling-Umfeld}\\
-    Für den Build-Prozess kommt ein Tailwind-\gls{cli}-Workflow zum Einsatz, gesteuert über npm-Skripte. Grunt unterstützt Aufgaben wie Internationalisierung und die Generierung von Readme-Dateien.
+    Für den Build-Prozess kommt ein Tailwind-\gls{cli}-Workflow zum Einsatz, gesteuert über npm-Skripte.
+    Grunt unterstützt Aufgaben wie Internationalisierung und die Generierung von Readme-Dateien.
 
     \item \textbf{Einschränkungen und Schwächen}\\
-    Die Bearbeitung von Landingpages ist nur eingeschränkt möglich, viele Texte sind fest im Code hinterlegt und bieten damit wenig Flexibilität. Das Dashboard liefert nur eine einfache Datenübersicht und bleibt visuell schlicht. Sicherheitsaspekte wurden nur teilweise berücksichtigt: Manche AJAX-Endpunkte verzichten auf Nonce- oder Berechtigungsprüfungen, und an einigen Stellen fehlt sauberes Escaping. Auch die Datenbank-Constraints sind uneinheitlich, wodurch doppelte Spielcodes möglich sind. Darüber hinaus erschwert die starke Bündelung der Logik in einer Datei die Wartbarkeit. Designprinzipien wie Service- oder Repository-Muster sind nicht umgesetzt, und auch die Einbindung von Assets ist wenig optimiert, da Skripte und Bibliotheken ohne Bündelung oder Minifizierung geladen werden.
+    Die Bearbeitung von Landingpages ist nur eingeschränkt möglich, viele Texte sind fest im Code hinterlegt und bieten damit wenig Flexibilität.
+    Das Dashboard liefert nur eine einfache Datenübersicht und bleibt visuell schlicht.
+    Sicherheitsaspekte wurden nur teilweise berücksichtigt.
+    Manche AJAX-Endpunkte verzichten auf Nonce- oder Berechtigungsprüfungen, und an einigen Stellen fehlt sauberes Escaping.
+    Auch die Datenbank-Constraints sind uneinheitlich, wodurch doppelte Spielcodes möglich sind.
+    Darüber hinaus erschwert die starke Bündelung der Logik in einer Datei die Wartbarkeit.
+    Designprinzipien wie Service- oder Repository-Muster sind nicht umgesetzt.
+    Ebenfalls ist die Einbindung von Assets wenig optimiert, da Skripte und Bibliotheken ohne Bündelung oder Minifizierung geladen werden.
 \end{itemize}
 \vspace{0.5em}
 Insgesamt ergibt sich damit ein pragmatisches Architekturkonzept, das die Umsetzung beschleunigt hat, jedoch klare Grenzen in Bezug auf Flexibilität, Wartbarkeit und Sicherheit erkennen lässt.

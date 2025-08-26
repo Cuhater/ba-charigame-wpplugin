@@ -68,14 +68,14 @@ Die definierten Anforderungen werden im weiteren Verlauf der Konzeption tieferge
 \section{Plugin-Architektur}
 Die Weiterentwicklung des Plugins \emph{Charigame} strebt eine modulare und wartungsfreundliche Plugin Architektur an, wie einleitend in Kapitel 1 skizziert. %TODO:CHAPTER VERLINKEN
 Dabei wird das Ziel verfolgt, eine klare Trennung von Verantwortlichkeiten umzusetzen.
-Ferner wird die Erweiterbarkeit und die Möglichkeit das Projekt skalierbar zu entwickeln ein wesentlicher Bestandteil der Architektur.
+Ferner wird die Erweiterbarkeit und die Möglichkeit, das Projekt skalierbar zu entwickeln, ein wesentlicher Bestandteil der Architektur.
 Grundlegend wird ein objektorientierter Ansatz verfolgt, um die Wiederverwendbarkeit des Codes zu gewährleisten.
 Folgend werden die wichtigsten definierten Anforderungen im Zusammenhang mit den einzusetzenden Technologien adressiert.
 \\\\
 \subsection{Einzusetzende Technologien}
 \textbf{Carbon Fields}
 
-Die Abhängigkeit des externen Plugins ACF Pro vollständig zu entfernen geht aus der zuvor definierten Anforderung [T1] hervor.
+Die Abhängigkeit des externen Plugins ACF Pro vollständig zu entfernen, geht aus der zuvor definierten Anforderung [T1] hervor.
 Anstelle von ACF Pro wird das Framework Carbon Fields genutzt, das über Composer eingebunden werden kann.
 Carbon Fields ermöglicht die flexible Definition und Verwaltung von Metafeldern innerhalb von WordPress.
 Im Vergleich zu ACF hat diese Lösung den Vorteil, dass sie als Bibliothek in das Plugin integriert werden kann.
@@ -99,7 +99,7 @@ Auf diese Weise wird nicht nur die Lesbarkeit, sondern auch die langfristige War
 Aus der geplanten Architektur und den eingesetzten Technologien geht weiterführend der Aufbau der Komponenten hervor.
 
 \subsection{Aufbau der Komponenten}
-Das Plugin soll eine eine zentrale Einstiegsklasse \texttt{Charigame} besitzen, die in der Hauptdatei des Plugins initialisiert wird.
+Das Plugin soll eine zentrale Einstiegsklasse \texttt{Charigame} besitzen, die in der Hauptdatei des Plugins initialisiert wird.
 Durch den definierten Plugin-Header sowie die Implementierung der WordPress-Hooks für Aktivierung und Deaktivierung wird diese Klasse geladen und stößt die Instanziierung aller weiteren benötigten Abhängigkeiten an.
 Die Architektur sieht eine Reihe spezialisierter Klassen vor, welche die unterschiedlichen Funktionsbereiche des Plugins abbilden.
 Dazu gehören unter anderem:
@@ -135,7 +135,7 @@ Folgende Post Types werden vorgesehen:
     \item \textbf{Email Template:} Ermöglicht die Verwaltung von E-Mail-Templates innerhalb des Gutenberg-Editors.
 \end{itemize}
 
-Die verwendeten Custom Post Types stehen wie in Abbildung~\ref{fig:datenmodell} visualisiert in Relation zueinander.
+Die verwendeten Custom Post Types, stehen wie in Abbildung~\ref{fig:datenmodell} visualisiert, in Relation zueinander.
 Hier ist ersichtlich, dass die Campaign als zentraler Punkt die diversen Custom Post Types nutzt, um alle notwendigen Informationen für die Spendenkampagne zu aggregieren.
 Zudem kann man erkennen, dass das geplante Dashboard die Daten aus der Kampagne und den Nutzern bezieht und diese durch weitere Parameter anreichert.
 \begin{figure}[H]
@@ -148,7 +148,7 @@ Zudem kann man erkennen, dass das geplante Dashboard die Daten aus der Kampagne 
 
 \subsection{Verwaltungs- und Darstellungsebene}
 Für den Administrationsbereich ist die Bereitstellung eines eigenen Dashboards geplant, das als zentrales Menü im WordPress-Backend integriert wird.
-Dieses ersetzt die bisherige Lösung, die auf Data Tables basierte, und stellt eine intuitivere Verwaltung der Kampagneninhalte bereit und adressiert die Anforderung [F4].
+Dieses ersetzt die bisherige Lösung, die auf Data Tables basierte und stellt eine intuitivere Verwaltung der Kampagneninhalte bereit und adressiert die Anforderung [F4].
 
 Im Frontend-Bereich wird ein Template Loader eingesetzt, der die Darstellung der Campaign- und Landingpage-Inhalte übernimmt.
 Zusätzlich steuert ein Asset Manager das Einbinden und Entfernen aller benötigten Skripte und Styles, wie beispielsweise backend.js.
