@@ -1,0 +1,72 @@
+\chapter{Fazit und Ausblick}
+\label{ch:fazit-und-ausblick}
+
+Ziel dieser Arbeit war die technische Weiterentwicklung des WordPress-Plugins Charigame.
+Im Detail galt es das Plugin zu einer modularen, wartbaren und redaktionell effizient nutzbaren Lösung auszubauen.
+Ausgangspunkt war eine historisch gewachsene Codebasis mit inkonsistenten Strukturen, starker Abhängigkeit von ACF Pro sowie eingeschränkter einer Editierbarkeit von Inhalten.
+Aufbauend auf den theoretischen Grundlagen, der Analyse des Projektkontexts und der konzeptionellen Ausarbeitung wurden in der Implementierung konkrete Maßnahmen umgesetzt.
+Diese Maßnahmen haben die Architektur weiterentwickelt und zentrale Funktionalitäten modernisiert.
+
+\section{Zusammenfassung der Ergebnisse}
+Die Weiterentwicklung führte zu Verbesserungen in mehreren Bereichen.
+Im Aspekt der Architektur und Wartbarkeit wurde eine klare, modulare Plugin-Architektur mit objektorientierten Komponenten eingeführt.
+Die Komponenten darunter Login-Handler, Color Manager und Donation Manager haben Funktionalitäten, die zuvor mit dem Frontend gekoppelt waren getrennt.
+Dadurch konnten klare Verantwortlichkeiten gesetzt werden und Abhängigkeiten wurden reduziert und die Erweiterbarkeit verbessert.
+
+Das Entfernen externer Abhängigkeiten erfolgte durch die Migration von ACF Pro zu Carbon Fields, wodurch eine kostenpflichtige, externe Abhängigkeit entfernt wurde.
+Bei der Gutenberg-Integration wurden eigene Gutenberg-Blöcke für die bestehenden Sektionen der Landingpage entwickelt.
+Somit sind Inhalte der Landingpage direkt im Editor bearbeitbar, was Konsistenz, Performance und redaktionelle Freiheit erhöht.
+
+Standardkonformität und Sicherheit wurden durch systematische Anwendung der WordPress Coding Standards (PHPCS) gewährleistet.
+Hier wurde konsequentes Input-Sanitizing und Output-Escaping sowie Nonce-Validierung relevanter AJAX-Endpunkte eingesetzt.
+
+Der Datenzugriff und die Integration sind durch Freigabe relevanter Eigenschaften in der REST-API zur Editor-Integration vereinheitlicht.
+Ferner wurde ein Caching von Kampagnenstatistiken eingeführt und die bestehenden Custom Post Types überarbeitet.
+
+Im Bereich Administration und UX entstand ein modernisiertes Dashboard mit wiederverwendbaren Admin-Komponenten, konsistenter UI und verbesserter Übersichtlichkeit für Kampagnensteuerung und Inhalte.
+
+\section{Einordnung der Zielerreichung}
+Die formulierten Zielsetzungen wurden erreicht.
+Durch die modulare Architektur, klar definierte Klassen und einheitliche Namensgebung ist der Code übersichtlicher, testbarer und nachhaltiger wartbar.
+Mit PHPCS und der Ausrichtung an WordPress-Guidelines wurden Best Practices konsistent angewendet.
+Die Gutenberg-Blöcke erlauben die Pflege aller wesentlichen Landingpage-Bereiche ohne Codeanpassungen.
+Die Ablösung von ACF Pro sowie die Öffnung zur REST-API stärken Zukunfts- und Integrationsfähigkeit.
+
+\section{Reflexion und Grenzen}
+Die Arbeit zeigt, dass die Verbindung aus WordPress-Standards, Block-Editor und modularer Architektur ein tragfähiges Fundament für ein produktives Plugin bildet.
+Die kohärente Codebasis reduziert Streu-Logik und Altlasten, schafft klarere Verantwortlichkeiten und bessere Testbarkeit.
+Die Redaktionserfahrung verbessert sich durch direkte Bearbeitung im Editor, konsistente Vorschau und geringere Abhängigkeit von Entwicklern bei Content-Änderungen.
+Durchgängiges Sanitizing und Escaping, Nonces und Caching erhöhen Robustheit und Performance.
+
+
+Gleichzeitig bestehen Grenzen.
+Das Dashboard wurde modernisiert, bietet aber Potenzial für tiefere Auswertungen wie Visualisierungen, Segmentierungen und Exporte.
+Unit- und Integrationstests sowie CI/CD-Pipelines sind auszubauen, um Release-Sicherheit zu erhöhen.
+Die UI ist konsistent, doch ein systematisch dokumentiertes Designsystem und eine umfassende Barrierefreiheitsprüfung stehen noch aus.
+
+\section{Ausblick}
+Auf Basis der Ergebnisse ergeben sich folgende priorisierbare Weiterentwicklungen:
+
+Dashboard und Analytics: KPI-Visualisierungen, Filter- und Segmentierungslogik, CSV/Excel-Export, Benachrichtigungen und Drill-downs erweitern die Auswertungsmöglichkeiten.
+
+Qualitätssicherung: Unit- und Integrationstests für PHP und JavaScript, E2E-Tests für Block-Editor-Flows sowie die Einrichtung einer CI/CD-Pipeline verbessern die Release-Sicherheit.
+
+Berechtigungen und Sicherheit: Feingranulare Capabilities für Kampagnen-, Spiel- und E-Mail-Management sowie Audit-Logging erhöhen die Kontrollmöglichkeiten.
+
+Internationalisierung: Systematische i18n/L10n der Blöcke, Admin-Views und E-Mail-Templates erweitert die Einsatzmöglichkeiten.
+
+Performance: Erweiterte Objekt- und Transient-Caches, Optimierung der Block-Renderpfade, Asset-Bündelung und Lazy Loading steigern die Effizienz.
+
+Barrierefreiheit: WCAG-orientierte Überarbeitung, Komponentenbibliothek mit dokumentierten Patterns, Theme-Kompatibilität und Block Patterns verbessern die Zugänglichkeit.
+
+Funktionalität: Weitere Spieltypen, erweiterte Game-Settings als wiederverwendbare Presets und A/B-Testing von Spielmechaniken erweitern den Funktionsumfang.
+
+Integration: Datenschutzkonforme Tracking-Konzepte, optionale Anbindung an externe CRMs jenseits projektspezifischer Integrationen und stabile, versionierte REST-Endpoints verbessern die Integrationsmöglichkeiten.
+
+Veröffentlichung: Vorbereitung für eine Veröffentlichung im WordPress-Ökosystem durch Readme, Lizenz, Update-Strategie und Support-Prozess.
+
+\section{Schlussbemerkung}
+Mit der vorliegenden Weiterentwicklung wurde Charigame auf eine belastbare, erweiterbare und standardkonforme Basis gestellt.
+Die redaktionelle Arbeit im Gutenberg-Editor, die konsolidierte Architektur sowie sicherheits- und qualitätsorientierte Maßnahmen schaffen unmittelbar Mehrwert im Betrieb.
+Die skizzierten nächsten Schritte bieten einen klaren Pfad, um das Plugin hinsichtlich Analytics, Automatisierung, Designsystem und Funktionsumfang weiter zu professionalisieren und strategisch auszubauen.
+
