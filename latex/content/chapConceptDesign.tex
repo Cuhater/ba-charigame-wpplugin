@@ -1,5 +1,6 @@
 \chapter{Konzeption und Design}
-Aufbauend auf der Analyse des Projektkontexts in Kapitel 3 werden in diesem Kapitel die konzeptionellen Überlegungen und das technische Design der Lösung vorgestellt. Ziel ist es, die identifizierten Schwachstellen zu adressieren und eine tragfähige Architektur für die Umsetzung des WordPress-Plugins zu entwerfen. Dabei werden sowohl die Struktur von Backend, Frontend und Helper-Layer als auch die Integration des Gutenberg-Editors konzeptionell beschrieben, um die Basis für die Implementierung in Kapitel 5 zu schaffen. %TODO: CHapter verlinken
+\label{chap:concept}
+Aufbauend auf der Analyse des Projektkontexts in Kapitel \ref{chap:context} werden in diesem Kapitel die konzeptionellen Überlegungen und das technische Design der Lösung vorgestellt. Ziel ist es, die identifizierten Schwachstellen zu adressieren und eine tragfähige Architektur für die Umsetzung des WordPress-Plugins zu entwerfen. Dabei werden sowohl die Struktur von Backend, Frontend und Helper-Layer als auch die Integration des Gutenberg-Editors konzeptionell beschrieben, um die Basis für die Implementierung in Kapitel \ref{chap:implementation} zu schaffen.
 \section{Stakeholderanalyse und Nutzungskontext}
 Zuerst werden die Stakeholder und der Nutzungskontext des Projekts Charigame beleuchtet.
 Je nach Branche und Geschäftsmodell ergeben sich dabei unterschiedliche Anforderungen an die Funktionalität und den Einsatzkontext.
@@ -32,33 +33,36 @@ Dies kann die Kundenerfahrung emotional aufwerten, wodurch sich Wettbewerbsvorte
 
     \item \textbf{Produzenten}
 
-Für produzierende Unternehmen bietet gamifizierte CSR die Möglichkeit, eine emotionale Bindung zwischen Endverbrauchern und der Marke herzustellen.
+Für produzierende Unternehmen bietet gamifizierte CSR die Möglichkeit, eine emotionale Bindung zwischen Endverbrauchern und der Marke herzustellen.\cite{zhang2025csr}
 Spielerisch gestaltete Spendenaktionen lassen sich nahtlos in Marketingkampagnen integrieren.
 Diese Aktionen stärken das Markenimage und erhöhen die Reichweite in digitalen Kanälen.\\\\
 Zusammenfassend lässt sich festhalten, dass das Plugin \textit{Charigame} sowohl im \gls{b2b}- als auch im \gls{b2c}-Kontext unterschiedliche Mehrwerte schaffen kann.
 Während im \gls{b2b}-Bereich die Aspekte Reputation und Kundenbindung im Vordergrund stehen, sind es im \gls{b2c}-Bereich vor allem Markenerlebnis und Differenzierung, die den Einsatz attraktiv machen.
 \end{enumerate}
-%TODO: Quellen hinterlegen zu aussagen in den texten oben
 
 \section{Anforderungen an die Weiterentwicklung}
 Aus den Erkenntnissen der Stakeholderanalyse und den identifizierten Schwächen des deskriptiven Stands, sowie der zu bearbeitenden These dieser Arbeit lassen sich diverse Anforderungen ableiten.
 Diese Anforderungen wurden entsprechend dem definierten Projektumfang auf die wesentlichsten Aspekte fokussiert und werden nachfolgend adressiert.
 
+% -------------------------------------------------
+% Technische Anforderungen
 \subsection{Technische Anforderungen}
-\begin{itemize}
-    \item [T1]: Das System muss die Abhängigkeit von der PRO-Version des Plugins ACF (Advanced Custom Fields) entfernen.
-    \item [T2]: Das System muss gängige WordPress-Plugin-Best-Practices befolgen.
-    \item [T3]: Das System soll gängige Security-Best-Practices der WordPress-Developer-Ressourcen berücksichtigen.
-\end{itemize}
+\begin{enumerate}[label={[T\arabic*]},ref=T\arabic*]
+    \item \label{T1} Das System muss die Abhängigkeit von der PRO-Version des Plugins ACF (Advanced Custom Fields) entfernen.
+    \item \label{T2} Das System muss gängige WordPress-Plugin-Best-Practices befolgen.
+    \item \label{T3} Das System soll gängige Security-Best-Practices der WordPress-Developer-Ressourcen berücksichtigen.
+\end{enumerate}
 
+% -------------------------------------------------
+% Funktionale Anforderungen
 \subsection{Funktionale Anforderungen}
-\begin{itemize}
-    \item [F1]: Das System muss die Landingpage mit dem Gutenberg-Editor editierbar machen.
-    \item [F2]: Das System muss Gutenberg-Blöcke bereitstellen, die die bestehende Landingpage abbilden können.
-    \item [F3]: Das System soll eine verbesserte Möglichkeit bieten, Inhalte zu bearbeiten.
-    \item [F4]: Das System kann eine verbesserte Version des Dashboards bereitstellen.
-    \item [F5]: Das System kann eine bessere Übersicht für Nutzer bieten.
-\end{itemize}
+\begin{enumerate}[label={[F\arabic*]},ref=F\arabic*]
+    \item \label{F1} Das System muss die Landingpage mit dem Gutenberg-Editor editierbar machen.
+    \item \label{F2} Das System muss Gutenberg-Blöcke bereitstellen, die die bestehende Landingpage abbilden können.
+    \item \label{F3} Das System soll eine verbesserte Möglichkeit bieten, Inhalte zu bearbeiten.
+    \item \label{F4} Das System kann eine verbesserte Version des Dashboards bereitstellen.
+    \item \label{F5} Das System kann eine bessere Übersicht für Nutzer bieten.
+\end{enumerate}
 
 \section{Abgrenzung des Projektumfangs}
 Zur Abgrenzung des Projektumfangs der Arbeit wurden die Anforderungen im Muss-Kann-Soll-Schema definiert.
@@ -66,16 +70,15 @@ Das bestehende Projekt bietet weiterführendes Potenzial wesentlich mehr Anforde
 Die definierten Anforderungen werden im weiteren Verlauf der Konzeption tiefergehend betrachtet, damit der angestrebte präskriptive Zustand erreicht wird.
 
 \section{Plugin-Architektur}
-Die Weiterentwicklung des Plugins \emph{Charigame} strebt eine modulare und wartungsfreundliche Plugin Architektur an, wie einleitend in Kapitel 1 skizziert. %TODO:CHAPTER VERLINKEN
+Die Weiterentwicklung des Plugins \emph{Charigame} strebt eine modulare und wartungsfreundliche Pluginarchitektur an, wie einleitend in Kapitel \ref{chap:intro} skizziert.
 Dabei wird das Ziel verfolgt, eine klare Trennung von Verantwortlichkeiten umzusetzen.
 Ferner wird die Erweiterbarkeit und die Möglichkeit, das Projekt skalierbar zu entwickeln, ein wesentlicher Bestandteil der Architektur.
 Grundlegend wird ein objektorientierter Ansatz verfolgt, um die Wiederverwendbarkeit des Codes zu gewährleisten.
 Folgend werden die wichtigsten definierten Anforderungen im Zusammenhang mit den einzusetzenden Technologien adressiert.
-\\\\
 \subsection{Einzusetzende Technologien}
 \textbf{Carbon Fields}
 
-Die Abhängigkeit des externen Plugins ACF Pro vollständig zu entfernen, geht aus der zuvor definierten Anforderung [T1] hervor.
+Die Abhängigkeit des externen Plugins ACF Pro vollständig zu entfernen, geht aus der zuvor definierten Anforderung [\ref{T1}] hervor.
 Anstelle von ACF Pro wird das Framework Carbon Fields genutzt, das über Composer eingebunden werden kann.
 Carbon Fields ermöglicht die flexible Definition und Verwaltung von Metafeldern innerhalb von WordPress.
 Im Vergleich zu ACF hat diese Lösung den Vorteil, dass sie als Bibliothek in das Plugin integriert werden kann.
@@ -87,11 +90,11 @@ Ein weiterer Kernbestandteil der Technologieauswahl ist die Integration von Gute
 Dies erlaubt die Entwicklung maßgeschneiderter Blöcke für den Editor und stellt sicher, dass Inhalte direkt im Backend in einer Live-Vorschau bearbeitet werden können.
 Für das Editor-UI wird React verwendet, da es die von WordPress empfohlene und im Gutenberg-Editor standardmäßig eingesetzte Technologie ist.
 Die Kopplung von PHP im Backend und React im Editor ermöglicht eine klare Trennung von Daten- und Darstellungsschicht.
-Durch den Einsatz dieser Lösung können die Anforderungen [F1], [F2] und [F3] behandelt werden.
+Durch den Einsatz dieser Lösung können die Anforderungen [\ref{F1}], [\ref{F2}] und [\ref{F3}] behandelt werden.
 \\\\
 \textbf{PHPCS}
 
-Eine weitere zentrale Thematik der Weiterentwicklung bildet die Anforderung [T2].
+Eine weitere zentrale Thematik der Weiterentwicklung bildet die Anforderung [\ref{T2}].
 Unter Zuhilfenahme des \gls{phpcs} wird sichergestellt, dass die Wordpress Coding Standards konsequent eingehalten werden.
 Diese Verwendung ermöglicht eine automatisierte Überprüfung des Codes, sodass Verstöße gegen die definierten Standards unmittelbar angezeigt werden.
 Auf diese Weise wird nicht nur die Lesbarkeit, sondern auch die langfristige Wartbarkeit des Codes erheblich verbessert.
@@ -105,11 +108,13 @@ Die Architektur sieht eine Reihe spezialisierter Klassen vor, welche die untersc
 Dazu gehören unter anderem:
 
 \begin{itemize}
-    \item \textbf{Charigame Blocks:} Verantwortlich für die Registrierung und Bereitstellung der im Plugin genutzten Gutenberg-Blöcke. Darüber hinaus wird eine eigene Block-Kategorie eingeführt und die notwendigen Assets werden eingebunden.
+    \item \textbf{Charigame Blocks:} Verantwortlich für die Registrierung und Bereitstellung der im Plugin genutzten Gutenberg-Blöcke.
+    Darüber hinaus wird eine eigene Block-Kategorie eingeführt und die notwendigen Assets werden eingebunden.
     \item \textbf{Login Handler:} Kümmert sich um die Verwaltung der Loginsessions der Teilnehmer, prüft Gamecodes und stößt das Rendering der Landingpage an.
     \item \textbf{Color Manager:} Ermöglicht die Registrierung von Kampagnenfarben und deren dynamische Integration in das DOM.
     \item \textbf{Donation Manager:} Übernimmt die Logik der Spendenverteilung, speichert und aktualisiert Ergebnisse, berechnet Anteile und stellt diese für die weitere Verarbeitung bereit.
-    \item \textbf{Email Sender:} Implementiert Funktionen zum E-Mail-Versand. Dazu gehören die Konfiguration des SMTP, das Versenden von Test- und Kampagnenmails, die Generierung des HTML-Templates sowie das Bereitstellen von Variablen.
+    \item \textbf{Email Sender:} Implementiert Funktionen zum E-Mail-Versand.
+    Dazu gehören die Konfiguration des SMTP, das Versenden von Test- und Kampagnenmails, die Generierung des HTML-Templates sowie das Bereitstellen von Variablen.
     \item \textbf{Carbon Fields:} Verantwortlich für die Initialisierung und Bereitstellung des Frameworks Carbon Fields, das zur Verwaltung individueller Metafelder eingesetzt wird.
 \end{itemize}
 
@@ -148,7 +153,7 @@ Zudem kann man erkennen, dass das geplante Dashboard die Daten aus der Kampagne 
 
 \subsection{Verwaltungs- und Darstellungsebene}
 Für den Administrationsbereich ist die Bereitstellung eines eigenen Dashboards geplant, das als zentrales Menü im WordPress-Backend integriert wird.
-Dieses ersetzt die bisherige Lösung, die auf Data Tables basierte und stellt eine intuitivere Verwaltung der Kampagneninhalte bereit und adressiert die Anforderung [F4].
+Dieses ersetzt die bisherige Lösung, die auf Data Tables basierte und stellt eine intuitivere Verwaltung der Kampagneninhalte bereit und adressiert die Anforderung [\ref{F4}] und [\ref{F5}].
 
 Im Frontend-Bereich wird ein Template Loader eingesetzt, der die Darstellung der Campaign- und Landingpage-Inhalte übernimmt.
 Zusätzlich steuert ein Asset Manager das Einbinden und Entfernen aller benötigten Skripte und Styles, wie beispielsweise backend.js.

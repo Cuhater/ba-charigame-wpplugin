@@ -1,76 +1,81 @@
 \chapter{Implementierung}
 \label{chap:implementation}
-Auf Basis der in Kapitel 4 entwickelten Konzeption folgt in diesem Kapitel die praktische Umsetzung.
-Dabei werden die einzelnen Komponenten des Systems beschrieben und ihre Implementierung im Rahmen des WordPress-Plugins erläutert.
+
+Auf Basis der entwickelten Konzeption folgt in diesem Kapitel die praktische Umsetzung.
+Dabei werden die einzelnen Komponenten des Systems beschrieben und ihre Implementierung erläutert.
 Neben technischen Aspekten wie der Strukturierung von Backend und Frontend sowie der Integration des Gutenberg-Editors wird auch auf die Realisierung der funktionalen Anforderungen eingegangen.
 
 \section{Entwicklungsumgebung und Tools}
+
 Für die Umsetzung des Projekts wurden verschiedene Tools eingesetzt.
 Als Entwicklungsumgebung kam PHPStorm zum Einsatz, ergänzt durch PHPCS zur Einhaltung der WordPress-Codestandards.
 Google Chrome diente als Browser, während die lokale Entwicklung mit Local WP eingerichtet wurde.
 Zur Verwaltung von Paketen und Abhängigkeiten wurde \texttt{npm} verwendet und die Versionierung des Projekts erfolgte über GitHub.
 
-\section{Projektsetup}
+\subsection{Projektsetup}
+
 Im ersten Schritt der Implementierung wurde eine lokale Entwicklungsumgebung mittels Local WP eingerichtet.
 Die Entwicklungsumgebung basiert auf einem nginx-Webserver mit PHP Version 8.4.10 und einer MySQL-Datenbank in Version 8.0.35.
 WordPress wurde in der Version 6.8.2 installiert und mit den Standardkonfigurationen eingesetzt.
-Es wurden keine zusätzlichen Anpassungen an der Grundkonfiguration vorgenommen und keine weiteren Plugins implementiert, um eine möglichst neutrale Ausgangsbasis für die Implementierung zu gewährleisten.
-
+Es wurden keine zusätzlichen Anpassungen an der Grundkonfiguration vorgenommen und keine weiteren Plugins hinzugefügt, um eine möglichst neutrale Ausgangsbasis für die Umsetzung zu gewährleisten.
 Zwecks Versionierung wurde Git auf der GitHub-Instanz der elancer-team GmbH verwendet und ein neuer Branch im bestehenden Repository angelegt.
-Der deskriptive Stand des Plugins wurde abschließend in WordPress importiert und die eigentliche Implementierung begonnen.
+Der bestehende Stand des Plugins wurde abschließend in WordPress importiert und die eigentliche Implementierung begonnen.
 
 \section{Plugin-Struktur und Architektur}
-\textbf{Ausgangsbasis und Bereinigung}
 
-Als Ausgangsbasis für die Implementierung wurde die WordPress Plugin Boilerplate von DevinVinson\footnote{\url{https://github.com/DevinVinson/WordPress-Plugin-Boilerplate}} verwendet.
-Diese Vorlage bietet eine standardisierte Struktur für WordPress-Plugins und folgt den offiziellen WordPress-Entwicklungsrichtlinien im Hinblick auf die Best Practises.
+\subsection{Ausgangsbasis und Bereinigung}
 
-Im ersten Schritt wurden die zuvor importierten Daten aus dem bestehenden Plugin-Stand eingesetzt und eine umfassende Bereinigung durchgeführt.
+Als Ausgangsbasis für die Implementierung wurde die WordPress Plugin Vorlage von DevinVinson\footnote{\url{https://github.com/DevinVinson/WordPress-Plugin-Boilerplate}} verwendet.
+Diese Vorlage bietet eine standardisierte Struktur für WordPress-Plugins und folgt den offiziellen WordPress-Entwicklungsrichtlinien im Hinblick auf die Best Practices~\cite{wordpress2025BSP}.
+
+Im ersten Schritt wurden die zuvor importierten Daten aus dem bestehenden Plugin-Stand in die Vorlage eingesetzt und eine umfassende Bereinigung durchgeführt.
 Dabei wurden nicht verwendete Dateien identifiziert und entfernt.
 Zu diesen Altlasten zählten diverse Assets und Abhängigkeiten, die bereits zum Zeitpunkt des Transfers keine Funktion mehr erfüllten oder redundant wurden.
-\\\\
+\subsection{Migration und Anpassung}
 \textbf{Migration zu Carbon Fields}
-
-Entsprechend der Konzeption und Anforderung [T1] wurde Carbon Fields als Ersatz für ACF Pro implementiert.
+Nachdem die grundlegende Bereinigung der Daten abgeschlossen war, wurde mit der Migration von ACF Pro zu Carbon Fields begonnen.
+Wie in Kapitel \ref{chap:concept} konzipiert wurde Carbon Fields als Ersatz für ACF Pro implementiert.
 Hierzu wurde eine dedizierte Klasse für den Boot-Prozess von Carbon Fields erstellt und über Composer als Abhängigkeit in die neue Projektstruktur eingebunden.
-Die Initialisierung erfolgt über einen Klassenaufruf, der das Framework zentral verfügbar macht.
+Die Initialisierung erfolgt über einen Klassenaufruf, der das Framework zentral verfügbar macht, welche in Abbildung X veranschaulicht ist. %TODO: Abbildung hinterlegen
 
-Alle bestehenden \texttt{get\_field()}-Aufrufe des ursprünglich verwendeten ACF Plugins wurden systematisch identifiziert und durch das entsprechenden Carbon Fields-Pendant ersetzt.
+Alle bestehenden \texttt{get\_field()}-Aufrufe des ursprünglich verwendeten ACF Plugins wurden daraufhin systematisch identifiziert und durch das entsprechende Carbon Fields-Pendant ersetzt.
 Diese Migration gewährleistet die Kompatibilität mit der neuen Architektur und eliminiert die externe Abhängigkeit von ACF Pro vollständig.
+Im Zuge der Migration der carbon_get_post_meta() Aufrufe mussten im nächsten Schritt die verwendeten Custom Post Types auf die neu eingesetzte Carbon Field Struktur angepasst werden.
 \\\\
 \textbf{Custom Post Types und REST API}
 
-Alle Custom Post Types wurden neu aufgebaut, um einen einheitlichen Duktus innerhalb des ChariGame-Plugins zu realisieren.
-In diesem Schritt wurden die Namespace-Bezeichnungen angepasst und Klassen- sowie Datenbankbezeichnungen vereinheitlicht.
-
-Bei der Neudefinition der CPTs wurden wichtige Eigenschaften für die REST API freigegeben, um diese im Backend-Editor über React abrufen zu können.
-Dies ist essenziell für die Umsetzung der Gutenberg-Blöcke und deren dynamische Eigenschaften, da diese auf Kampagnendaten und verknüpfte Inhalte zugreifen.
-Hier wurden unter anderem Daten des game_type, der game_settings, der linked_landing_page und der recipients innerhalb der internen Rest Schnittstelle wp/json REST freigegeben.
+Alle Custom Post Types wurden neu aufgebaut, um einen einheitlichen Duktus innerhalb des ChariGame-Plugins zu realisieren und die Funktionalität mit Carbon Fields zu gewährleisten.
+Hier wurden die Namespace-Bezeichnungen angepasst und Klassen- sowie Datenbankbezeichnungen vereinheitlicht.
+Darüber hinaus sind die Felder, welche dem Redakteur im Backend zur Verfügung gestellt werden, durch Carbon Fields erstellt worden.
+Eine Beispielhafte Ausführung dessen für den Custom Post Type der Recipients ist in Abbildung X visualisiert. %TODO: Abbildung hinterlgen
+Bei der Neudefinition der CPTs wurden wichtige Eigenschaften der Carbon Fields für die REST API freigegeben, um diese im Backend-Editor über React abrufen zu können.
+Dies ist für die Umsetzung der Gutenberg-Blöcke und deren dynamische Eigenschaften erforderlich, da diese auf Kampagnendaten und verknüpfte Inhalte zugreifen.
+ier wurden unter anderem Daten des \texttt{game\_type}, der \texttt{game\_settings}, der \texttt{linked\_landing\_page} und der \texttt{recipients} innerhalb der internen Rest Schnittstelle \texttt{wp/json} REST freigegeben. %TODO: Anpassen auf wpjosn v2 gedöns
 \\\\
 \textbf{Verzeichnisstruktur und Design-System}
 
-Die Verzeichnisstruktur wurde modular aufgebaut und wie in Tabelle~\ref{tab:directory-structure} dargestellt organisiert:
+Die Verzeichnisstruktur wurde anhand der Plugin-Vorlage von XY erweitert und modular aufgebaut.
+Der Aufbau besteht aus verschiedenen Verzeichnissen, wobei die wichtigsten Verzeichnisse folgend kurz erläutert werden.
 
-\begin{table}[H]
-    \centering
-    \begin{tabular}{|l|p{8cm}|}
-        \hline
-        \textbf{Verzeichnis} & \textbf{Inhalt} \\
-        \hline
-        \texttt{includes/} & Kernfunktionalitäten und Klassen \\
-        \texttt{admin/} & Backend-spezifische Komponenten, shadcn/ui-Styles \\
-        \texttt{frontend/} & Frontend-Darstellung und Templates \\
-        \texttt{blocks/} & Gutenberg-Block-Definitionen \\
-        \texttt{assets/} & Statische Ressourcen (CSS, JS, Bilder, Icons) \\
-        \texttt{src/} & Quellcode der Block-Entwicklung und Spiele  \\
-        \texttt{templates/} & Template-Dateien für die Darstellung \\
-        \hline
-    \end{tabular}
-    \caption{Verzeichnisstruktur des Plugins}
-    \label{tab:directory-structure}
-\end{table}
+\begin{itemize}
+    \item \textbf{includes/}: Kernfunktionalitäten und Klassen
+    \item \textbf{admin/}: Backend-spezifische Komponenten, shadcn/ui-Styles
+    \item \textbf{frontend/}: Frontend-Darstellung und Templates
+    \item \textbf{blocks/}: Gutenberg-Block-Definitionen
+    \item \textbf{assets/}: Statische Ressourcen (CSS, JS, Bilder, Icons)
+    \item \textbf{src/}: Quellcode der Block-Entwicklung und Spiele
+    \item \textbf{templates/}: Template-Dateien für die Darstellung
+\end{itemize}
 
-%TODO HIER ERSTMAL AUF DAS ALLGEMEINE TAILWIND EINGEHEN DANN ERST AUF SHADCN
+Für das Design im Front- und Backend wurde TailwindCSS verwendet.
+Hierzu wurden zwei unabhängig voneinander bestehende CSS-Konfiguration erstellt.
+
+Die eine Konfiguration entnimmt alle Tailwindklassen aus dem Projektkontext.
+Die zweite Konfiguration ist extra auf den Administrationbereich und im speziellen auf die shadc/ui Komponenten abgestimmt.
+
+Dies stellt sicher, dass sich die Stylings nicht beißen.
+
+Hinsichtlich der Admin-Komponenten ist der Aufbau so:
 Zusätzlich wurde eine Tailwind CSS-Konfiguration aufgebaut mit einer PHP-portierten shadcn/ui-Implementierung.
 Diese nutzt einen \texttt{shadcn--}-Prefix, um Konflikte mit WordPress-Styles zu vermeiden.
 Die Styles liegen als vorgebaute CSS-Dateien in \texttt{admin/css/} und werden nur auf ChariGame-Admin-Seiten geladen.
@@ -78,18 +83,17 @@ Die Styles liegen als vorgebaute CSS-Dateien in \texttt{admin/css/} und werden n
 \textbf{Asset Manager und Template Loader}
 
 Ein Asset Manager wurde implementiert, der selektiv die passenden Assets für Admin- und Frontendbereich lädt.
-\begin{itemize}
-    \item \textbf{Admin}: Shadcn/Tailwind-Styles für die ChariGame-Menüs und -Seiten
-    \item \textbf{Frontend}: Game-Styles/-Skripte und lokalisierte Daten nur auf Seiten von Charigame
-\end{itemize}
+Im Admin-Bereich werden Shadcn/Tailwind-Styles für die ChariGame-Menüs und -Seiten geladen.
+Im Frontend bindet der Asset Manager die Game-Styles/-Skripte ein und lokalisiert und bindet die Daten nur auf Seiten den von Charigame erstellten ein.
 
-Der Template Loader stellt sicher, dass Campaign-Inhalte das korrekte Template erhalten und führt bei Bedarf Redirects durch.
+Der Template Loader stellt sicher, dass Campaign-Inhalte das korrekte Template erhalten.
 Für den Custom Post Type der Landingpages wurde festgelegt, dass diese nicht eigenständig betrachtet werden, sondern den Content ausschließlich in den Campaign-Templates ausgeben.
+In diesem Fall führt der Template Loader Redirects durch.
 \\\\
 \textbf{Login-System und Sicherheit}
 
 Die Login-Logik wurde aus dem Frontend separiert und in einen dedizierten Login Manager überführt.
-Das System implementiert mehrere Sicherheitsmaßnahmen:
+Das System implementiert mehrere Sicherheitsmaßnahmen, die im Kapitel \ref{chap:concept} beschrieben wurden, darunter:
 
 \begin{itemize}
     \item \textbf{Nonce-Validierung}: \texttt{wp\_verify\_nonce()} schützt AJAX-Endpoints
@@ -99,133 +103,86 @@ Das System implementiert mehrere Sicherheitsmaßnahmen:
 \end{itemize}
 
 Darüber hinaus wurde ein Shortcode erstellt, der den Content der Landingpages überträgt und diesen in die Campaign-Templates einsetzt.
-Dies ermöglicht eine flexible Wiederverwendung der Landingpage-Inhalte.
+Dies ermöglicht eine flexible Wiederverwendung der Landingpage-Inhalte und bildet eine stabile Möglichkeit die Inhalte auf der Campaign Seite nach erfolgreichem Login zu erzeugen.
 \\\\
 \textbf{Color Manager}
 
 Der Color Manager verwaltet Kampagnenfarben und stellt diese systemweit zur Verfügung.
-Die Implementierung erfolgt als Singleton-Klasse, die folgende Funktionen bereitstellt:
+Die Implementierung erfolgt als Singleton-Klasse, damit sichergestellt wird, dass nur eine einzige Instanz des Managers bestehen kann.
+Hier werden folgende Funktionalitäten bereitgestellt:
 
 \begin{itemize}
-    \item Automatische Kampagnen-Erkennung über URL-Kontext
+    \item Automatische Kampagnen-Erkennung über URL-Kontext zwecks Zuordnung der Kampagnenfarben
     \item CSS-Variablen für den Frontend- und Adminbereich (\texttt{--color-primary}, etc.)
     \item JavaScript-Objekt \texttt{charigameColors} für den Block-Editor
     \item Fallback auf Standard-Farbpalette
 \end{itemize}
 
+\subsection{Backend-Integration und Dashboard}
+
+Das bestehende Dashboard wurde vollständig überarbeitet und mit shadcn/ui-Komponenten des neuen Design-Systems integriert.
+Die Lösung bietet ein responsive Design mit modernen UI-Komponenten, erweiterte Kampagnen-Metriken und eine verbesserte Benutzererfahrung durch intuitive Navigation sowie Echtzeit-Datenaktualisierung.
+Für die Admin-Oberfläche wurden wiederverwendbare PHP-Komponenten entwickelt, welche im Styling auf der Bibliothek Shadcn/ui basieren.
+Dazu gehören Button-Komponenten für konsistente Darstellung mit verschiedenen Varianten, Card-Layouts für strukturierte Inhaltsblöcke, Progress-Anzeigen für Kampagnen-Status sowie Table-Komponenten für die tabellarische Datendarstellung mit Sortierung.
+\\\\
+\textbf{E-Mail-Template System}
+
+Ein umfassendes E-Mail-Template-System wurde implementiert, das HTML-Templates als Custom Post Type im Block-Editor verfügbar macht.
+Dies bietet dem Redakteur die Möglichkeit, dass der Nutzer das Template der Einladungs-Mail direkt im Live-Editor anpassen kann.
+Die SMTP-Konfiguration nutzt ebenfalls die erstellten Shadcn-Komponenten und ist wie in Abbildung X aufgebaut. %TODO: ABBILDUNG X
+\\\\
+\textbf{Helper Funktionen}
+
+Während der Implementation wurden kontinuierlich verschiedene Getter- und Setter-Funktionen für die Plugin-Komponenten, AJAX-Action-Registrierung für die Frontend-Backend-Kommunikation benötigt.
+Damit diese zentral und über die verschiedenen Klassen hinaus im Projekt nutzbar sind, wurde die \texttt{helper.php}-Datei als Schnittstelle//SCHNITTSTELLE VLLT NICHT DAS BESTE WORT// erstellt.
+Dies bietet im Projekt eine konsistente Schnittstelle für Datenabruf und -manipulation sowie Cache-Management für Performance-Optimierung.
+Als wichtige Funktionen sind u.a. ...
+\\\\
+\textbf{Spielintegration und Einstellungen}
+
+Die bestehenden Spiele wurden in die neue Architektur übernommen und an die eingesetzten Bibliotheken wie Carbon Fields gemünzt.
+Eine wesentliche Weiterentwicklung ist die möglichkeit individuelle Einstellungsmöglichkeiten separat zu erstellen und zu verwalten.
+Das Settings-System wurde aus der Kampagne ausgelagert, um eine flexiblere Konfiguration und bessere Wartbarkeit zu gewährleisten.
+Durch das Auslagern besteht nun die Möglichkeit, die hinterlegten Spieleinstellungen mehreren Kampagnen zuzuordnen.
+Der entwickelte Gutenberg-Block für die Game-Section ermöglicht die dynamische Einbindung verschiedener Spieltypen über ein Template-basiertes System, das in \texttt{src/games/} organisiert ist.
+\\\\
+\textbf{Qualitätssicherung und Standards}
+
+Während der gesamten Implementierung wurden WordPress-Best-Practices befolgt.
+Die PHPCS-Integration hat für die automatisierte Code-Standards-Prüfung gesorgt.
+Es wurden stets Nonce-Validierung angewendet, welche alle AJAX-Requests schützen, Input-Sanitizing sowie Output-Escaping umgesetzt.
+Außerdem ist durch die objektorientierte Programmierung mit klarer Verantwortungstrennung und Modularität für bessere Testbarkeit und Wartung gesorgt.
+
 \section{Gutenberg-Block-Entwicklung}
-\textbf{Block-Architektur}
 
-Ein wesentlicher Bereich der Implementierung war der Aufbau der Gutenberg-Blöcke.
-Die Registrierung erfolgt im Projekt automatisiert über die Hauptklasse \texttt{ChariGame\_Blocks}, die alle Blöcke in \texttt{src/blocks/} mit vorhandener \texttt{block.json} registriert.
-
+Ein Kernbereich der Implementierung war der Aufbau der Gutenberg-Blöcke.
+Die Registrierung erfolgt im Projekt automatisiert über die Hauptklasse \texttt{ChariGame\_Blocks}, die alle Blöcke in \texttt{src/blocks/} mit vorhandener \texttt{block.json} registriert (vgl. Abbildung X). %Abbildung hinterlegen
 Für das ChariGame Plugin wurde ein Block-Whitelisting implementiert, das nur die plugin-eigenen Blöcke zulässt.
 Dies gewährleistet eine konsistente Benutzererfahrung und verhindert Layout-Inkonsistenzen.
-\\\\
-\textbf{Kern-Blöcke der Landingpage}
+Die gesamte Landingpage wie sie im Backend von den Redakteuren verwendet werden kann ist in Abbildung XY im Anhang zu erkennen. %ToDo abbildung
 
 Die implementierten Blöcke spiegeln den Stand der Weiterentwicklung wider und sind vollständig über den Gutenberg-Editor anpassbar:
 
 \begin{itemize}
-    \item \textbf{Intro Section}: Hero-Bereich mit konfigurierbare Farben und Typografien
+    \item \textbf{Intro Section}: Hero-Bereich mit konfigurierbaren Farben und Typografien
     \item \textbf{Donation Section}: Dynamische Spendenverteilungs-Visualisierung
     \item \textbf{How-to-Play Section}: Spielanleitung mit HeroIcons Integration
     \item \textbf{Recipient Section}: Darstellung der Spendenempfänger
     \item \textbf{Game Section}: Templatebasierte Spielintegration
 \end{itemize}
 
-Jeder Block implementiert serverseitiges Rendering bereitgestellte über \texttt{render.php}-Dateien, um dynamische Inhalte und bessere Performance zu gewährleisten.
-\\\\
-\textbf{Block-Utilities und Komponenten}
+Jeder Block implementiert serverseitiges Rendering über die zugehörigen \texttt{render.php}-Dateien des Blocks, um dynamische Inhalte und bessere Performance zu gewährleisten.
+Zur Unterstützung der Block-Entwicklung wurden verschiedene Utilities entwickelt, damit Codedoppelungen vermieden werden.
 
-Zur Unterstützung der Block-Entwicklung wurden verschiedene Utilities entwickelt, damit Codedopplungen vermieden werden:
 
-\begin{itemize}
-    \item \textbf{colorpalette}: Einheitliches Farbauswahl-Interfaces
-    \item \textbf{iconlist}: Heroicons-Integration mit SVG-Inline-Rendering
-    \item \textbf{useimage}: Medien-Handling für Block-Attribute
-    \item \textbf{usecampaigndata}: Kampagnendaten-Integration für dynamische Blöcke
-\end{itemize}
+//Auflistung der Utilities
 
-Ferner wurden Komponenten wie \texttt{BackgroundSelect} und \texttt{BorderStyle} ausgelagert, um Konstante zentral abrufen zu können.
-\\\\
-\textbf{Donation Manager Integration}
+Die \texttt{colorpalette} stellt ein einheitliches Farbauswahl-Interface bereit, \texttt{iconlist} integriert Heroicons mit SVG-Inline-Rendering, \texttt{useimage} behandelt Medien-Handling für Block-Attribute und \texttt{usecampaigndata} ermöglicht Kampagnendaten-Integration für dynamische Blöcke.
 
+Ferner wurden Komponenten wie \texttt{BackgroundSelect} und \texttt{BorderStyle} ausgelagert, um Konstanten zentral abrufen zu können.
 Während der Implementierung wurde festgestellt, dass die bestehende Spendenverteilungs-Logik nicht mehr funktionierte.
-Ein neuer Donation Manager wurde entwickelt, der die folgenden Aufgaben der Spendenverteilung übernimmt:
+Ein neuer Donation Manager wurde entwickelt, der Kampagnen-Statistiken berechnet und cached.
+Die Spendenverteilung wird nach konfigurierbaren Regeln durchführt.
+Zusätzlich sind Echtzeit-Updates für die Donation Section bereitstellt und Rundungs- und Formatierungslogik implementiert.
 
-\begin{itemize}
-    \item Kampagnen-Statistiken berechnen und cachen
-    \item Spendenverteilung nach konfigurierbaren Regeln durchführen
-    \item Echtzeit-Updates für die Donation Section bereitstellen
-    \item Rundungs- und Formatierungslogik implementiert
-\end{itemize}
-
-\section{Backend-Integration und Dashboard}
-\textbf{Dashboard-Modernisierung}
-
-Das bestehende Dashboard wurde vollständig überarbeitet und mit shadcn/ui-Komponenten integriert.
-Die neue Lösung bietet u.a. die folgenden Funktionen:
-
-\begin{itemize}
-    \item Responsive Design mit modernen UI-Komponenten
-    \item Erweiterte Kampagnen-Metriken und Analytics
-    \item Verbesserte Benutzererfahrung durch intuitive Navigation
-    \item Echtzeit-Datenaktualisierung
-\end{itemize}
-\\\\
-\textbf{Admin-Komponenten-System}
-
-Für die Admin-Oberfläche wurden wiederverwendbare PHP-Komponenten entwickelt, welche im Styling auf der Bibliothek Shadcn/ui basieren:
-
-\begin{table}[H]
-    \centering
-    \begin{tabular}{|l|p{8cm}|}
-        \hline
-        \textbf{Komponente} & \textbf{Zweck} \\
-        \hline
-        \texttt{Button} & Konsistente Button-Darstellung mit verschiedenen Varianten \\
-        \texttt{Card} & Karten-Layout für strukturierte Inhaltsblöcke \\
-        \texttt{Progress} & Fortschrittsanzeigen für Kampagnen-Status \\
-        \texttt{Table} & Tabellarische Datendarstellung mit Sortierung \\
-        \hline
-    \end{tabular}
-    \caption{Admin-Komponenten-Übersicht}
-    \label{tab:admin-components}
-\end{table}
-\\\\
-\textbf{E-Mail-System und SMTP-Integration}
-
-Ein umfassendes E-Mail-Template-System wurde implementiert, das HTML-Templates als Custom Post Type im Block-Editor verfügbar macht.
-Dies bietet die Möglichkeit, dass der Nutzer das Template der Einladungs-Mail direkt im Live-Editor anpassen kann.
-Die SMTP-Konfiguration wurde als wiederverwendbares Partial entwickelt und nutzt ebenfalls Shadcn-Komponenten.
-\\\\
-\textbf{Helper-Funktionen und API}
-
-Die zentrale \texttt{helper.php}-Datei wurde während der Implementierung kontinuierlich erweitert und verfügt über die folgenden Funktionen:
-
-\begin{itemize}
-    \item Getter- und Setter-Funktionen für die Plugin-Komponenten
-    \item AJAX-Action-Registrierung für die Frontend-Backend-Kommunikation
-    \item Eine Konsistente Schnittstelle für Datenabruf und -manipulation
-    \item Cache-Management für Performance-Optimierung
-\end{itemize}
-
-\section{Spielintegration und Einstellungen}
-Die bestehenden Spiele wurden in die neue Architektur übernommen.
-Individuelle Einstellungsmöglichkeiten wurden in ein separates Settings-System ausgelagert, um eine flexiblere Konfiguration und bessere Wartbarkeit zu gewährleisten.
-Durch das Auslagern besteht nun die Möglichkeit die hinterlegten Spieleinstellungen mehreren Kampagnen zuzuordnen.
-Der entwickelte Gutenberg-Block für die Game-Section ermöglicht die dynamische Einbindung verschiedener Spieltypen über ein Template-basiertes System, das in \texttt{src/games/} organisiert ist.
-
-\section{Qualitätssicherung und Standards}
-Während der gesamten Implementierung wurden WordPress-Best-Practices befolgt:
-
-\begin{itemize}
-    \item PHPCS-Integration für automatisierte Code-Standards-Prüfung
-    \item Nonce-Validierung für alle AJAX-Requests
-    \item Input-Sanitizing und Output-Escaping
-    \item Objektorientierte Programmierung mit klarer Verantwortungstrennung
-    \item Modularität für bessere Testbarkeit und Wartung
-\end{itemize}
-
-Die Implementierung adressiert die definierten Anforderungen [T1-T3] und [F1-F5] und schafft eine solide Basis für zukünftige Erweiterungen.
+Die Implementierung adressiert die definierten Anforderungen und schafft eine solide Basis für zukünftige Erweiterungen, welche im abschließenden Kapitel X der Arbeit thematisiert werden.
