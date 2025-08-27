@@ -33,14 +33,15 @@ Dabei wurden nicht verwendete Dateien identifiziert und entfernt.
 Zu diesen Altlasten zählten diverse Assets und Abhängigkeiten, die bereits zum Zeitpunkt des Transfers keine Funktion mehr erfüllten oder redundant wurden.
 \subsection{Migration und Anpassung}
 \textbf{Migration zu Carbon Fields}
-Nachdem die grundlegende Bereinigung der Daten abgeschlossen war, wurde mit der Migration von ACF Pro zu Carbon Fields begonnen.
+
+Nachdem die grundlegende Bereinigung der Daten abgeschlossen war, wurde mit der Migration von ACF Pro zu \gls{carbonfields} begonnen.
 Wie in Kapitel \ref{chap:concept} konzipiert wurde Carbon Fields als Ersatz für ACF Pro implementiert.
-Hierzu wurde eine dedizierte Klasse für den Boot-Prozess von Carbon Fields erstellt und über Composer als Abhängigkeit in die neue Projektstruktur eingebunden.
+Hierzu wurde eine dedizierte Klasse für den Boot-Prozess von \gls{carbonfields} erstellt und über Composer als Abhängigkeit in die neue Projektstruktur eingebunden.
 Die Initialisierung erfolgt über einen Klassenaufruf, der das Framework zentral verfügbar macht, welche in Abbildung X veranschaulicht ist. %TODO: Abbildung hinterlegen
 
-Alle bestehenden \texttt{get\_field()}-Aufrufe des ursprünglich verwendeten ACF Plugins wurden daraufhin systematisch identifiziert und durch das entsprechende Carbon Fields-Pendant ersetzt.
+Alle bestehenden \texttt{get\_field()}-Aufrufe des ursprünglich verwendeten ACF Plugins wurden daraufhin systematisch identifiziert und durch das entsprechende \gls{carbonfields}-Pendant ersetzt.
 Diese Migration gewährleistet die Kompatibilität mit der neuen Architektur und eliminiert die externe Abhängigkeit von ACF Pro vollständig.
-Im Zuge der Migration der carbon_get_post_meta() Aufrufe mussten im nächsten Schritt die verwendeten Custom Post Types auf die neu eingesetzte Carbon Field Struktur angepasst werden.
+Im Zuge der Migration der carbon\_get\_post\_meta() Aufrufe mussten im nächsten Schritt die verwendeten Custom Post Types auf die neu eingesetzte Carbon Field Struktur angepasst werden.
 \\\\
 \textbf{Custom Post Types und REST API}
 
@@ -50,7 +51,7 @@ Darüber hinaus sind die Felder, welche dem Redakteur im Backend zur Verfügung 
 Eine Beispielhafte Ausführung dessen für den Custom Post Type der Recipients ist in Abbildung X visualisiert. %TODO: Abbildung hinterlgen
 Bei der Neudefinition der CPTs wurden wichtige Eigenschaften der Carbon Fields für die REST API freigegeben, um diese im Backend-Editor über React abrufen zu können.
 Dies ist für die Umsetzung der Gutenberg-Blöcke und deren dynamische Eigenschaften erforderlich, da diese auf Kampagnendaten und verknüpfte Inhalte zugreifen.
-ier wurden unter anderem Daten des \texttt{game\_type}, der \texttt{game\_settings}, der \texttt{linked\_landing\_page} und der \texttt{recipients} innerhalb der internen Rest Schnittstelle \texttt{wp/json} REST freigegeben. %TODO: Anpassen auf wpjosn v2 gedöns
+ier wurden unter anderem Daten des game\_type, der game\_settings, der linked\_landing\_page und der recipients innerhalb der internen Rest Schnittstelle \texttt{wp/json} REST freigegeben. %TODO: Anpassen auf wpjosn v2 gedöns
 \\\\
 \textbf{Verzeichnisstruktur und Design-System}
 
@@ -78,7 +79,7 @@ Dies stellt sicher, dass sich die Stylings nicht beißen.
 Hinsichtlich der Admin-Komponenten ist der Aufbau so:
 Zusätzlich wurde eine Tailwind CSS-Konfiguration aufgebaut mit einer PHP-portierten shadcn/ui-Implementierung.
 Diese nutzt einen \texttt{shadcn--}-Prefix, um Konflikte mit WordPress-Styles zu vermeiden.
-Die Styles liegen als vorgebaute CSS-Dateien in \texttt{admin/css/} und werden nur auf ChariGame-Admin-Seiten geladen.
+Die Styles liegen als vorgebaute CSS-Dateien in admin/css/ und werden nur auf ChariGame-Admin-Seiten geladen.
 \\\\
 \textbf{Asset Manager und Template Loader}
 
@@ -96,13 +97,13 @@ Die Login-Logik wurde aus dem Frontend separiert und in einen dedizierten Login 
 Das System implementiert mehrere Sicherheitsmaßnahmen, die im Kapitel \ref{chap:concept} beschrieben wurden, darunter:
 
 \begin{itemize}
-    \item \textbf{Nonce-Validierung}: \texttt{wp\_verify\_nonce()} schützt AJAX-Endpoints
+    \item \textbf{\gls{nonce}-Validierung}: \texttt{wp\_verify\_nonce()} schützt AJAX-Endpoints
     \item \textbf{Input-Sanitizing}: \texttt{sanitize\_text\_field()}, \texttt{intval()} für Benutzereingaben
     \item \textbf{Session-Management}: Sessions werden früh gestartet und konsistent genutzt
-    \item \textbf{Caching}: Datenbank- und User-Lookups werden im Object Cache gepuffert
+    \item \textbf{Caching}: Datenbank- und User-Lookups werden im \gls{objectcache} gepuffert
 \end{itemize}
 
-Darüber hinaus wurde ein Shortcode erstellt, der den Content der Landingpages überträgt und diesen in die Campaign-Templates einsetzt.
+Darüber hinaus wurde ein \gls{shortcode} erstellt, der den Content der Landingpages überträgt und diesen in die Campaign-Templates einsetzt.
 Dies ermöglicht eine flexible Wiederverwendung der Landingpage-Inhalte und bildet eine stabile Möglichkeit die Inhalte auf der Campaign Seite nach erfolgreichem Login zu erzeugen.
 \\\\
 \textbf{Color Manager}
@@ -144,7 +145,7 @@ Die bestehenden Spiele wurden in die neue Architektur übernommen und an die ein
 Eine wesentliche Weiterentwicklung ist die möglichkeit individuelle Einstellungsmöglichkeiten separat zu erstellen und zu verwalten.
 Das Settings-System wurde aus der Kampagne ausgelagert, um eine flexiblere Konfiguration und bessere Wartbarkeit zu gewährleisten.
 Durch das Auslagern besteht nun die Möglichkeit, die hinterlegten Spieleinstellungen mehreren Kampagnen zuzuordnen.
-Der entwickelte Gutenberg-Block für die Game-Section ermöglicht die dynamische Einbindung verschiedener Spieltypen über ein Template-basiertes System, das in \texttt{src/games/} organisiert ist.
+Der entwickelte Gutenberg-Block für die Game-Section ermöglicht die dynamische Einbindung verschiedener Spieltypen über ein Template-basiertes System, das in src/games/ organisiert ist.
 \\\\
 \textbf{Qualitätssicherung und Standards}
 
@@ -155,8 +156,8 @@ Außerdem ist durch die objektorientierte Programmierung mit klarer Verantwortun
 
 \section{Gutenberg-Block-Entwicklung}
 
-Ein Kernbereich der Implementierung war der Aufbau der Gutenberg-Blöcke.
-Die Registrierung erfolgt im Projekt automatisiert über die Hauptklasse \texttt{ChariGame\_Blocks}, die alle Blöcke in \texttt{src/blocks/} mit vorhandener \texttt{block.json} registriert (vgl. Abbildung X). %Abbildung hinterlegen
+Ein Kernbereich der Implementierung war der Aufbau der Gutenberg-Blöcke (\gls{blockeditor}).
+Die Registrierung erfolgt im Projekt automatisiert über die Hauptklasse \texttt{ChariGame\_Blocks}, die alle Blöcke in src/blocks/ mit vorhandener \texttt{block.json} registriert (vgl. Abbildung X). %Abbildung hinterlegen
 Für das ChariGame Plugin wurde ein Block-Whitelisting implementiert, das nur die plugin-eigenen Blöcke zulässt.
 Dies gewährleistet eine konsistente Benutzererfahrung und verhindert Layout-Inkonsistenzen.
 Die gesamte Landingpage wie sie im Backend von den Redakteuren verwendet werden kann ist in Abbildung XY im Anhang zu erkennen. %ToDo abbildung
@@ -171,18 +172,18 @@ Die implementierten Blöcke spiegeln den Stand der Weiterentwicklung wider und s
     \item \textbf{Game Section}: Templatebasierte Spielintegration
 \end{itemize}
 
-Jeder Block implementiert serverseitiges Rendering über die zugehörigen \texttt{render.php}-Dateien des Blocks, um dynamische Inhalte und bessere Performance zu gewährleisten.
+Jeder Block implementiert serverseitiges Rendering über die zugehörigen \texttt{render.php} Dateien des Blocks, um dynamische Inhalte und bessere Performance zu gewährleisten.
 Zur Unterstützung der Block-Entwicklung wurden verschiedene Utilities entwickelt, damit Codedoppelungen vermieden werden.
 
 
 //Auflistung der Utilities
 
-Die \texttt{colorpalette} stellt ein einheitliches Farbauswahl-Interface bereit, \texttt{iconlist} integriert Heroicons mit SVG-Inline-Rendering, \texttt{useimage} behandelt Medien-Handling für Block-Attribute und \texttt{usecampaigndata} ermöglicht Kampagnendaten-Integration für dynamische Blöcke.
+Die colorpalette stellt ein einheitliches Farbauswahl-Interface bereit, iconlist integriert Heroicons mit SVG-Inline-Rendering, useimage behandelt Medien-Handling für Block-Attribute und usecampaigndata ermöglicht Kampagnendaten-Integration für dynamische Blöcke.
 
-Ferner wurden Komponenten wie \texttt{BackgroundSelect} und \texttt{BorderStyle} ausgelagert, um Konstanten zentral abrufen zu können.
+Ferner wurden Komponenten wie BackgroundSelect und BorderStyle ausgelagert, um Konstanten zentral abrufen zu können.
 Während der Implementierung wurde festgestellt, dass die bestehende Spendenverteilungs-Logik nicht mehr funktionierte.
 Ein neuer Donation Manager wurde entwickelt, der Kampagnen-Statistiken berechnet und cached.
 Die Spendenverteilung wird nach konfigurierbaren Regeln durchführt.
 Zusätzlich sind Echtzeit-Updates für die Donation Section bereitstellt und Rundungs- und Formatierungslogik implementiert.
 
-Die Implementierung adressiert die definierten Anforderungen und schafft eine solide Basis für zukünftige Erweiterungen, welche im abschließenden Kapitel X der Arbeit thematisiert werden.
+Die Implementierung adressiert die definierten Anforderungen und schafft eine solide Basis für zukünftige Erweiterungen, welche im abschließenden Kapitel \ref{ch:fazit-und-ausblick} der Arbeit thematisiert werden.

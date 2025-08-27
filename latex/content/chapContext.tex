@@ -2,12 +2,12 @@
 \label{chap:context}
 In diesem Kapitel wird der Kontext des Projekts vorgestellt, um ein Verständnis für dessen Ursprung, Zielsetzung und aktuellen Entwicklungsstand zu schaffen.
 Neben der Entstehungsgeschichte von \textit{Charigame} werden die derzeitige Systemarchitektur sowie die Funktionsweise des bestehenden WordPress-Plugins beschrieben.
-Diese Darstellung bildet die Grundlage für die anschließende Analyse und dient als Ausgangspunkt für die konzeptionelle Weiterentwicklung in Kapitel 4.
+Diese Darstellung bildet die Grundlage für die anschließende Analyse und dient als Ausgangspunkt für die konzeptionelle Weiterentwicklung in Kapitel \ref{chap:concept}.
 \section{Das Projekt Charigame}
 
 Das Projekt Charigame entstand ursprünglich als interne Initiative der elancer-team GmbH mit dem Ziel eine digitale Spendenaktion zu ermöglichen.
 Diese Idee des Projekts lässt sich auf eine durch die Agentur erstellte Weihnachtsaktion zurückführen, die auf einer dedizierten Website\footnote{\url{https://hohoho.elancer-team.de/}} implementiert wurde.
-Bei der Spendenaktion hat die elancer-team GmbH die Spendensumme bereitgestellt und die Agenturkunden wurden eingeladen teilzunehmen und durch ihr Engagement den Spendentopf zu erhöhen.
+Bei der Spendenaktion hat die elancer-team GmbH die Spendensumme bereitgestellt und die Agenturkunden zur Teilnahme eingeladen, sodass die Kunden durch ihr Engagement den Spendentopf erhöhen konnten.
 Diese Plattform ermöglichte es den Kunden der Agentur erstmals, über die gamifizierte Benutzeroberfläche Spenden zu erspielen und zu verteilen.
 \\\\
 Die positive Resonanz der Agenturkunden auf diesen gamifizierten Ansatz führte zu der Überlegung das Konzept weiterzuentwickeln.
@@ -20,7 +20,7 @@ Das daraus resultierende WordPress-Plugin befindet sich aktuell bei einem Kunden
 \newpage
 \textbf{Funktionsweise von Charigame}
 
-Die Funktionsweise von Charigame lässt sich grob in 5 Schritte unterteilen, die in Abbildung~\ref{fig:charigame-funktion}: veranschaulicht sind:
+Die Funktionsweise von Charigame lässt sich grob in 5 Schritte unterteilen, die in Abbildung~\ref{fig:charigame-funktion} veranschaulicht sind:
 
 %\begin{figure}[!ht]
 %    \centerline{\includesvg[width=1\columnwidth]{images/firstPartyCookie.svg}}
@@ -42,10 +42,10 @@ Die Funktionsweise von Charigame lässt sich grob in 5 Schritte unterteilen, die
     \\ Der Kunde öffnet den personalisierten Code in der E-Mail oder gibt den darin enthaltenen Code auf der Login-Page ein.
     Die in der Kampagne eingestellte Charigame-Landingpage wird angezeigt und der Kunde kann aktiv beim Spendenspiel teilnehmen.
     \item \textbf{Spielende und Spendenverteilung}
-    \\ Nachdem das Spendenspiel seitens des Kunden absolviert wurde, kann dieser den erspielten Beitrag prozentual auf einen von bis zu drei verschiedenen Spendenempfängern verteilen.
+    \\ Nachdem das Spendenspiel seitens des Kunden absolviert wurde, kann dieser den erspielten Beitrag prozentual auf einen bis hin zu drei verschiedenen Spendenempfängern verteilen.
     \item \textbf{Dankesseite}
     \\ Eine Dankesseite wird angezeigt und der Kunde kann nach Belieben erneut an dem Spiel teilnehmen, um seine Punktzahl zu verbessern.
-    Ferner werden weitere Handlungsauforderungen in Form von CTAs ausgespielt, die den Kunden gezielt auf Bereiche des Unternehmens leiten können.
+    Ferner werden weitere Handlungsauforderungen in Form von CTAs ausgespielt, die den Kunden gezielt auf Bereiche der Unternehmenswebsite leiten können.
 \end{enumerate}
 
 \section{Deskriptiver Stand}
@@ -54,9 +54,9 @@ Die Funktionsweise von Charigame lässt sich grob in 5 Schritte unterteilen, die
 Der deskriptive Stand von Charigame befindet sich in einem funktionsfähigen, jedoch technisch und konzeptionell ausbaufähigen Zustand.
 Das WordPress-Plugin integriert sich in das CMS WordPress und erweitert den Funktionsumfang um gamifizierte Spendenaktionen.
 Bevor die Spendenaktion bereitsteht ist es notwendig, dass verschiedene Einstellungen getroffen werden.
-Die notwendigen Einstellungen können über das WordPress-Backend Menü aufgerufen werden.
+Die erforderlichen Einstellungen können über das WordPress-Backend Menü aufgerufen werden.
 \\
-Hierzu erzeugt ein Charigame Menüpunkt im WordPress Dashboard wie in Abbildung~\ref{fig:charigame-menu-legacy}: visualisiert.
+Hierzu erzeugt ein Charigame Menüpunkt im WordPress Dashboard wie in Abbildung~\ref{fig:charigame-menu-legacy} visualisiert.
 In diesem Menü sind die wichtigsten Einstellmöglichkeiten als Menüpunkte definiert.
 \begin{figure}[tbh]
     \centering
@@ -71,7 +71,7 @@ Diese spiegeln den Aufbau der einzelnen Bausteine vom Projekt wider und werden n
 \textbf{General Settings}
 
 Die General Settings enthalten grundlegende Angaben zum Unternehmen, das eine Spendenkampagne durchführt.
-Neben rechtlichen Informationen wie dem Impressum und der AGBs können hier auch gestalterische Parameter wie Farben der Corporate Identity hinterlegt werden.
+Neben rechtlichen Informationen wie dem Impressum und den AGBs können hier auch gestalterische Parameter wie Farben der Corporate Identity hinterlegt werden.
 Die Backendansicht der Einstellungsseite ist in Abbildung~\ref{fig:charigame-general-settings-legacy} dargestellt.
 \begin{figure}[H]
     \centering
@@ -82,7 +82,7 @@ Die Backendansicht der Einstellungsseite ist in Abbildung~\ref{fig:charigame-gen
     \label{fig:charigame-general-settings-legacy}
 \end{figure}
 
-Es können grundlegende Einstellungen konfiguriert werden, z.B.:
+Es können grundlegende Einstellungen konfiguriert werden, z.B. :
 \begin{itemize}
 \item Überschriften der Login-Form
 \item Hintergrund- und Logo-Uploads
@@ -112,7 +112,7 @@ Die Backendansicht der Donation Recipients ist in Abbildung~\ref{fig:donation-re
     \caption{Donation Recipients im WordPress Backend (eigene Darstellung)}
     \label{fig:donation-recipients-settings-legacy}
 \end{figure}
-Die im Backend gesetzten Einstellungen werden in folgender Form wie (vgl. Abbildung~\ref{fig:donation-recipients-frontend-legacy}) im Frontend dargestellt:
+Die im Backend gesetzten Einstellungen werden in folgender Form wie im Frontend dargestellt (vgl. Abbildung~\ref{fig:donation-recipients-frontend-legacy}):
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{images/legacy_donation_recipients_frontend}
@@ -141,12 +141,13 @@ Wenn entsprechende Informationen eingepflegt sind erzeugt der Bereich der Game T
     \caption{Game Types im WordPress Frontend (eigene Darstellung)}
     \label{fig:game-types-frontend-legacy}
 \end{figure}
-
+%TODO: TIppfehler im screeni anpassen siehe schnack "Erspieltes" und komma
 \\\\
 \textbf{Users \& Pipedrive Integration}
 
 Die Menüpunkte Users und Pipedrive Integration dienen maßgeblich der Verwaltung im Backend und haben keine direkten Auswirkungen auf das Frontend.
-Im Bereich der Users werden die Teilnehmer der Spendenkampagnen verwaltet und diesen können die folgenden Werte zugeordnet werden:
+Im Bereich der User werden die Teilnehmer der Spendenkampagnen verwaltet.
+Diesen können die folgenden Werte zugeordnet werden:
 \begin{itemize}
     \item Vorname
     \item Nachname
@@ -155,7 +156,7 @@ Im Bereich der Users werden die Teilnehmer der Spendenkampagnen verwaltet und di
     \item Flags: Imported, Email sent
 \end{itemize}
 Die genauen Werte und Eingabetypen können aus der Tabelle~\ref{tab:eingabefelder_users} entnommen werden.
-Im WordPress Backend wird die User Sektion wie folgt Dargestellt (vgl. Abbildung~\ref{fig:users-backend-legacy})
+Im WordPress Backend wird die User Sektion wie folgt dargestellt (vgl. Abbildung~\ref{fig:users-backend-legacy}):
 
 \begin{figure}[H]
     \centering
@@ -165,8 +166,8 @@ Im WordPress Backend wird die User Sektion wie folgt Dargestellt (vgl. Abbildung
 \end{figure}
 
 Der Bereich der Pipedrive Integration bietet die Möglichkeit Nutzer direkt über die API des \gls{crm} Systems Pipedrive zu beziehen.
-Diese Funktion wurde spezifisch für ein Kundenprojekt entwickelt und bietet deshalb eine angepasst und keine universelle Funktionalität.
-Die Darstellung im Backend der Piperdrive Integration zeigt Abbildung~\ref{fig:pipedrive-backend-legacy}
+Diese Funktion wurde spezifisch für ein Kundenprojekt entwickelt und bietet deshalb eine angepasste und keine universelle Funktionalität.
+Die Darstellung im Backend der Piperdrive Integration zeigt Abbildung~\ref{fig:pipedrive-backend-legacy}:
 
 \begin{figure}[H]
     \centering
@@ -198,7 +199,7 @@ Zusätzlich bietet die Oberfläche eine Funktion zum Versand einer Testmail, mit
     \label{fig:email-backend-legacy}
 \end{figure}
 
-Darüber hinaus bietet der Backend-View der E-Mail-Settings eine Funktion, eine Testmail an eine ausgewählte Adresse zu senden, um die Einstellungen auf Ihre Richtigkeit prüfen zu können.
+Darüber hinaus bietet der Backend-View der E-Mail-Settings die Funktion, eine Testmail an eine ausgewählte Adresse zu senden, um die Einstellungen auf ihre Richtigkeit prüfen zu können.
 \\\\
 \textbf{Data Table}
 
@@ -224,7 +225,7 @@ Die genaue Bedeutung dieser Kennzahlen ist in Tabelle~\ref{tab:metriken_datatabl
 \textbf{Campaigns}
 
 Die Campaigns stellen das zentrale Element von Charigame dar und repräsentieren den konzeptionell und technisch komplexesten Bereich des Plugins.
-Dieser Bereich ermöglicht deren Steuerung über eine vielzahl von Konfigurationsmöglichkeiten.
+Dieser Bereich ermöglicht die Steuerung über eine Vielzahl von Konfigurationsmöglichkeiten.
 Der gesamte Ablauf einer Kampagne kann innerhalb des WordPress-Backends abgebildet werden.
 Dies umfasst sowohl die Auswahl von Spieleinstellungen als auch die Kommunikation mit den Teilnehmenden.
 \\
@@ -246,7 +247,7 @@ Diese Empfänger werden im Spiel zur Auswahl gestellt, um den erspielten Beitrag
 \item \textbf{Punkte- und Spendenlogik} \\
 Durch eine Highscore-Logik wird festgelegt, wie viele Punkte maximal erreichbar sind und welche Spendenwerte daraus resultieren.
 Gewinnkategorien ermöglichen eine Staffelung nach erreichten Punktzahlen (beispielsweise ab 20 Punkten 4 Euro, ab 50 Punkten 10 Euro).
-Ein übergeordnete Spendensumme, welche vom Unternehmen unabhängig der erzielten Spenden durch die Teilnehmer erfolgt, kann ebenfalls definiert werden.
+Eine übergeordnete Spendensumme, welche vom Unternehmen unabhängig der erzielten Spenden durch die Teilnehmer erfolgt, kann ebenfalls definiert werden.
 
 \item \textbf{Zeitliche Steuerung} \\
 In der Kampagne kann zwischen zwei Methoden der Versendung gewählt werden.
@@ -275,32 +276,32 @@ Im Folgenden werden diese näher vorgestellt und in ihrem technischen Kontext er
 
 \begin{itemize}
     \item \textbf{WordPress Plugin-Stack}\\
-    Die Kernfunktionalität basiert auf den von WordPress bereitgestellten APIs. %(WP\_List\_Table API, Enqueue API, AJAX API, Plugin Activation API, Template Include API, Mail API, Cron API).
-    Eingesetzt wurden u. a. \gls{wp} List Table für die Darstellung von Tabellen im Admin-Dashboard, die Enqueue-Mechanismen von WordPress zum Einbinden von Skripten und Styles, sowie AJAX-Hooks für asynchrone Requests.
+    Die Kernfunktionalität basiert auf den von WordPress bereitgestellten APIs. %(\gls{wplisttable} API, \gls{enqueue} API, \gls{ajax} API, Plugin Activation API, \gls{templateinclude} API, Mail API).
+    Eingesetzt wurden u. a. \gls{wplisttable} für die Darstellung von Tabellen im Admin-Dashboard, die \gls{enqueue}-Mechanismen von WordPress zum Einbinden von Skripten und Styles, sowie \gls{ajax} Hooks für asynchrone Requests.
 
-    Zusätzlich werden Register Activation Hooks und Template Include genutzt, um das Plugin beim Aktivieren einzubinden und die Views zu steuern.\\
-    jQuery wird aus einem \gls{cdn} eingebunden und dient an einigen Stellen als Hilfsbibliothek für Interaktionen.\\
-    Für den E-Mail-Versand und Tests kommt PHPMailer über die WordPress-Funktion wp\_mail zum Einsatz.
+    Zusätzlich werden Register Activation Hooks und \gls{templateinclude} genutzt, um das Plugin beim Aktivieren einzubinden und die Views zu steuern.\\
+    \gls{jquery} wird aus einem \gls{cdn} eingebunden und dient an einigen Stellen als Hilfsbibliothek für Interaktionen\\
+    Für den E-Mail-Versand und Tests kommt \gls{phpmailer} über die WordPress-Funktion wp\_mail zum Einsatz.
 
     Mit Advanced Custom Fields (ACF/ACF Pro) werden zusätzliche Metadaten für Inhalte verwaltet, die über die Funktionen get\_field() intensiv genutzt werden.\\
-    Außerdem wurden WP Cron Jobs bzw. Scheduled Tasks vorbereitet, um zeitgesteuerte Abläufe im Plugin zu ermöglichen.
+    Außerdem wurden \gls{wpcron}-Jobs bzw. Scheduled Tasks vorbereitet, um zeitgesteuerte Abläufe im Plugin zu ermöglichen.
 
     \item \textbf{Frontend und JavaScript}\\
     Für Animationen wird die \gls{gsap} 3 eingesetzt.
     Neben der Kernbibliothek sind auch Plugins von \gls{gsap} wie Observer, ScrollTrigger, MotionPathPlugin und Draggable integriert, die komplexe Animationen und Interaktionen ermöglichen.
 
     Visuell wird ebenfalls Confetti \gls{js} für animierte Partikeleffekte eingesetzt.
-    Für das Tower-Spiel wird Three.js genutzt, eine leistungsfähige 3D-Bibliothek, die sowohl lokal eingebunden als auch als \gls{npm}-Abhängigkeit installiert ist.
+    Für das Tower-Spiel wird \gls{threejs} genutzt, eine leistungsfähige 3D-Bibliothek, die sowohl lokal eingebunden als auch als \gls{npm}-Abhängigkeit installiert ist.
 
     Ferner existiert ein eigenes kleines Spiele-Framework im Ordner \grqq{}games\grqq{}, das das Memory- und Tower-Spiel enthält und durch eigene Hilfsskripte wie helper.js und picker.js ergänzt wird.
 
     \item \textbf{CSS und Build-Prozess}\\
-    Das Styling basiert auf Tailwind \gls{css}, das über einen \gls{cli}-Buildprozess in Kombination mit npm-Skripten (build:css, watch:css) verarbeitet wird.
+    Das Styling basiert auf \gls{tailwind} \gls{css}, das über einen \gls{cli}-Buildprozess in Kombination mit \gls{npm}-Skripten (build:css, watch:css) verarbeitet wird.
     Zusätzlich werden dynamische Theme-Farben generiert, die in einer tailwind-colors.css gespeichert und über eine \gls{php}-Funktion automatisch aktualisiert werden.
 
     \item \textbf{Package- und Task-Runner}\\
     \gls{npm} dient als zentraler Package Manager für JavaScript-Bibliotheken und Build-Skripte.
-    Ergänzend kommt Grunt als Task-Runner zum Einsatz, unter anderem für Internationalisierung und die automatisierte Erstellung von Readme-Dateien.
+    Ergänzend kommt \gls{grunt} als Task-Runner zum Einsatz, unter anderem für Internationalisierung und die automatisierte Erstellung von Readme-Dateien.
     Grunt selbst wurde in der praktischen Anwendung jedoch nie verwendet.
 
     \item \textbf{Weitere Aspekte}\\
@@ -328,8 +329,8 @@ Der Code ist überwiegend prozedural, enthält aber einzelne objektorientierte E
     Die Views selbst sind in \ref{subsec:front-backend} beschrieben und visualisiert.
 
     \item \textbf{Datenzugriff}\\
-    Der Datenzugriff erfolgt direkt über die WordPress-Datenbankschnittstelle wpdb.
-    Eine eigene Tabelle (wp\_edg\_game\_data) wird per dbDelta angelegt, ohne zusätzliche Abstraktionsschicht oder \gls{orm}.
+    Der Datenzugriff erfolgt direkt über die WordPress-Datenbankschnittstelle \gls{wpdb}.
+    Eine eigene Tabelle (wp\_edg\_game\_data) wird per \gls{dbdelta} angelegt, ohne zusätzliche Abstraktionsschicht oder \gls{orm}.
     Inhalte und Konfigurationen basieren stark auf ACF Pro, das an vielen Stellen über get\_field() aufgerufen wird.
     Dynamische Farben werden über eine in PHP generierte CSS-Datei (tailwind-colors.css) eingebunden.
 

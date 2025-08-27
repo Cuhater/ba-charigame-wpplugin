@@ -131,12 +131,12 @@ Alle möglichen Felder werden in der folgenden Tabelle aufgeführt:
 \textbf{Hooks und Filter}
 
 Es gibt eine Kardinalregel in der Wordpress Entwicklung die besagt: Don’t touch WordPress core~\cite{wordpress2024Intro}.
-Damit Anpassungen an bestehende Funktionalitäten möglich sind gibt es Hooks und Filter.
-Hooks erlauben es an spezifischen Stellen einzugreifen, um das Verhalten von WordPress zu ändern ohne dabei die Kern-Dateien bearbeiten zu müssen.
-Allgemein gibt es zwei Arten von hooks in WordPress: Actions und Filter.
-Mit Actions können Funktionen hinzugefügt oder geändert werden.
-Filter wiederum ändern Inhalte, während diese geladen und dem Website-Nutzer angezeigt werden.
-Hooks sind nicht nur für die Plugin-Entwicklung gedacht, sondern werden ebenfalls häufig verwendet, um Standardfunktionen durch den WordPress-Kern selbst bereitzustellen.
+Damit Anpassungen an bestehende Funktionalitäten möglich sind gibt es \glspl{hook} und \glspl{filter}.
+\glspl{hook} erlauben es an spezifischen Stellen einzugreifen, um das Verhalten von WordPress zu ändern ohne dabei die Kern-Dateien bearbeiten zu müssen.
+Allgemein gibt es zwei Arten von \glspl{hook} in WordPress: \glspl{action} und \glspl{filter}.
+Mit \glspl{action} können Funktionen hinzugefügt oder geändert werden.
+\glspl{filter} wiederum ändern Inhalte, während diese geladen und dem Website-Nutzer angezeigt werden.
+\glspl{hook} sind nicht nur für die Plugin-Entwicklung gedacht, sondern werden ebenfalls häufig verwendet, um Standardfunktionen durch den WordPress-Kern selbst bereitzustellen.
 
 Zu den zentralen Hooks im Kontext von WordPress-Plugins gehören insbesondere \texttt{register\_activation\_hook()}, \texttt{register\_deactivation\_hook()} sowie \\ \texttt{register\_uninstall\_hook()}~\cite{wordpress2024ActionsHooks}.
 
@@ -355,7 +355,7 @@ Wenn ein spätes Escaping nicht umsetzbar ist (etwa bei generiertem JavaScript-C
 \\\\
 \textbf{Nonces}
 
-Ein Nonce (number used once) ist ein Sicherheitsmechanismus in WordPress zum Schutz von \gls{url}s und Formularen vor unbefugten Manipulationen.
+Ein \gls{nonce} (number used once) ist ein Sicherheitsmechanismus in WordPress zum Schutz von \gls{url}s und Formularen vor unbefugten Manipulationen.
 Insbesondere wird der Schutz vor \gls{csrf} sichergestellt.
 Anders als die Definition von Nonces handelt es sich nicht um Einmalzahlen, sondern um Hash-Werte.
 Diese Hashwerte sind für einen bestimmten Benutzer und Kontext über eine begrenzte Zeit gültig (Standard: 12–24 Stunden) \cite{wordpress2024nonces}.
@@ -413,8 +413,8 @@ Die Kommunikation erfolgt typischerweise über POST- oder GET-Anfragen, die Date
 \\
 \textbf{WP-CRON}
 
-In WordPress werden zeitgesteuerte Aufgaben über ein eigenes System gesteuert, das sogenannte \gls{wp}-Cron.
-WP-Cron bietet eine einfache Möglichkeit, zeitbasierte Prozesse zu implementieren.
+In WordPress werden zeitgesteuerte Aufgaben über ein eigenes System gesteuert, das sogenannte \gls{wpcron}.
+\gls{wpcron} bietet eine einfache Möglichkeit, zeitbasierte Prozesse zu implementieren.
 Solche Events werden typischerweise beim Planen von Beiträgen oder dem Versenden von E-Mail-Benachrichtigungen genutzt~\cite{wordpress2024Cron}.
 
 %Hier noch überlegen welche Funktionen und Paradigmen aufgeführt werden sollten. Effektiv bisschen filler für das kommende dann?
@@ -460,7 +460,7 @@ Solche Events werden typischerweise beim Planen von Beiträgen oder dem Versende
 
 \section{Gutenberg-Editor: Konzept und technische Grundlagen}
 \begin{quote}
-    Der Block-Editor ist ein modernes Paradigma für die Erstellung und Veröffentlichung von WordPress-Websites.
+    Der \gls{blockeditor} ist ein modernes Paradigma für die Erstellung und Veröffentlichung von WordPress-Websites.
     Er verwendet ein modulares System aus Blöcken zum Erstellen und Formatieren von Inhalten und wurde entwickelt,
     um reichhaltige und flexible Layouts für Websites und digitale Produkte zu erstellen.
     \\[0.5em]

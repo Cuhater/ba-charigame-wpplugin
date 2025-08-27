@@ -79,14 +79,14 @@ Folgend werden die wichtigsten definierten Anforderungen im Zusammenhang mit den
 \textbf{Carbon Fields}
 
 Die Abhängigkeit des externen Plugins ACF Pro vollständig zu entfernen, geht aus der zuvor definierten Anforderung [\ref{T1}] hervor.
-Anstelle von ACF Pro wird das Framework Carbon Fields genutzt, das über Composer eingebunden werden kann.
-Carbon Fields ermöglicht die flexible Definition und Verwaltung von Metafeldern innerhalb von WordPress.
+Anstelle von ACF Pro wird das Framework \gls{carbonfields} genutzt, das über Composer eingebunden werden kann.
+\gls{carbonfields} ermöglicht die flexible Definition und Verwaltung von Metafeldern innerhalb von WordPress.
 Im Vergleich zu ACF hat diese Lösung den Vorteil, dass sie als Bibliothek in das Plugin integriert werden kann.
 Darüber hinaus ist Carbon Fields eine Open Source Lösung und es ist keine kostengebundene Lizenz notwendig.
 \\\\
 \textbf{Gutenberg Blockeditor}
 
-Ein weiterer Kernbestandteil der Technologieauswahl ist die Integration von Gutenberg.
+Ein weiterer Kernbestandteil der Technologieauswahl ist die Integration des \gls{blockeditor}s.
 Dies erlaubt die Entwicklung maßgeschneiderter Blöcke für den Editor und stellt sicher, dass Inhalte direkt im Backend in einer Live-Vorschau bearbeitet werden können.
 Für das Editor-UI wird React verwendet, da es die von WordPress empfohlene und im Gutenberg-Editor standardmäßig eingesetzte Technologie ist.
 Die Kopplung von PHP im Backend und React im Editor ermöglicht eine klare Trennung von Daten- und Darstellungsschicht.
@@ -103,12 +103,12 @@ Aus der geplanten Architektur und den eingesetzten Technologien geht weiterführ
 
 \subsection{Aufbau der Komponenten}
 Das Plugin soll eine zentrale Einstiegsklasse \texttt{Charigame} besitzen, die in der Hauptdatei des Plugins initialisiert wird.
-Durch den definierten Plugin-Header sowie die Implementierung der WordPress-Hooks für Aktivierung und Deaktivierung wird diese Klasse geladen und stößt die Instanziierung aller weiteren benötigten Abhängigkeiten an.
+Durch den definierten Plugin-Header sowie die Implementierung der WordPress-\glspl{hook} für Aktivierung und Deaktivierung wird diese Klasse geladen und stößt die Instanziierung aller weiteren benötigten Abhängigkeiten an.
 Die Architektur sieht eine Reihe spezialisierter Klassen vor, welche die unterschiedlichen Funktionsbereiche des Plugins abbilden.
 Dazu gehören unter anderem:
 
 \begin{itemize}
-    \item \textbf{Charigame Blocks:} Verantwortlich für die Registrierung und Bereitstellung der im Plugin genutzten Gutenberg-Blöcke.
+    \item \textbf{Charigame Blocks:} Verantwortlich für die Registrierung und Bereitstellung der im Plugin genutzten Gutenberg-Blöcke (\gls{blockeditor}).
     Darüber hinaus wird eine eigene Block-Kategorie eingeführt und die notwendigen Assets werden eingebunden.
     \item \textbf{Login Handler:} Kümmert sich um die Verwaltung der Loginsessions der Teilnehmer, prüft Gamecodes und stößt das Rendering der Landingpage an.
     \item \textbf{Color Manager:} Ermöglicht die Registrierung von Kampagnenfarben und deren dynamische Integration in das DOM.
@@ -119,7 +119,7 @@ Dazu gehören unter anderem:
 \end{itemize}
 
 Ergänzend wird eine statische Konfigurationsdatei vorgesehen, die allgemeine Design-Mappings wie Abstände, Textausrichtungen oder Flexbox-Alignments enthält.
-Diese statischen Definitionen basieren auf TailwindCSS und werden innerhalb der Gutenberg-Blöcke genutzt.
+Diese statischen Definitionen basieren auf \gls{tailwind} und werden innerhalb der Gutenberg-Blöcke genutzt.
 \newpage
 \subsection{Custom Post Types}
 Die zentrale Datenstruktur des Plugins wird über die Definition mehrerer Custom Post Types (\gls{CPT}) realisiert.
@@ -130,7 +130,7 @@ Folgende Post Types werden vorgesehen:
     Dazu gehören die Wahl des Spieltyps, spezifische Spieleinstellungen, Verlinkungen zu Landingpages und E-Mail-Templates sowie die Konfigurationen zur Spendenverteilung und der Zeitsteuerung.
     Zudem werden in der Campaign die Einstellungen für das Login-Formular hinterlegt.
 
-    \item \textbf{Landingpage:} Stellt einen CPT zur Verfügung, der die Bearbeitung von Landingpages direkt im Gutenberg-Editor ermöglicht.
+    \item \textbf{Landingpage:} Stellt einen CPT zur Verfügung, der die Bearbeitung von Landingpages direkt im \gls{blockeditor} ermöglicht.
     \item \textbf{Game:} Dient als Zuordnungstyp für die verschiedenen im Plugin angebotenen Spiele.
     \item \textbf{Game-Settings:} Wird als neuer CPT erstellt, der die Spieleinstellungen aus der Kampagne nimmt und diese wiederverwendbar macht.
     \item \textbf{Recipient:} Enthält Informationen zu den begünstigten Empfängern einer Kampagne, darunter Name, Logo und Beschreibung.
@@ -160,7 +160,7 @@ Zusätzlich steuert ein Asset Manager das Einbinden und Entfernen aller benötig
 
 Ergänzend zur Trennung von Frontend und Backend ist ein dedizierter Helper-Layer vorgesehen.
 Dieser beinhaltet eine Helper-Komponente, die verschiedene serverseitige Funktionen bereitstellt.
-Dazu gehören unter anderem die Registrierung von \gls{ajax}-Actions sowie öffentliche Methoden zur Abfrage von Spendenverteilungen oder zur Verwaltung aggregierter Kampagnenergebnisse.
+Dazu gehören unter anderem die Registrierung von \gls{ajax}-\glspl{action} sowie öffentliche Methoden zur Abfrage von Spendenverteilungen oder zur Verwaltung aggregierter Kampagnenergebnisse.
 Die Trennung in einen dedizierten Layer ermöglicht es, wiederkehrende Aufgaben zentral zu verwalten.
 %\\\\
 %\textbf{Datenmodell der Klassen}
