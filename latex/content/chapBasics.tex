@@ -1,7 +1,7 @@
 \chapter{Theoretische Grundlagen}
 In diesem Kapitel werden die zentralen theoretischen Grundlagen vermittelt, die für das Verständnis der Arbeit und die spätere Umsetzung notwendig sind.
 Es werden sowohl technische Aspekte von WordPress und der Plugin-Entwicklung als auch die Prinzipien des Gutenberg-Editors betrachtet.
-Ergänzend werden konzeptionelle Überlegungen zu Gamification und gesellschaftlich relevanten Plattformen diskutiert, um den fachlichen Rahmen der Arbeit abzustecken.
+Ergänzend werden konzeptionelle Überlegungen zu Gamification und gesellschaftlich relevanten Plattformen diskutiert, um den fachlichen Rahmen der Arbeit abzugrenzen.
 
 \section{WordPress als Content-Management-System}
 WordPress ist ein freies, unter der \gls{gnu} \gls{gpl} v2 lizenziertes Content-Management-System und mit einem Marktanteil von 61,1\% das weltweit am häufigsten verwendete \gls{cms}~\cite{statista2025cms}.
@@ -27,7 +27,7 @@ Darüber hinaus bietet WordPress eine \gls{rest}-\gls{api} mit der eine entkoppe
 WordPress Coding Standards dienen als Richtlinien und Best Practises für Entwickler die an WordPress Projekten arbeiten.
 Diese Standards haben sich in der Wordpress Community etabliert und ermöglichen eine konsistente Codestruktur.
 Ziel ist es, die Codequalität so zu gestalten, dass Wartung und kollaborative Weiterentwicklung erleichtert werden.
-Für die Ausarbeitung der Weiterentwicklung von Charigame sollen die offiziellen Wordpress Coding Standards beachtet und umgesetzt werden~\cite{wordpress2024codingstandards}.
+Für die Ausarbeitung der Weiterentwicklung von \textit{Charigame} sollen die offiziellen Wordpress Coding Standards beachtet und umgesetzt werden~\cite{wordpress2024codingstandards}.
 
 
 \section{Plugin-Entwicklung mit WordPress}
@@ -63,7 +63,7 @@ Die nachfolgende Untersuchung berücksichtigt weitere Bestandteile von WordPress
 \\\\
 \textbf{Aufbau, Plugin-Header und Metadateien}
 
-Für die Entwicklung von WordPress-\gls{plugin}s empfehlen die offiziellen WordPress Developer Resources eine klare und strukturierte Ordnerorganisation. \cite{wordpress2024BestPractices}
+Für die Entwicklung von WordPress-\gls{plugin}s empfehlen die offiziellen WordPress Developer Resources eine klare und strukturierte Ordnerorganisation~\cite{wordpress2024BestPractices}.
 Als empfohlen wird folgende grundlegende Verzeichnisstruktur vorgeschlagen (vgl. Abbildung~\ref{fig:wp-plugin-structure}):
 \\\\\\
 \begin{figure}[H]
@@ -84,7 +84,7 @@ Das minimale erforderliche Header-Format ist dabei wie in Abbildung~\ref{fig:wp-
     \label{fig:wp-plugin-min}
 \end{figure}
 
-Darüber hinaus können weitere optionale Felder definiert werden wie:
+Darüber hinaus können weitere optionale Felder definiert werden wie z.B. :
 Author URI für die Website des Plugin-Entwicklers, Text Domain
 zur Internationalisierung und Domain Path für den Pfad zu Sprachdateien.
 Alle möglichen Felder werden in der folgenden Tabelle aufgeführt:
@@ -132,7 +132,7 @@ Alle möglichen Felder werden in der folgenden Tabelle aufgeführt:
 
 Es gibt eine Kardinalregel in der Wordpress Entwicklung die besagt: Don’t touch WordPress core~\cite{wordpress2024Intro}.
 Damit Anpassungen an bestehende Funktionalitäten möglich sind gibt es \glspl{hook} und \glspl{filter}.
-\glspl{hook} erlauben es an spezifischen Stellen einzugreifen, um das Verhalten von WordPress zu ändern ohne dabei die Kern-Dateien bearbeiten zu müssen.
+\glspl{hook} erlauben es, an spezifischen Stellen einzugreifen, um das Verhalten von WordPress zu ändern, ohne dabei die Kern-Dateien bearbeiten zu müssen.
 Allgemein gibt es zwei Arten von \glspl{hook} in WordPress: \glspl{action} und \glspl{filter}.
 Mit \glspl{action} können Funktionen hinzugefügt oder geändert werden.
 \glspl{filter} wiederum ändern Inhalte, während diese geladen und dem Website-Nutzer angezeigt werden.
@@ -175,7 +175,7 @@ Innerhalb von Funktionen und Klassen definierte Variablen, sind hiervon nicht be
 
 Unter Zuhilfenahme eines Prefix können potenzielle Konflikte im Hinblick auf Aufrufe und Ausführungen mit anderen Plugins verhindert werden.
 Das Handbuch empfiehlt hierzu ein einzigartiges Wort, welches vor verschiedene Deklarationen vorangestellt wird~\cite{wordpress2024ProceduralCodingMethod}.
-Auf das ChariGame gemünzte Projekt könnte dies dann wie folgt aussehen:
+Auf das \textit{ChariGame} gemünzte Projekt könnte dies dann wie folgt aussehen:
 \begin{itemize}
  \item function charigame\_save\_post();
  \item define ('CHARIGAME\_LICENSE', true);
@@ -205,7 +205,7 @@ Diese können grob in drei Variationen kategorisiert werden:
 
 Je nachdem welchen Umfang das Plugin anstrebt, gilt es die passende Lösung des Architekturmusters zu wählen.
 Eine einzelne Plugin-Datei, die Funktionen enthält, stellt eine solide Basis für ein kleines Plugin zur Verfügung.
-Die Variante eine Haupt-Plugin-Datei zu erstellen und mehrere Klassendateien aufzubauen bietet sich eher für Plugins mit einer größeren Codebasis an.
+Die Variante eine Haupt-Plugin-Datei zu erstellen und mehrere Klassendateien aufzubauen, bietet sich eher für Plugins mit einer größeren Codebasis an.
 
 \subsection{Plugin Security und Privacy}
 Ein essenzieller Aspekt bei der Programmierung von WordPress Plugins ist die Plugin Security und Privacy.
@@ -373,8 +373,8 @@ In diesem Kapitel sind weitere für das Projekt verwendete Funktionen und Paradi
 \textbf{Themes}
 
 Ein Theme in WordPress bestimmt das Erscheinungsbild einer Website.
-Es legt Farben, Schriftarten, Layout-Strukturen sowie die gesamte Darstellung des Frontends fest und kann auch Funktionen im Backend hinzufügen. \cite{wordpress2024theme}
-Für das Projekt Charigame spielt das konkret gewählte Theme jedoch keine zentrale Rolle.
+Es legt Farben, Schriftarten, Layout-Strukturen sowie die gesamte Darstellung des Frontends fest und kann auch Funktionen im Backend hinzufügen~\cite{wordpress2024theme}.
+Für das Projekt \textit{Charigame} spielt das konkret gewählte Theme jedoch keine zentrale Rolle.
 Die entwickelte Lösung soll unabhängig von einem bestimmten Theme funktionieren.
 %Die Definition dient hier daher lediglich dazu, ein grundlegendes Verständnis für den Aufbau und die Funktionsweise von WordPress zu vermitteln.
 
@@ -474,10 +474,10 @@ Jeder Block wird als separates Element mit individuellen Bearbeitungs- und Forma
 Wenn alle diese Komponenten zusammengefügt werden, bilden sie den Inhalt der Seite oder des Beitrags, der dann in der WordPress-Datenbank gespeichert wird~\cite{wordpress2024plugin_blockeditor}.
 \\
 \\
-Die Relevanz des Editors wird durch die Erhobene Statistik der Seite Gutenberg in Numbers deutlich.
+Die Relevanz des Editors wird durch die erhobene Statistik der Seite Gutenberg in Numbers deutlich.
 Demnach beträgt die Anzahl aktiver Installationen des Gutenberg-Editors auf WordPress- und Jetpack-Seiten aktuell 87,3 Mio.
 Innerhalb der letzten drei Jahre wurden 282 Mio. Beiträge mit dem Gutenberg-Editor erstellt.
-Die Daten basieren auf einem Dreijahreszeitraum und umfassen nur WordPress.com- und Jetpack-Seiten, die die Nutzung des Editors melden~\cite{gutenstats}.
+Die Daten basieren auf einem Dreijahreszeitraum und umfassen nur WordPress.com- und Jetpack-Seiten, die den Einsatz des Editors melden~\cite{gutenstats}.
 
 \subsection{Dateistruktur eines Blocks}
 Die Developer Resources geben Entwicklern Grundlagen der Blockentwicklung mit, welche nachfolgend erläutert werden.
@@ -506,13 +506,13 @@ Blöcke sind darauf ausgelegt, auf vielfältige Weise miteinander kombiniert zu 
 Sie folgen einem hierarchischen Aufbau, bei dem ein Block in einen anderen eingebettet werden kann.
 Verschachtelte Blöcke und ihr umschließender Block werden auch als Kinder und Eltern bezeichnet.
 Ein Spalten-Block kann beispielsweise als übergeordneter Block fungieren und mehrere untergeordnete Blöcke in seinen einzelnen Spalten enthalten.
-Die Programmierschnittstelle, die die Verwendung von Unter-Blöcken regelt, wird InnerBlocks genannt~\cite{wordpress2024combination}.
+Die Programmierschnittstelle, welche die Verwendung von Unter-Blöcken regelt, wird InnerBlocks genannt~\cite{wordpress2024combination}.
 \\\\
 \textbf{Daten und Attribute}
 
 Blöcke verstehen Inhalte als Attribute.
 Ein Block kann eine beliebige Anzahl von Attributen beinhalten und diese werden in einer Key Value Relation definiert.
-Der Key spiegelt den Namen wider und der Value ist der Wert.
+Der Key spiegelt den Namen wider und der Value den Wert.
 Diese Inhalte sind serialisierbar in \gls{html} und werden im Block HTML (vgl. Abbildung~\ref{fig:wp-block-example}) gespeichert und so auch in der Datenbank als post\_content abgelegt.
 \begin{figure}[H]
     \centering
@@ -547,29 +547,29 @@ Angepasste Blockvorlagen umfassen statische als auch dynamische Seiten, wie Arch
 
 \section{Gamification im Kontext digitaler Anwendungen}
 
-Deterding et al. definieren Gamification als \grqq{}the use of game design elements in non-game contexts\grqq{}. \cite{deterding2011gamification}
+Deterding et al. definieren Gamification als \grqq{}the use of game design elements in non-game contexts\grqq{}~\cite{deterding2011gamification}.
 Diese Definition erfasst ein Phänomen, das in seiner Grundform nicht neu ist.
-Leistungsbezogene Vergütungssysteme, Rankings und spielerische Wettkämpfe existieren in Fabriken, dem Vertrieb und Bildungseinrichtungen bereits seit Jahrzehnten. \cite{bpb2023gamification}
+Leistungsbezogene Vergütungssysteme, Rankings und spielerische Wettkämpfe existieren in Fabriken, dem Vertrieb und Bildungseinrichtungen bereits seit Jahrzehnten~\cite{bpb2023gamification}.
 Die Digitalisierung hat seit etwa 2010 eine weitreichende Transformation des Gamification-Konzepts eingeleitet.
-Durch die Verbreitung von Smartphones und insbesondere Wearables wie Smartwatches und Fitnessbändern haben sich neue Dimensionen der spielerischen Motivationsgestaltung eröffnet. \cite{sailer2016gamification}
+Durch die Verbreitung von Smartphones und insbesondere Wearables wie Smartwatches und Fitnessbändern haben sich neue Dimensionen der spielerischen Motivationsgestaltung eröffnet~\cite{sailer2016gamification}.
 Diese Entwicklung stellt einen Wechsel in der Gestaltung des Mensch-Computer-Interaktionen Paradigma dar.
 
-Gamification hat sich von simplen Belohnungssystemen zu einem komplexen Gesamtkonzept entwickelt, das die Wahl spezifischer Elemente und Mechaniken, die Berücksichtigung des Anwendungskontextes, der Zielgruppe sowie der zu erreichenden Ziele umfasst. \cite{bpb2023gamification}
+Gamification hat sich von simplen Belohnungssystemen zu einem komplexen Gesamtkonzept entwickelt, das die Wahl spezifischer Elemente und Mechaniken, die Berücksichtigung des Anwendungskontextes, der Zielgruppe sowie der zu erreichenden Ziele umfasst~\cite{bpb2023gamification}.
 \\\\
 \textbf{Abgrenzung von Serious Games}
 
-Im Projektkontext von Charigame ist eine klare Abgrenzung zwischen Gamification und Serious Games erforderlich.
-Während Serious Games als eigenständige Spiele konzipiert werden, die primär pädagogische Lernziele verfolgen, versteht sich die Gamification-Implementierung in Charigame als funktionale Ergänzung.
+Im Projektkontext von \textit{Charigame} ist eine klare Abgrenzung zwischen Gamification und Serious Games erforderlich.
+Während Serious Games als eigenständige Spiele konzipiert werden, die primär pädagogische Lernziele verfolgen, versteht sich die Gamification-Implementierung in \textit{Charigame} als funktionale Ergänzung.
 Ziel des gamifizierten Parts ist es, die Nutzerbeteiligung zu steigern und nicht als Wissensvermittlung zu dienen.
 \\
-Charigame verbindet somit die konventionelle Spendenaktion durch die Integration spielmechanischer Elemente, ohne dabei den ursprünglichen Zweck der Aktion zu verändern.
+\textit{Charigame} verbindet somit die konventionelle (Charity)-Spendenaktion durch die Integration spielmechanischer Elemente, ohne dabei den ursprünglichen Zweck der Aktion zu verändern.
 Der User Experience-orientierte Ansatz zielt darauf ab, die Customer Journey zu optimieren und die emotionale Bindung der Nutzer zur Spendenaktion zu erhöhen.
 Dieser spielerische Ansatz dient als Mittel zur Aktivierung und nicht als Selbstzweck.
 \\\\
 \textbf{Strategische Bedeutung von Gamification für Spendenaktionen}
 
 Die Integration von Gamification in Spendenaktionen adressiert mehrere strukturelle Herausforderungen traditioneller Fundraising-Ansätze.
-Spendenaufrufe leiden häufig unter geringer Nutzerengagement und mangelnder Transparenz bezüglich der Verwendung der Mittel.
+Spendenaufrufe leiden häufig unter geringem Nutzerengagement und mangelnder Transparenz bezüglich der Verwendung der Mittel.
 Gamification-Elemente schaffen hier Abhilfe durch die Visualisierung des sozialen Impacts und erhöhte Nutzerbeteiligung~\cite{golrang2021applying}.
 \\\\
 Die Integration spielerischer Elemente steigert sowohl die Aufmerksamkeit als auch die Reichweite sozialer Kampagnen.
@@ -584,7 +584,7 @@ Diese gesellschaftliche Erwartungshaltung spiegelt sich in der zunehmenden Nachf
 Wie aus der Studie der Bertelsmann-Stiftung zur gesellschaftlichen Verantwortung von Unternehmen hervorgeht, identifizieren 60\% der befragten Unternehmen die Erwartungen der Kunden als einen der wichtigsten äußeren Faktoren für ihr gesellschaftliches Engagement~\cite{bertelsmann2006gesellschaftliche}.
 
 Die Verbindung von CSR-Maßnahmen mit digitalen, interaktiven Ansätzen stellt eine potenzielle Antwort auf diese gestiegenen Erwartungen dar.
-Eine gamifizierte Charity-Plattform ermöglichen es dabei, Transparenzanforderungen zu erfüllen als auch das häufig geringe Engagement bei konventionellen Spendenaktionen zu erhöhen.
+Gamifizierte Charity-Plattform ermöglichen es dabei, Transparenzanforderungen zu erfüllen als auch das häufig geringe Engagement bei konventionellen Spendenaktionen zu erhöhen.
 \\\\
 \textbf{Charity-Plattformen}
 

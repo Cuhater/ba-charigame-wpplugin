@@ -31,13 +31,20 @@ Diese Vorlage bietet eine standardisierte Struktur für WordPress-Plugins und fo
 Im ersten Schritt wurden die zuvor importierten Daten aus dem bestehenden Plugin-Stand in die Vorlage eingesetzt und eine umfassende Bereinigung durchgeführt.
 Dabei wurden nicht verwendete Dateien identifiziert und entfernt.
 Zu diesen Altlasten zählten diverse Assets und Abhängigkeiten, die bereits zum Zeitpunkt des Transfers keine Funktion mehr erfüllten oder redundant wurden.
-\subsection{Migration und Anpassung}
+\subsection{Migration und Anpassung der Komponenten}
 \textbf{Migration zu Carbon Fields}
 
 Nachdem die grundlegende Bereinigung der Daten abgeschlossen war, wurde mit der Migration von ACF Pro zu \gls{carbonfields} begonnen.
 Wie in Kapitel \ref{chap:concept} konzipiert wurde Carbon Fields als Ersatz für ACF Pro implementiert.
 Hierzu wurde eine dedizierte Klasse für den Boot-Prozess von \gls{carbonfields} erstellt und über Composer als Abhängigkeit in die neue Projektstruktur eingebunden.
-Die Initialisierung erfolgt über einen Klassenaufruf, der das Framework zentral verfügbar macht, welche in Abbildung X veranschaulicht ist. %TODO: Abbildung hinterlegen
+Die Initialisierung erfolgt über einen Klassenaufruf, der das Framework zentral verfügbar macht, welche in Abbildung \ref{fig:carbon-fields-init} veranschaulicht ist.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/carbon_fields_init}
+    \caption{Aufbau der Klasse Charigame\_Carbon\_Fields (eigene Darstellung)}
+    \label{fig:carbon-fields-init}
+\end{figure}
 
 Alle bestehenden \texttt{get\_field()}-Aufrufe des ursprünglich verwendeten ACF Plugins wurden daraufhin systematisch identifiziert und durch das entsprechende \gls{carbonfields}-Pendant ersetzt.
 Diese Migration gewährleistet die Kompatibilität mit der neuen Architektur und eliminiert die externe Abhängigkeit von ACF Pro vollständig.
@@ -45,18 +52,26 @@ Im Zuge der Migration der carbon\_get\_post\_meta() Aufrufe mussten im nächsten
 \\\\
 \textbf{Custom Post Types und REST API}
 
-Alle Custom Post Types wurden neu aufgebaut, um einen einheitlichen Duktus innerhalb des ChariGame-Plugins zu realisieren und die Funktionalität mit Carbon Fields zu gewährleisten.
+Alle Custom Post Types wurden neu aufgebaut, um einen einheitlichen Duktus innerhalb des \textit{ChariGame}-Plugins zu realisieren und die Funktionalität mit Carbon Fields zu gewährleisten.
 Hier wurden die Namespace-Bezeichnungen angepasst und Klassen- sowie Datenbankbezeichnungen vereinheitlicht.
-Darüber hinaus sind die Felder, welche dem Redakteur im Backend zur Verfügung gestellt werden, durch Carbon Fields erstellt worden.
-Eine Beispielhafte Ausführung dessen für den Custom Post Type der Recipients ist in Abbildung X visualisiert. %TODO: Abbildung hinterlgen
+Darüber hinaus sind die Felder, welche dem Redakteur im Backend zur Verfügung gestellt werden, durch Carbon Fields ersetzt worden.
+Die Ausführung des Custom Post Types der Recipients ist in Abbildung~\ref{fig:new-recipients-frontend} visualisiert.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/new_recipients_backend}
+    \caption{Recipients Frontend (eigene Darstellung)}
+    \label{fig:new-recipients-frontend}
+\end{figure}
+
 Bei der Neudefinition der CPTs wurden wichtige Eigenschaften der Carbon Fields für die REST API freigegeben, um diese im Backend-Editor über React abrufen zu können.
 Dies ist für die Umsetzung der Gutenberg-Blöcke und deren dynamische Eigenschaften erforderlich, da diese auf Kampagnendaten und verknüpfte Inhalte zugreifen.
-ier wurden unter anderem Daten des game\_type, der game\_settings, der linked\_landing\_page und der recipients innerhalb der internen Rest Schnittstelle \texttt{wp/json} REST freigegeben. %TODO: Anpassen auf wpjosn v2 gedöns
+Dazu wurden unter anderem Daten zu \texttt{game\_type}, \texttt{game\_settings}, \texttt{linked\_landing\_page} und \texttt{recipients} innerhalb der internen REST-Schnittstelle unter wp-json verfügbar gemacht.
 \\\\
 \textbf{Verzeichnisstruktur und Design-System}
 
-Die Verzeichnisstruktur wurde anhand der Plugin-Vorlage von XY erweitert und modular aufgebaut.
-Der Aufbau besteht aus verschiedenen Verzeichnissen, wobei die wichtigsten Verzeichnisse folgend kurz erläutert werden.
+Die Verzeichnisstruktur wurde anhand der Plugin-Vorlage von DevinVinson erweitert und modular aufgebaut.
+Der Aufbau besteht aus verschiedenen Verzeichnissen, wobei die wichtigsten Verzeichnisse folgend kurz erläutert werden:
 
 \begin{itemize}
     \item \textbf{includes/}: Kernfunktionalitäten und Klassen
@@ -67,34 +82,38 @@ Der Aufbau besteht aus verschiedenen Verzeichnissen, wobei die wichtigsten Verze
     \item \textbf{src/}: Quellcode der Block-Entwicklung und Spiele
     \item \textbf{templates/}: Template-Dateien für die Darstellung
 \end{itemize}
+\vspace{0.5em}
+\textbf{Design-System}
 
 Für das Design im Front- und Backend wurde TailwindCSS verwendet.
 Hierzu wurden zwei unabhängig voneinander bestehende CSS-Konfiguration erstellt.
 
-Die eine Konfiguration entnimmt alle Tailwindklassen aus dem Projektkontext.
-Die zweite Konfiguration ist extra auf den Administrationbereich und im speziellen auf die shadc/ui Komponenten abgestimmt.
+Die erste Konfiguration erfasst alle Tailwind-Klassen aus dem gesamten Projektkontext und generiert diese sowohl für das Frontend als auch das Backend.
+Die zweite Konfiguration ist spezifisch auf den Administrationsbereich und im speziellen auf die shadcn/ui Komponenten abgestimmt.
 
-Dies stellt sicher, dass sich die Stylings nicht beißen.
-
-Hinsichtlich der Admin-Komponenten ist der Aufbau so:
-Zusätzlich wurde eine Tailwind CSS-Konfiguration aufgebaut mit einer PHP-portierten shadcn/ui-Implementierung.
-Diese nutzt einen \texttt{shadcn--}-Prefix, um Konflikte mit WordPress-Styles zu vermeiden.
-Die Styles liegen als vorgebaute CSS-Dateien in admin/css/ und werden nur auf ChariGame-Admin-Seiten geladen.
+Diese Implementierung im Administrationsbereich nutzt die folgenden Bausteine:
+\begin{itemize}
+\item Eine PHP-portierte shadcn/ui-Bibliothek
+\item Einen shadcn-Prefix zur Vermeidung von Konflikten mit WordPress-Styles
+\item Vorgebaute CSS-Dateien im Verzeichnis admin/css/
+\item Selektives Laden der Styles ausschließlich auf ChariGame-Admin-Seiten
+\end{itemize}
+Diese Trennung gewährleistet, dass sich die unterschiedlichen Styling-Systeme nicht gegenseitig beeinträchtigen und eine saubere Kapselung der Admin-Oberfläche ermöglicht wird.
 \\\\
 \textbf{Asset Manager und Template Loader}
 
 Ein Asset Manager wurde implementiert, der selektiv die passenden Assets für Admin- und Frontendbereich lädt.
-Im Admin-Bereich werden Shadcn/Tailwind-Styles für die ChariGame-Menüs und -Seiten geladen.
-Im Frontend bindet der Asset Manager die Game-Styles/-Skripte ein und lokalisiert und bindet die Daten nur auf Seiten den von Charigame erstellten ein.
+Im Admin-Bereich werden die zuvor erwähnten shadcn/Tailwind-Styles aus dem Design-System geladen.
+Im Frontend bindet der Asset Manager die Game-Styles/-Skripte ein und bindet die Daten auf den vom \textit{Charigame} Plugin erstellten Seiten ein.
 
-Der Template Loader stellt sicher, dass Campaign-Inhalte das korrekte Template erhalten.
+Der Template Loader stellt wiederrum sicher, dass Campaign-Inhalte das korrekte Template beziehen.
 Für den Custom Post Type der Landingpages wurde festgelegt, dass diese nicht eigenständig betrachtet werden, sondern den Content ausschließlich in den Campaign-Templates ausgeben.
-In diesem Fall führt der Template Loader Redirects durch.
+In diesem Fall führt der Template Loader Redirects auf die referenzierte Kampagne durch.
 \\\\
 \textbf{Login-System und Sicherheit}
 
 Die Login-Logik wurde aus dem Frontend separiert und in einen dedizierten Login Manager überführt.
-Das System implementiert mehrere Sicherheitsmaßnahmen, die im Kapitel \ref{chap:concept} beschrieben wurden, darunter:
+Das System implementiert mehrere Sicherheitsmaßnahmen, die im Kapitel~\ref{chap:concept} beschrieben wurden, darunter:
 
 \begin{itemize}
     \item \textbf{\gls{nonce}-Validierung}: \texttt{wp\_verify\_nonce()} schützt AJAX-Endpoints
@@ -121,16 +140,34 @@ Hier werden folgende Funktionalitäten bereitgestellt:
 
 \subsection{Backend-Integration und Dashboard}
 
-Das bestehende Dashboard wurde vollständig überarbeitet und mit shadcn/ui-Komponenten des neuen Design-Systems integriert.
-Die Lösung bietet ein responsive Design mit modernen UI-Komponenten, erweiterte Kampagnen-Metriken und eine verbesserte Benutzererfahrung durch intuitive Navigation sowie Echtzeit-Datenaktualisierung.
+Das bestehende Dashboard wurde vollständig überarbeitet und mit den shadcn/UI-Komponenten des neuen Design-Systems integriert.
+Die Lösung bietet ein Responsive Design mit modernen UI-Komponenten, erweiterte Kampagnen-Metriken und eine verbesserte Benutzererfahrung durch intuitive Navigation sowie Echtzeit-Datenaktualisierung.
 Für die Admin-Oberfläche wurden wiederverwendbare PHP-Komponenten entwickelt, welche im Styling auf der Bibliothek Shadcn/ui basieren.
 Dazu gehören Button-Komponenten für konsistente Darstellung mit verschiedenen Varianten, Card-Layouts für strukturierte Inhaltsblöcke, Progress-Anzeigen für Kampagnen-Status sowie Table-Komponenten für die tabellarische Datendarstellung mit Sortierung.
+Das neu entwickelte Dashboard ist folgend in Abbildung \ref{fig:new-dashboard-backend} zu sehen:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/new_dashboard_backend}
+    \caption{Das neu aufgebaute Dashboard im Backend (eigene Darstellung)}
+    \label{fig:new-dashboard-backend}
+\end{figure}
+
 \\\\
 \textbf{E-Mail-Template System}
 
 Ein umfassendes E-Mail-Template-System wurde implementiert, das HTML-Templates als Custom Post Type im Block-Editor verfügbar macht.
 Dies bietet dem Redakteur die Möglichkeit, dass der Nutzer das Template der Einladungs-Mail direkt im Live-Editor anpassen kann.
-Die SMTP-Konfiguration nutzt ebenfalls die erstellten Shadcn-Komponenten und ist wie in Abbildung X aufgebaut. %TODO: ABBILDUNG X
+Die Backendansicht des neuen Template-Systems ist folgend in Abbildung X dargestellt:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/new_dashboard_backend}
+    \caption{Das neu aufgebaute Dashboard im Backend (eigene Darstellung)}
+    \label{fig:new-dashboard-backend}
+\end{figure}
+
+Die SMTP-Konfiguration nutzt ebenfalls die erstellten shadcn-Komponenten und somit ist eine einheitliche UX gegeben %TODO: ABBILDUNG X
 \\\\
 \textbf{Helper Funktionen}
 
@@ -158,7 +195,7 @@ Außerdem ist durch die objektorientierte Programmierung mit klarer Verantwortun
 
 Ein Kernbereich der Implementierung war der Aufbau der Gutenberg-Blöcke (\gls{blockeditor}).
 Die Registrierung erfolgt im Projekt automatisiert über die Hauptklasse \texttt{ChariGame\_Blocks}, die alle Blöcke in src/blocks/ mit vorhandener \texttt{block.json} registriert (vgl. Abbildung X). %Abbildung hinterlegen
-Für das ChariGame Plugin wurde ein Block-Whitelisting implementiert, das nur die plugin-eigenen Blöcke zulässt.
+Für das \textit{ChariGame} Plugin wurde ein Block-Whitelisting implementiert, das nur die plugin-eigenen Blöcke zulässt.
 Dies gewährleistet eine konsistente Benutzererfahrung und verhindert Layout-Inkonsistenzen.
 Die gesamte Landingpage wie sie im Backend von den Redakteuren verwendet werden kann ist in Abbildung XY im Anhang zu erkennen. %ToDo abbildung
 

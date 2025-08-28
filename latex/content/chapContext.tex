@@ -5,7 +5,7 @@ Neben der Entstehungsgeschichte von \textit{Charigame} werden die derzeitige Sys
 Diese Darstellung bildet die Grundlage für die anschließende Analyse und dient als Ausgangspunkt für die konzeptionelle Weiterentwicklung in Kapitel \ref{chap:concept}.
 \section{Das Projekt Charigame}
 
-Das Projekt Charigame entstand ursprünglich als interne Initiative der elancer-team GmbH mit dem Ziel eine digitale Spendenaktion zu ermöglichen.
+Das Projekt \textit{Charigame} entstand ursprünglich als interne Initiative der elancer-team GmbH mit dem Ziel eine digitale Spendenaktion zu ermöglichen.
 Diese Idee des Projekts lässt sich auf eine durch die Agentur erstellte Weihnachtsaktion zurückführen, die auf einer dedizierten Website\footnote{\url{https://hohoho.elancer-team.de/}} implementiert wurde.
 Bei der Spendenaktion hat die elancer-team GmbH die Spendensumme bereitgestellt und die Agenturkunden zur Teilnahme eingeladen, sodass die Kunden durch ihr Engagement den Spendentopf erhöhen konnten.
 Diese Plattform ermöglichte es den Kunden der Agentur erstmals, über die gamifizierte Benutzeroberfläche Spenden zu erspielen und zu verteilen.
@@ -15,12 +15,12 @@ Aufgrund der erfolgreichen Durchführung äußerte ein Kunde der Agentur den Wun
 
 Diese erste kundenspezifische Umsetzung basierte auf einer abgewandelten Kopie der Weihnachts-Spendenaktion.
 Die Anfrage stellte dann den Übergang von einem internen Projekt zu einem eigenständigen Dienstleistungsangebot dar.
-Daraufhin wurde durch den Autor das Projekt Charigame als eigenständiges WordPress-Plugin realisiert.
+Daraufhin wurde durch den Autor das Projekt \textit{Charigame} als eigenständiges WordPress-Plugin realisiert.
 Das daraus resultierende WordPress-Plugin befindet sich aktuell bei einem Kunden im produktiven Einsatz und bildet die Grundlage für die in dieser Arbeit dokumentierten technischen Analyse und Weiterentwicklung.
 \newpage
 \textbf{Funktionsweise von Charigame}
 
-Die Funktionsweise von Charigame lässt sich grob in 5 Schritte unterteilen, die in Abbildung~\ref{fig:charigame-funktion} veranschaulicht sind:
+Die Funktionsweise von \textit{Charigame} lässt sich grob in 5 Schritte unterteilen, die in Abbildung~\ref{fig:charigame-funktion} veranschaulicht sind:
 
 %\begin{figure}[!ht]
 %    \centerline{\includesvg[width=1\columnwidth]{images/firstPartyCookie.svg}}
@@ -29,18 +29,18 @@ Die Funktionsweise von Charigame lässt sich grob in 5 Schritte unterteilen, die
 \begin{figure}[H]
     \centering
     \includesvg[width=0.66\textwidth]{images/funktionsweise_charigame}
-    \caption{Funktionsweise Charigame (eigene Darstellung)}
+    \caption{Funktionsweise \textit{Charigame} (eigene Darstellung)}
     \label{fig:charigame-funktion}
 \end{figure}
 
 \begin{enumerate}
     \item \textbf{Aufbau der Kampagne und Mailing}
-    \\ Eine Spendenkampagne wird im Backend von Charigame angelegt.
+    \\ Eine Spendenkampagne wird im Backend von \textit{Charigame} angelegt.
     Anschließend werden Personendaten der Kunden in das System importiert.
     Das System versendet dann, basierend auf den Kampagneneinstellungen, automatisierte E-Mails mit dem Link zur Spendenaktion.
     \item \textbf{Kundeninteraktion und Spendenspiel}
     \\ Der Kunde öffnet den personalisierten Code in der E-Mail oder gibt den darin enthaltenen Code auf der Login-Page ein.
-    Die in der Kampagne eingestellte Charigame-Landingpage wird angezeigt und der Kunde kann aktiv beim Spendenspiel teilnehmen.
+    Die in der Kampagne eingestellte \textit{Charigame}-Landingpage wird angezeigt und der Kunde kann aktiv beim Spendenspiel teilnehmen.
     \item \textbf{Spielende und Spendenverteilung}
     \\ Nachdem das Spendenspiel seitens des Kunden absolviert wurde, kann dieser den erspielten Beitrag prozentual auf einen bis hin zu drei verschiedenen Spendenempfängern verteilen.
     \item \textbf{Dankesseite}
@@ -51,12 +51,12 @@ Die Funktionsweise von Charigame lässt sich grob in 5 Schritte unterteilen, die
 \section{Deskriptiver Stand}
 \subsection{WordPress Front- und Backend}
 \label{subsec:front-backend}
-Der deskriptive Stand von Charigame befindet sich in einem funktionsfähigen, jedoch technisch und konzeptionell ausbaufähigen Zustand.
+Der deskriptive Stand von \textit{Charigame} befindet sich in einem funktionsfähigen, jedoch technisch und konzeptionell ausbaufähigen Zustand.
 Das WordPress-Plugin integriert sich in das CMS WordPress und erweitert den Funktionsumfang um gamifizierte Spendenaktionen.
 Bevor die Spendenaktion bereitsteht ist es notwendig, dass verschiedene Einstellungen getroffen werden.
 Die erforderlichen Einstellungen können über das WordPress-Backend Menü aufgerufen werden.
 \\
-Hierzu erzeugt ein Charigame Menüpunkt im WordPress Dashboard wie in Abbildung~\ref{fig:charigame-menu-legacy} visualisiert.
+Hierzu erzeugt ein \textit{Charigame} Menüpunkt im WordPress Dashboard wie in Abbildung~\ref{fig:charigame-menu-legacy} visualisiert.
 In diesem Menü sind die wichtigsten Einstellmöglichkeiten als Menüpunkte definiert.
 \begin{figure}[tbh]
     \centering
@@ -95,7 +95,7 @@ Die getroffenen Einstellungen bestimmen direkt das Erscheinungsbild der Login-Fo
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/legacy_login_testkampagne}
-    \caption{Login-Form einer Charigame-Testkampagne im Frontend (eigene Darstellung)}
+    \caption{Login-Form einer \textit{Charigame}-Testkampagne im Frontend (eigene Darstellung)}
     \label{fig:login-textkampagne}
 \end{figure}
 \\\\
@@ -134,7 +134,7 @@ Die Backendansicht der Game Types ist in Abbildung~\ref{fig:game-types-settings-
     \caption{Game Types im WordPress Backend (eigene Darstellung)}
     \label{fig:game-types-settings-legacy}
 \end{figure}
-Wenn entsprechende Informationen eingepflegt sind erzeugt der Bereich der Game Types den folgenden Frontend View wie in Abbildung~\ref{fig:game-types-frontend-legacy} zu sehen:
+Wenn entsprechende Informationen eingepflegt sind, erzeugt der Bereich der Game Types den folgenden Frontend View wie in Abbildung~\ref{fig:game-types-frontend-legacy} zu sehen:
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{images/legacy_game_types_frontend}
@@ -224,7 +224,7 @@ Die genaue Bedeutung dieser Kennzahlen ist in Tabelle~\ref{tab:metriken_datatabl
 
 \textbf{Campaigns}
 
-Die Campaigns stellen das zentrale Element von Charigame dar und repräsentieren den konzeptionell und technisch komplexesten Bereich des Plugins.
+Die Campaigns stellen das zentrale Element von \textit{Charigame} dar und repräsentieren den konzeptionell und technisch komplexesten Bereich des Plugins.
 Dieser Bereich ermöglicht die Steuerung über eine Vielzahl von Konfigurationsmöglichkeiten.
 Der gesamte Ablauf einer Kampagne kann innerhalb des WordPress-Backends abgebildet werden.
 Dies umfasst sowohl die Auswahl von Spieleinstellungen als auch die Kommunikation mit den Teilnehmenden.
@@ -271,7 +271,7 @@ Der \gls{cta} motiviert Teilnehmende nach Abschluss des Spiels zu weiteren Aktio
 Im Anhang der Arbeit ist die gesamte Landingpage (vgl. Abbildung~\ref{fig:landing-frontend-legacy}), die Seite der Spendenverteilung (vgl. Abbildung~\ref{fig:distribution-frontend-legacy}) und die Dankesseite (vgl. Abbildung~\ref{fig:dankesseite-frontend-legacy}) dargestellt.
 
 \subsection{Verwendete Technologien}
-Für die Umsetzung der Charigame-Einstellungen im Frontend und Backend kam eine Vielzahl an Technologien zum Einsatz.
+Für die Umsetzung der \textit{Charigame}-Einstellungen im Frontend und Backend kam eine Vielzahl an Technologien zum Einsatz.
 Im Folgenden werden diese näher vorgestellt und in ihrem technischen Kontext erläutert.
 
 \begin{itemize}
@@ -336,7 +336,7 @@ Der Code ist überwiegend prozedural, enthält aber einzelne objektorientierte E
 
     \item \textbf{Build- und Tooling-Umfeld}\\
     Für den Build-Prozess kommt ein Tailwind-\gls{cli}-Workflow zum Einsatz, gesteuert über npm-Skripte.
-    Grunt unterstützt Aufgaben wie Internationalisierung und die Generierung von Readme-Dateien.
+    Der Task-Runner Grunt unterstützt Aufgaben wie Internationalisierung und die Generierung von Readme-Dateien.
 
     \item \textbf{Einschränkungen und Schwächen}\\
     Die Bearbeitung von Landingpages ist nur eingeschränkt möglich, viele Texte sind fest im Code hinterlegt und bieten damit wenig Flexibilität.
