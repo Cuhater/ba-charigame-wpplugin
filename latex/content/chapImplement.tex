@@ -153,36 +153,38 @@ Das neu entwickelte Dashboard ist folgend in Abbildung \ref{fig:new-dashboard-ba
     \label{fig:new-dashboard-backend}
 \end{figure}
 
-\\\\
+\newpage
 \textbf{E-Mail-Template System}
 
 Ein umfassendes E-Mail-Template-System wurde implementiert, das HTML-Templates als Custom Post Type im Block-Editor verfügbar macht.
 Dies bietet dem Redakteur die Möglichkeit, dass der Nutzer das Template der Einladungs-Mail direkt im Live-Editor anpassen kann.
-Die Backendansicht des neuen Template-Systems ist folgend in Abbildung X dargestellt:
+Es wurden diverse Variablen erstellt, welche der Redakteur direkt in der E-Mail Anpassung verwenden kann.
+Die Backendansicht des neuen Template-Systems ist folgend in Abbildung \ref{fig:new-email-backend} dargestellt:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{images/new_dashboard_backend}
-    \caption{Das neu aufgebaute Dashboard im Backend (eigene Darstellung)}
-    \label{fig:new-dashboard-backend}
+    \includegraphics[width=1\textwidth]{images/new_email_backend}
+    \caption{E-Mail-Template-System im Gutenberg Editor (eigene Darstellung)}
+    \label{fig:new-email-backend}
 \end{figure}
 
-Die SMTP-Konfiguration nutzt ebenfalls die erstellten shadcn-Komponenten und somit ist eine einheitliche UX gegeben %TODO: ABBILDUNG X
+%Die SMTP-Konfiguration nutzt ebenfalls die erstellten shadcn-Komponenten und somit ist eine einheitliche UX gegeben %TODO: ABBILDUNG X
 \\\\
 \textbf{Helper Funktionen}
 
-Während der Implementation wurden kontinuierlich verschiedene Getter- und Setter-Funktionen für die Plugin-Komponenten, AJAX-Action-Registrierung für die Frontend-Backend-Kommunikation benötigt.
-Damit diese zentral und über die verschiedenen Klassen hinaus im Projekt nutzbar sind, wurde die \texttt{helper.php}-Datei als Schnittstelle//SCHNITTSTELLE VLLT NICHT DAS BESTE WORT// erstellt.
-Dies bietet im Projekt eine konsistente Schnittstelle für Datenabruf und -manipulation sowie Cache-Management für Performance-Optimierung.
-Als wichtige Funktionen sind u.a. ...
+Während der Implementation wurden kontinuierlich verschiedene Getter- und Setter-Funktionen für die Plugin-Komponenten, AJAX-Action-Registrierung sowie für die Frontend-Backend-Kommunikation benötigt.
+Damit diese zentral und über die verschiedenen Klassen hinaus im Projekt nutzbar sind, wurde die \texttt{helper.php}-Datei als zentrale Klasse erstellt.
+Diese bietet im Projekt eine konsistente Schnittstelle für Datenabruf und -manipulation sowie Cache-Management zwecks Performance-Optimierung.
 \\\\
 \textbf{Spielintegration und Einstellungen}
 
 Die bestehenden Spiele wurden in die neue Architektur übernommen und an die eingesetzten Bibliotheken wie Carbon Fields gemünzt.
 Eine wesentliche Weiterentwicklung ist die möglichkeit individuelle Einstellungsmöglichkeiten separat zu erstellen und zu verwalten.
-Das Settings-System wurde aus der Kampagne ausgelagert, um eine flexiblere Konfiguration und bessere Wartbarkeit zu gewährleisten.
-Durch das Auslagern besteht nun die Möglichkeit, die hinterlegten Spieleinstellungen mehreren Kampagnen zuzuordnen.
-Der entwickelte Gutenberg-Block für die Game-Section ermöglicht die dynamische Einbindung verschiedener Spieltypen über ein Template-basiertes System, das in src/games/ organisiert ist.
+Das Settings-System wurde aus der Kampagne ausgelagert, um eine flexiblere Konfiguration zu gewährleisten.
+Ferner ermöglicht diese Trennung die Erstellung neuer Spieleinstellungen pro Spiel, ohne dabei Anpassungen am bestehenden Kampagnen-CPT vornehmen zu müssen.
+Durch das Auslagern besteht ebenfalls die Möglichkeit, die hinterlegten Spieleinstellungen mehreren Kampagnen zuzuordnen.
+
+%Der entwickelte Gutenberg-Block für die Game-Section ermöglicht die dynamische Einbindung verschiedener Spieltypen über ein Template-basiertes System, das in src/games/ organisiert ist.
 \\\\
 \textbf{Qualitätssicherung und Standards}
 
