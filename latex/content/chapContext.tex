@@ -242,7 +242,7 @@ Der gewünschte Spieltyp wird aus den im System verfügbaren Game Types ausgewä
 
 \item \textbf{Spendenempfänger} \\
 Jede Kampagne referenziert mindestens drei zuvor definierte Donation Recipients.
-Diese Empfänger werden im Spiel zur Auswahl gestellt, um den erspielten Beitrag unter diesen zu verteilen.
+Diese Empfänger werden im Spiel zur Auswahl gestellt, um den erspielten Beitrag unter ihnen zu verteilen.
 
 \item \textbf{Punkte- und Spendenlogik} \\
 Durch eine Highscore-Logik wird festgelegt, wie viele Punkte maximal erreichbar sind und welche Spendenwerte daraus resultieren.
@@ -251,25 +251,25 @@ Eine übergeordnete Spendensumme, welche vom Unternehmen unabhängig der erzielt
 
 \item \textbf{Zeitliche Steuerung} \\
 In der Kampagne kann zwischen zwei Methoden der Versendung gewählt werden.
-Entweder zum Geburtstag der jeweiligen Teilnehmer oder zu einem ausgewählten Datum.
-Darüber hinaus lässt die Uhrzeit wählen, wann die E-Mail versendet werden soll.
+Entweder wird der Zeitpunkt zum Geburtstag der jeweiligen Teilnehmer oder an einem ausgewählten Datum gesetzt.
+Darüber hinaus lässt sich die Uhrzeit wählen, an der die E-Mail versendet werden soll.
 Ferner lässt sich die Gültigkeit der Spielcodes definieren, die angibt wie lange sich der Teilnehmer mit seinem Code einloggen kann.
-Aus den getroffenen Einstellungen resultiert dann auch das Enddatum der Kampagne.
-Start- und Enddatum bestimmen diesen Gültigkeitszeitraum.
+Aus den getroffenen Einstellungen resultiert dann das Enddatum der Kampagne.
+Start- und Enddatum bestimmen den Gültigkeitszeitraum.
 
 \item \textbf{Kommunikation} \\
 Für jede Kampagne können individuelle E-Mail-Texte konfiguriert werden.
 Diese umfassen Betreffzeile, Header, Haupttext sowie eine Signatur.
 Die eingestellten Inhalte werden dann in der E-Mail genutzt, die die Nutzer über ihre Teilnahme informieren.
-Optional können Social-Media-Kanäle angegeben werden, welche dann in der Mail angezeigt werden.
+Optional können Social-Media-Kanäle angegeben werden, welche anschließend in der Mail angezeigt werden.
 
 \item \textbf{Call-to-Action} \\
-Abschließend lassen sich Call-to-Action Bereiche aufbauen. Hierzu werden Headline, Beschreibungstext, Button-Beschriftung und Ziel-URL definiert.
+Abschließend lassen sich Call to Action Bereiche aufbauen. Hierzu werden Headline, Beschreibungstext, Button-Beschriftung und Ziel-URL definiert.
 Der \gls{cta} motiviert Teilnehmende nach Abschluss des Spiels zu weiteren Aktionen, beispielsweise dem Besuch einer Unternehmensseite.
 \end{itemize}
 
 Im Anhang der Arbeit ist die gesamte Landingpage (vgl. Abbildung~\ref{fig:landing-frontend-legacy}), die Seite der Spendenverteilung (vgl. Abbildung~\ref{fig:distribution-frontend-legacy}) und die Dankesseite (vgl. Abbildung~\ref{fig:dankesseite-frontend-legacy}) dargestellt.
-
+Die Abbildungen dienen der visualisierung der oben genannten Komponenten und dem Verständnis des deskriptiven Zustands.
 \subsection{Verwendete Technologien}
 Für die Umsetzung der \textit{Charigame}-Einstellungen im Frontend und Backend kam eine Vielzahl an Technologien zum Einsatz.
 Im Folgenden werden diese näher vorgestellt und in ihrem technischen Kontext erläutert.
@@ -279,9 +279,9 @@ Im Folgenden werden diese näher vorgestellt und in ihrem technischen Kontext er
     Die Kernfunktionalität basiert auf den von WordPress bereitgestellten APIs. %(\gls{wplisttable} API, \gls{enqueue} API, \gls{ajax} API, Plugin Activation API, \gls{templateinclude} API, Mail API).
     Eingesetzt wurden u. a. \gls{wplisttable} für die Darstellung von Tabellen im Admin-Dashboard, die \gls{enqueue}-Mechanismen von WordPress zum Einbinden von Skripten und Styles, sowie \gls{ajax} Hooks für asynchrone Requests.
 
-    Zusätzlich werden Register Activation Hooks und \gls{templateinclude} genutzt, um das Plugin beim Aktivieren einzubinden und die Views zu steuern.\\
+    Zusätzlich werden Register Activation Hooks und \gls{templateinclude} genutzt, um das Plugin bei der Aktivierung einzubinden und die Views zu steuern.\\
     \gls{jquery} wird aus einem \gls{cdn} eingebunden und dient an einigen Stellen als Hilfsbibliothek für Interaktionen\\
-    Für den E-Mail-Versand und Tests kommt \gls{phpmailer} über die WordPress-Funktion wp\_mail zum Einsatz.
+    Für den E-Mail-Versand kommt \gls{phpmailer} über die WordPress-Funktion wp\_mail zum Einsatz.
 
     Mit Advanced Custom Fields (ACF/ACF Pro) werden zusätzliche Metadaten für Inhalte verwaltet, die über die Funktionen get\_field() intensiv genutzt werden.\\
     Außerdem wurden \gls{wpcron}-Jobs bzw. Scheduled Tasks vorbereitet, um zeitgesteuerte Abläufe im Plugin zu ermöglichen.
@@ -325,7 +325,7 @@ Der Code ist überwiegend prozedural, enthält aber einzelne objektorientierte E
     Das Frontend umfasst die Einbindung von Tailwind \gls{css}, die Spiele-Module sowie externe Bibliotheken wie \gls{gsap} und Three.js.
     Über Template-Overrides werden eigene Views in WordPress eingebracht, was eine gewisse Anpassung erlaubt.
     Die Gestaltung bleibt insgesamt funktional, aber ohne ausgeprägtes visuelles Design.
-    Es ist anzumerken, dass sich viele Texte, die im Frontend dargestellt nicht bearbeitbar sind.
+    Es ist anzumerken, dass viele Texte, die im Frontend dargestellt werden, nicht bearbeitbar sind.
     Die Views selbst sind in \ref{subsec:front-backend} beschrieben und visualisiert.
 
     \item \textbf{Datenzugriff}\\
@@ -339,10 +339,10 @@ Der Code ist überwiegend prozedural, enthält aber einzelne objektorientierte E
     Der Task-Runner Grunt unterstützt Aufgaben wie Internationalisierung und die Generierung von Readme-Dateien.
 
     \item \textbf{Einschränkungen und Schwächen}\\
-    Die Bearbeitung von Landingpages ist nur eingeschränkt möglich, viele Texte sind fest im Code hinterlegt und bieten damit wenig Flexibilität.
-    Das Dashboard liefert nur eine einfache Datenübersicht und bleibt visuell schlicht.
+    Die Bearbeitung von Landingpages ist ausschließlich eingeschränkt möglich, viele Texte sind fest im Code hinterlegt und bieten damit wenig Flexibilität.
+    Das Dashboard liefert lediglich eine einfache Datenübersicht und bleibt visuell schlicht.
     Sicherheitsaspekte wurden nur teilweise berücksichtigt.
-    Manche AJAX-Endpunkte verzichten auf Nonce- oder Berechtigungsprüfungen, und an einigen Stellen fehlt sauberes Escaping.
+    Manche AJAX-Endpunkte verzichten auf Nonce- oder Berechtigungsprüfungen und an einigen Stellen fehlt das Output-Escaping.
     Auch die Datenbank-Constraints sind uneinheitlich, wodurch doppelte Spielcodes möglich sind.
     Darüber hinaus erschwert die starke Bündelung der Logik in einer Datei die Wartbarkeit.
     Designprinzipien wie Service- oder Repository-Muster sind nicht umgesetzt.

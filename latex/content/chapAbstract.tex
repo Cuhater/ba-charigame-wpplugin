@@ -1,3 +1,15 @@
+
 \chapter*{Kurzfassung/\emph{Abstract}}
 \label{chap:abstract}
-%
+Diese Arbeit beschreibt die Weiterentwicklung des WordPress-Plugins \textit{Charigame}, einer Plattform für gamifizierte Spendenaktionen. Ausgangspunkt war eine historisch gewachsene Codebasis mit begrenzter Editierbarkeit, uneinheitlichen Strukturen und Sicherheitslücken.
+
+Auf Basis der theoretischen Grundlagen zu WordPress, Gutenberg-Editor und Security-Standards wurde eine modulare, wartungsfreundliche Pluginarchitektur entworfen. Der Ansatz ist objektorientiert, trennt Verantwortlichkeiten klar und stützt sich auf Custom Post Types für Kampagnen, Landingpages, Spiele, Empfänger und Nutzer. Zentrale Komponenten sind ein Login Handler, ein Donation Manager und ein Color Manager.
+
+In der Umsetzung wurde ACF Pro durch Carbon Fields ersetzt. Eigene Gutenberg-Blöcke machen die Landingpage-Inhalte im Editor vollständig bearbeitbar. PHPCS stellt die Einhaltung der WordPress Coding Standards sicher. Sicherheitsmaßnahmen wie Nonce-Validierung, Validierung/Sanitizing/Escaping und Session-Management wurden konsequent umgesetzt. Ein selektiver Asset Manager und ein konsistentes Design-System auf Basis von Tailwind/shadcn verbessern Performance und UX.
+
+Die Ergebnisse sind eine deutlich erhöhte Wartbarkeit, weniger externe Abhängigkeiten, höhere Sicherheit und eine verbesserte Redaktionserfahrung im Backend. Ein neu gestaltetes Dashboard bündelt Kennzahlen und erleichtert die Kampagnensteuerung.
+
+Der Ausblick umfasst vertiefte Analytics mit Exportfunktionen, Testautomatisierung und CI/CD, Internationalisierung, Barrierefreiheit sowie zusätzliche Spieltypen und Integrationen. Damit zeigt die Arbeit, wie sich bestehende WordPress-Plugins mit aktuellen Entwicklungspraktiken nachhaltig modernisieren lassen.
+
+
+

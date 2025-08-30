@@ -2430,10 +2430,12 @@
     <bcf:citekey order="59" intorder="1">wordpresslogo</bcf:citekey>
     <bcf:citekey order="60" intorder="1">ngo_logos</bcf:citekey>
     <bcf:citekey order="61" intorder="1">ngo_logos</bcf:citekey>
-    <bcf:citekey order="62" intorder="1">zhang2025csr</bcf:citekey>
-    <bcf:citekey order="63" intorder="1">wordpress2025BSP</bcf:citekey>
-    <bcf:citekey order="64" intorder="1">wordpress2023</bcf:citekey>
-    <bcf:citekey order="65" intorder="1">wordpress2023</bcf:citekey>
+    <bcf:citekey order="62" intorder="1">BMAS_CSRTipps</bcf:citekey>
+    <bcf:citekey order="63" intorder="1">Kessler2025_Wettbewerbsvorteil</bcf:citekey>
+    <bcf:citekey order="64" intorder="1">zhang2025csr</bcf:citekey>
+    <bcf:citekey order="65" intorder="1">wordpress2025BSP</bcf:citekey>
+    <bcf:citekey order="66" intorder="1">wordpress2023</bcf:citekey>
+    <bcf:citekey order="67" intorder="1">wordpress2023</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">
