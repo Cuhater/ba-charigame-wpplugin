@@ -47,9 +47,9 @@ Die Initialisierung erfolgt über einen Klassenaufruf, der das Framework zentral
     \label{fig:carbon-fields-init}
 \end{figure}
 
-Alle bestehenden \texttt{get\_field()}-Aufrufe des ursprünglich verwendeten ACF Plugins wurden daraufhin identifiziert und durch das entsprechende \gls{carbonfields}-Pendants ersetzt.
+Alle bestehenden \texttt{get\_field()}-Aufrufe des ursprünglich verwendeten ACF Plugins wurden daraufhin identifiziert und durch die entsprechenden \gls{carbonfields}-Pendants ersetzt.
 Diese Migration gewährleistet die Kompatibilität mit der neuen Architektur und entfernt die externe Abhängigkeit von ACF Pro vollständig.
-Im Zuge der Migration der carbon\_get\_post\_meta() Aufrufe mussten im nächsten Schritt die verwendeten Custom Post Types auf die neu eingesetzte Carbon Field Struktur angepasst werden.
+Im Zuge der Migration der \texttt{carbon\_get\_post\_meta()} Aufrufe mussten im nächsten Schritt die verwendeten Custom Post Types auf die neu eingesetzte Carbon Field Struktur angepasst werden.
 Diese Migration stellt die Umsetzung der Anforderung [\ref{T1}] sicher.
 \\\\
 \textbf{Custom Post Types und REST API}
@@ -57,7 +57,7 @@ Diese Migration stellt die Umsetzung der Anforderung [\ref{T1}] sicher.
 Alle Custom Post Types wurden neu aufgebaut, um einen einheitlichen Duktus innerhalb des \textit{Charigame}-Plugins zu realisieren und die Funktionalität mit Carbon Fields zu gewährleisten.
 Hier wurden die Namespace-Bezeichnungen angepasst und Klassen- sowie Datenbankbezeichnungen vereinheitlicht.
 Darüber hinaus sind die Felder, welche dem Redakteur im Backend zur Verfügung gestellt werden, durch Carbon Fields ersetzt worden.
-Die Ausführung des Custom Post Types der Recipients ist in Abbildung~\ref{fig:new-recipients-frontend} visualisiert.
+Die Umsetzung des Custom Post Types der Recipients ist in Abbildung~\ref{fig:new-recipients-frontend} dargestellt.
 
 \begin{figure}[H]
     \centering
@@ -67,9 +67,9 @@ Die Ausführung des Custom Post Types der Recipients ist in Abbildung~\ref{fig:n
 \end{figure}
 
 Bei der Neudefinition der CPTs wurden wichtige Eigenschaften der Carbon Fields für die REST API freigegeben, um diese im Backend-Editor über React abrufen zu können.
-Dies ist für die Umsetzung der Gutenberg-Blöcke und deren dynamische Eigenschaften erforderlich, da diese auf Kampagnendaten und verknüpfte Inhalte zugreifen.
-Dazu wurden unter anderem Daten zu \texttt{game\_type}, \texttt{game\_settings}, \texttt{linked\_landing\_page} und \texttt{recipients} innerhalb der internen REST-Schnittstelle wp-json verfügbar gemacht.
-\\\\
+Dies ist für die anschließende Umsetzung der Gutenberg-Blöcke und deren dynamische Eigenschaften erforderlich, da diese auf Kampagnendaten und verknüpfte Inhalte zugreifen.
+Dazu wurden unter anderem Attribute wie \texttt{game\_type}, \texttt{game\_settings}, \texttt{linked\_landing\_page} und \texttt{recipients} innerhalb der internen REST-Schnittstelle wp-json verfügbar gemacht.
+\newpage
 \textbf{Verzeichnisstruktur und Design-System}
 
 Die Verzeichnisstruktur wurde anhand der Plugin-Vorlage von DevinVinson erweitert und modular aufgebaut.
@@ -101,26 +101,27 @@ Diese Implementierung im Administrationsbereich nutzt die folgenden Bausteine:
 \item Selektives Laden der Styles ausschließlich auf Charigame-Admin-Seiten
 \end{itemize}
 Diese Trennung gewährleistet, dass sich die unterschiedlichen Styling-Systeme nicht gegenseitig beeinträchtigen und eine saubere Kapselung der Admin-Oberfläche ermöglicht wird.
-\\\\
+\newpage
 \textbf{Asset Manager und Template Loader}
 
-Ein Asset Manager wurde implementiert, der selektiv die passenden Assets für Admin- und Frontendbereich lädt.
+Ein Asset Manager wurde implementiert, der selektiv die passenden Assets für den Admin- und Frontendbereich lädt.
 Im Admin-Bereich werden die zuvor erwähnten shadcn/Tailwind-Styles aus dem Design-System geladen.
-Im Frontend bindet der Asset Manager die Game-Styles/-Skripte ein und bindet die Daten auf den vom \textit{Charigame} Plugin erstellten Seiten ein.
+Im Frontend bindet der Asset Manager die Game-Styles/-Skripte ein.
+Diese werden nur auf den vom \textit{Charigame} Plugin erstellten Seiten eingefügt.
 
 Der Template Loader stellt wiederrum sicher, dass Campaign-Inhalte das korrekte Template beziehen.
-Für den Custom Post Type der Landingpages wurde festgelegt, dass dieser nicht eigenständig betrachtet werden soll, sondern den Content ausschließlich in den Campaign-Templates ausgeben.
+Für den Custom Post Type der Landingpages wurde festgelegt, dass dieser nicht eigenständig betrachtet werden soll.
+Der Content soll ausschließlich in den Campaign-Templates ausgeben.
 In diesem Fall führt der Template Loader eine Weiterleitung auf die referenzierte Kampagne durch.
 \\\\
 \textbf{Login-System und Sicherheit}
 
 Die Login-Logik wurde aus dem Frontend separiert und in einen dedizierten Login Manager überführt.
-Der Login Manager ist als Klasse \texttt{ChariGame\_Login\_Handler} implementiert und übernimmt zentral die Funktionen Code-Login, Session-Handling und Auto-Login-Weiterleitungen.
-Ein Shortcode-System ermöglicht die Übertragung von Landingpage-Inhalten in Campaign-Templates, dass eine flexible Wiederverwendung der Inhalte gewährleistet.
-Das System registriert AJAX-Endpoints (\texttt{wp\_ajax\_charigame\_login}, \texttt{wp\_ajax\_nopriv\_charigame\_login}), startet die Sessions früh im WordPress-Lifecycle und ermöglicht Auto-Login über URL-Parameter via template\_redirect.
+Der Login Manager ist als Klasse \texttt{ChariGame\_Login\_Handler} implementiert und übernimmt zentral die Funktionen des Code-Login, des Session-Handling und der Auto-Login-Weiterleitungen.
+Ein Shortcode-System ermöglicht die Übertragung von Landingpage-Inhalten in Campaign-Templates, sodass eine flexible Wiederverwendung der Inhalte gewährleistet ist.
 
-Die Code-Validierung erfolgt über die \textt{validate\_key()} Methode, die in der Datenbanktabelle \textt{charigame\_game\_data} nach dem entsprechenden game\_code sucht.
-Zur Performance-Optimierung wird ein mehrstufiges Caching-System mit den Cache-Gruppen charigame\_keys, charigame\_users und charigame\_codes implementiert, jeweils mit einer Laufzeit von einer Stunde.
+Die Code-Validierung erfolgt über die \texttt{validate\_key()} Methode, die in der Datenbanktabelle \texttt{charigame\_game\_data} nach dem entsprechenden game\_code sucht.
+Zur Performance-Optimierung wird ein mehrstufiges Caching-System mit den Cache-Gruppen \texttt{charigame\_keys}, \texttt{charigame\_users} und \texttt{charigame\_codes implementiert}, jeweils mit einer Laufzeit von einer Stunde.
 
 Das System implementiert mehrere Sicherheitsmaßnahmen, die im Kapitel~\ref{chap:concept} beschrieben wurden, darunter:
 
@@ -132,12 +133,12 @@ Das System implementiert mehrere Sicherheitsmaßnahmen, die im Kapitel~\ref{chap
 \end{itemize}
 
 Im Detail wird die Nonce-Validierung bei Zugriff auf alle Ajax-Endpunkte verwendet.
-Eingaben werden früh und kontextgerecht bereinigt (\texttt{sanitize\_text\_field()}, \texttt{intval()}), bevor sie in Queries, Sessions oder Ausgaben verwendet werden.\\
+Eingaben werden früh und kontextgerecht bereinigt, bevor sie in Queries, Sessions oder Ausgaben verwendet werden.\\
 Sessions werden früh initialisiert und konsistent genutzt, sodass Login-Zustände und Kampagnenkontexte zuverlässig und ohne Header-Probleme verfügbar sind.\\
-Durch Objekt-Caching werden wiederholte DB-Lookups (z. B. Code- und User-Validierung) reduziert, was die Performance erhöht und die Angriffsflächen durch unnötige Queries minimiert.
+Durch das angewendete Objekt-Caching werden wiederholte DB-Lookups (z. B. Code- und User-Validierung) reduziert, was die Performance erhöht und die Angriffsflächen durch unnötige Queries minimiert.
 \\\\
 Insgesamt orientiert sich die Implementierung damit an etablierten Best Practices der WordPress-Entwicklung, indem sowohl Angriffspunkte minimiert und die Stabilität des Systems gewährleistet werden.
-Durch die implementierten Sicherheitsmechaniken konnte die Anforderung [\ref{T3}] erfüllt werden.
+Durch die implementierten Sicherheitsmechaniken konnte die gesetzte Anforderung [\ref{T3}] erfüllt werden.
 
 \\\\
 \textbf{Color Manager}
@@ -180,8 +181,10 @@ Mit dem entwickelten Dashboard wurden die Anforderungen [\ref{F4}] und [\ref{F5}
 
 Ein umfassendes E-Mail-Template-System wurde implementiert, das HTML-Templates als Custom Post Type im Block-Editor verfügbar macht.
 Dies bietet dem Redakteur die Möglichkeit, dass der Nutzer das Template der Einladungs-Mail direkt im Live-Editor anpassen kann.
-Es wurden diverse Variablen wie \texttt{name}, \texttt{first\_name}, \texttt{game\_code}, \texttt{valid\_from}, \texttt{valid\_until}, \texttt{campaign\_url} erstellt, welche der Redakteur innerhalb des Block-Editors verwenden kann.
+
+Es wurden diverse Variablen wie \texttt{name}, \texttt{first\_name}, \texttt{game\_code}, \texttt{valid\_from},\\ \texttt{valid\_until}, \texttt{campaign\_url} erstellt, welche der Redakteur innerhalb des Block-Editors verwenden kann.
 Optional wird der Game-Code automatisch als ?code= Parameter an die CTA-URL angehängt, sodass die Teilnehmer mit dem Direktlink an der Spendenaktion teilnehmen können.
+
 Die Backendansicht des neuen Template-Systems ist folgend in Abbildung~\ref{fig:new-email-backend} dargestellt:
 
 \begin{figure}[H]
@@ -207,12 +210,12 @@ Eine wesentliche Weiterentwicklung ist die möglichkeit individuelle Einstellung
 Diese Trennung bringt den Vorteil mit sich, dass Spieleinstellungen nun pro Spieltyp erstellt werden können, ohne Änderungen am bestehenden Kampagnen-CPT vornehmen zu müssen.
 Zusätzlich besteht die Möglichkeit die hinterlegten Spieleinstellungen dank der modularen Struktur mehreren Kampagnen zuzuordnen.
 %Der entwickelte Gutenberg-Block für die Game-Section ermöglicht die dynamische Einbindung verschiedener Spieltypen über ein Template-basiertes System, das in src/games/ organisiert ist.
-\\\\
+\newpage
 \textbf{Qualitätssicherung und Standards}
 
-Während der gesamten Implementierung wurden WordPress-Best-Practices befolgt.
+Während der gesamten Implementierung wurden stets die WordPress-Best-Practices befolgt.
 Die PHPCS-Integration hat für die automatisierte Code-Standards-Prüfung gesorgt.
-Es wurden stets Prinzipien der Codesicherung verwendet und auf die Best Practises der Wordpress Coding Resources geachtet.
+Es wurden diverse Prinzipien der Codesicherung verwendet und auf die Best Practises der Wordpress Coding Resources geachtet.
 Außerdem ist durch die objektorientierte Programmierung mit klarer Verantwortungstrennung und Modularität für bessere Testbarkeit und Wartung gesorgt.
 
 \section{Gutenberg-Block-Entwicklung}
@@ -227,7 +230,7 @@ Die Registrierung erfolgt im Projekt automatisiert über die Hauptklasse\\ \text
 \end{figure}
 
 Für das \textit{Charigame} Plugin wurde darüber hinaus ein Block-Whitelisting implementiert.
-Hier werden im Gutenberg Block Editor im Charigame Plugin nur die Blöcke zuglassen, die speziell konzipiert wurden.
+Hier werden im Gutenberg Block Editor im Charigame Plugin nur die Blöcke zuglassen, die speziell für das Plugin konzipiert wurden.
 Dies gewährleistet eine konsistente Benutzererfahrung und verhindert Layout-Inkonsistenzen.
 \\\\
 \textbf{Charigame Gutenberg Blöcke}
@@ -248,12 +251,12 @@ Ferner ist in der folgenden Auflistung ein Verweis der Blöcke zu den korrespond
     \item \textbf{Game Section}: Templatebasierte Spielintegration\\
     \emph{Block Attribute (vgl. Tabelle 1), Frontend Darstellung (vgl. Tabelle 1)}
 \end{itemize}
-
+\newpage
 Jeder Block implementiert serverseitiges Rendering über die zugehörigen \texttt{render.php} Dateien des Blocks, um dynamische Inhalte und bessere Performance zu gewährleisten.\\\\
 Die Blöcke selbst folgen der in Kapitel 4 geplanten Struktur und besitzen über die \texttt{render.php} hinaus eine \texttt{block.json} mit den verwendeten Attributen und eine \texttt{index.js} für die Anpassungen im Backend.
+
 Zur Unterstützung der Block-Entwicklung wurden verschiedene Utilities entwickelt, damit Codedoppelungen vermieden werden.
 Zu den erstellten Utilities gehören u.a. :
-//Auflistung der Utilities
 \begin{itemize}
     \item \textbf{Colorpalette}: Stellt ein einheitliches Farbauswahl-Interface bereit
     \item \textbf{Iconlist}: Integriert Heroicons mit SVG-Inline-Rendering
@@ -265,7 +268,7 @@ Die gesamte Landingpage wie sie im Backend von den Redakteuren verwendet werden 
 \section{Spendenverteilung und Schlussfolgerung}
 Während der Implementierung wurde festgestellt, dass die bestehende Spendenverteilungs-Logik nicht mehr funktionierte.
 Ein neuer Donation Manager wurde entwickelt, der Kampagnen-Statistiken berechnet.
-Die Spendenverteilung wird auf Basis des Donation Managers nach konfigurierbaren Regeln durchführt.
+Die Spendenverteilung wird auf Basis des Donation Managers nach konfigurierbaren Regeln, die im Campaign CPT gesetzt werden können, durchführt.
 Zusätzlich sind Echtzeit-Updates für die Donation Section bereitstellt und Rundungs- und Formatierungslogiken implementiert.
 
 Mit der Implementierung wurden sowohl die technischen [T1–T3] als auch die funktionalen [F1–F5] Anforderungen adressiert.

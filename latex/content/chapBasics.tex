@@ -60,7 +60,7 @@ Diese dient als Ausgangspunkt für die Entwicklung und Integration von \gls{plug
 Abbildung~\ref{fig:wordpress-verzeichnis} visualisiert, dass sich im wp-content Ordner bereits initial in der Standardkonfiguration von Wordpress das Verzeichnis plugins befindet.
 Der plugins Ordner ist die zentrale Destination für alle im WordPress System erstellten Erweiterungen.
 Die nachfolgende Untersuchung berücksichtigt weitere Bestandteile von WordPress-\gls{plugin}s, die fortlaufend detailliert beschrieben werden.
-\\\\
+\newpage
 \textbf{Aufbau, Plugin-Header und Metadateien}
 
 Für die Entwicklung von WordPress-\gls{plugin}s empfehlen die offiziellen WordPress Developer Resources eine klare und strukturierte Ordnerorganisation~\cite{wordpress2024BestPractices}.
@@ -127,7 +127,6 @@ Alle möglichen Felder werden in der folgenden Tabelle aufgeführt:
  Requires Plugins & Eine durch Kommata getrennte Liste von Plugin-Slugs aus dem WordPress.org-Verzeichnis, die als Abhängigkeit benötigt werden. Kommata innerhalb der Slugs sind nicht erlaubt. \\
 \end{longtable}
 
-\newpage
 \textbf{Hooks und Filter}
 
 Es gibt eine Kardinalregel in der Wordpress Entwicklung die besagt: Don’t touch WordPress core~\cite{wordpress2024Intro}.
@@ -160,7 +159,6 @@ Zu den zentralen Hooks im Kontext von WordPress-Plugins gehören insbesondere \t
 Die WordPress Developer Resources geben dem Entwickler einige Best Practises vor, welche helfen den Code zu organisieren.
 Ferner wird durch die Hinweise sichergestellt, dass der Code verlässlich mit dem WordPress Kern und anderen Plugins funktioniert.
 Nachfolgend sollen zentrale Best Practises aufgeführt werden, welche im Verlauf der Arbeit mit in der Konzeption berücksichtigt werden.
-\\
 \\\\
 \textbf{Vermeiden von Namenskonflikten}
 
@@ -168,8 +166,6 @@ Namenskollisionen können durch die gleiche Benennung von Variablen, Funktionen 
 Um einen solchen Namenskonflikt zu vermeiden, wird es empfohlen, einen globalen Namespace zu definieren.
 Dieser Namespace ermöglicht das Überschreiben von anderen Variablen, Funktionen und Plugins.
 Innerhalb von Funktionen und Klassen definierte Variablen, sind hiervon nicht betroffen~\cite{wordpress2024Naming}.
-\\
-\\
 \\\\
 \textbf{Voranstellen eines Prefix}
 
@@ -184,7 +180,8 @@ Auf das \textit{Charigame} gemünzte Projekt könnte dies dann wie folgt aussehe
  \item update\_option('charigame\_settings', \$settings)
 \end{itemize}
 \vspace{1em}
-\textbf{Prüfung vorhandener Implementierungen}\\\\
+\textbf{Prüfung vorhandener Implementierungen}
+
 Damit der Code robust und weniger fehleranfällig ist, gilt es in Anbetracht der Best Practises auf bestehende Implementationen von Programmierelementen zu prüfen~\cite{wordpress2024CheckExisting}.
 Dies geschieht unter Zuhilfenahme der folgenden von \gls{php} zur Verfügung gestellten Funktionen:
 \begin{itemize}
@@ -193,8 +190,9 @@ Dies geschieht unter Zuhilfenahme der folgenden von \gls{php} zur Verfügung ges
  \item Classes class\_exists()
  \item Constants defined()
 \end{itemize}
-\vspace{1em}
-\textbf{Architekturmuster}\\\\
+\newpage
+\textbf{Architekturmuster}
+
 Die WordPress Developer Resources geben eine Hand voll mögliche Architekturmuster vor.
 Diese können grob in drei Variationen kategorisiert werden:
 \begin{itemize}
@@ -254,8 +252,6 @@ Die Validierung selbst wird in verschiedene Philosophien gegliedert, die nun kur
  \end{tabular}
  \caption{Übersicht Validierungs-Philosophien mit Beispielen (eigene Darstellung)}
 \end{table}
-
-\newpage
 Wenn keine Validierung möglich ist, bedienen sich WordPress Entwickler der Möglichkeit des Sanatizing und Escaping von Werten.
 \\\\
 \textbf{Sanitizing}
@@ -352,7 +348,7 @@ Genau wie beim Sanatizing bietet WordPress hier ein Set an Funktionen, welche sp
 Ein wichtiger Grundsatz ist das späte Escaping: Daten sollten erst unmittelbar vor der Ausgabe escaped werden.
 Dadurch wird die Code-Überprüfung vereinfacht, das Fehlerrisiko verringert und die Anwendung widerstandsfähiger gegen zukünftige Anpassungen.
 Wenn ein spätes Escaping nicht umsetzbar ist (etwa bei generiertem JavaScript-Code), muss der Entwickler sicherstellen, dass Variablen bereits in einer als \enquote{sicher} gekennzeichneten Form vorliegen (z.\,B. \texttt{\$variable\_escaped})~\cite{wordpress2024escapingcant}.
-\\\\
+\newpage
 \textbf{Nonces}
 
 Ein \gls{nonce} (number used once) ist ein Sicherheitsmechanismus in WordPress zum Schutz von \gls{url}s und Formularen vor unbefugten Manipulationen.
@@ -391,8 +387,7 @@ Im WordPress-Kontext handelt es sich dabei um zusätzliche Datensätze, die vers
 Praktische Anwendungsbeispiele sind etwa Custom Fields in Blogbeiträgen, erweiterte Benutzerinformationen in Profilen oder spezielle Attribute für Kategorienseiten.
 WordPress zeichnet sich durch ein besonders anpassungsfähiges Metadaten-System aus.
 Jedes Element kann mit einer unbegrenzten Anzahl zusätzlicher Informationen ausgestattet werden~\cite{wordpress2024metadata}.
-\\
-\\
+\newpage
 \textbf{API Endpoints}
 
 Die WordPress-\gls{rest}-\gls{api} stellt unter dem Endpunkt /wp-json/ eine Schnittstelle zur Verfügung, über die Inhalte und Strukturen einer WordPress-Installation abgerufen und verändert werden können.
@@ -401,16 +396,14 @@ Der zentrale Namespace wp/v2/ umfasst dabei alle wesentlichen Ressourcen, wie Be
 Technisch fundiert die Kommunikation im Gutenberg-Editor selbst auf der REST-API.
 Änderungen im Block Editor werden im Hintergrund als Anfragen an die API umgesetzt.
 Entwickler können über die JavaScript-Schnittstellen wie @wordpress/api-fetch eigene Blöcke implementieren oder externe Datenquellen einbinden~\cite{wordpress2024restApi}.
-\\
-\\
+\\\\
 \textbf{AJAX}
 
 Wordpress bietet eine eigene \gls{ajax}-Schnittstelle, die auf den Endpunkt admin-ajax.php verweist.
 Entwickler können hier eigene Aktionen registrieren, die bei einer \gls{ajax}-Anfrage ausgeführt werden.
 Jede Aktion wird über einen eindeutigen Namen (action) identifiziert, wodurch mehrere unabhängige AJAX-Funktionen parallel existieren können.
 Die Kommunikation erfolgt typischerweise über POST- oder GET-Anfragen, die Daten in \gls{json}- oder \gls{url}-kodierter Form zurückliefern~\cite{wordpress2024Ajax}.
-\\
-\\
+\\\\
 \textbf{WP-CRON}
 
 In WordPress werden zeitgesteuerte Aufgaben über ein eigenes System gesteuert, das sogenannte \gls{wpcron}.
@@ -457,7 +450,7 @@ Solche Events werden typischerweise beim Planen von Beiträgen oder dem Versende
 %Plugin-Testing und Qualitätssicherung
 
 %Cron
-
+\newpage
 \section{Gutenberg-Editor: Konzept und technische Grundlagen}
 \begin{quote}
     Der \gls{blockeditor} ist ein modernes Paradigma für die Erstellung und Veröffentlichung von WordPress-Websites.
@@ -467,13 +460,10 @@ Solche Events werden typischerweise beim Planen von Beiträgen oder dem Versende
     \emph{(eigene Übersetzung nach \cite{wordpress2024plugin_blockeditor})}
 \end{quote}
 
-
-
 Ein Block ist ein eigenständiges Element wie beispielsweise ein Absatz, eine Überschrift, ein Medienelement oder eine Einbettung.
 Jeder Block wird als separates Element mit individuellen Bearbeitungs- und Formatierungsoptionen behandelt.
 Wenn alle diese Komponenten zusammengefügt werden, bilden sie den Inhalt der Seite oder des Beitrags, der dann in der WordPress-Datenbank gespeichert wird~\cite{wordpress2024plugin_blockeditor}.
-\\
-\\
+
 Die Relevanz des Editors wird durch die erhobene Statistik der Seite Gutenberg in Numbers deutlich.
 Demnach beträgt die Anzahl aktiver Installationen des Gutenberg-Editors auf WordPress- und Jetpack-Seiten aktuell 87,3 Mio.
 Innerhalb der letzten drei Jahre wurden 282 Mio. Beiträge mit dem Gutenberg-Editor erstellt.
@@ -524,10 +514,6 @@ Diese Inhalte sind serialisierbar in \gls{html} und werden im Block HTML (vgl. A
 Blöcke lassen sich in zwei Kategorien unterteilen: statisch und dynamisch.
 Statische Blöcke bestehen aus bereits gerenderten Inhalten sowie einem Attribut-Objekt, das bei Änderungen für das erneute Rendern verwendet wird.
 Dynamische Blöcke hingegen benötigen serverseitige Daten und werden erst während der Inhaltsgenerierung gerendert~\cite{wordpress2024dataflow}.
-
-
-
-
 \\\\
 \textbf{Blockmuster}
 
@@ -535,15 +521,13 @@ Ein Blockermuster oder auch Pattern ist eine Gruppe von Blöcken, die zu einem D
 Solche Designmuster bieten für die schnellere Erstellung komplexer Seiten einen Ausgangspunkt.
 Die Größe des Blockmusters ist variabel und kann von einem einzelnen Block bis hin zu einer gesamten Seite reichen.
 Themes können Designmuster registrieren, um Benutzern schnelle Startpunkte für das Verwenden von Blöcken zu bieten~\cite{wordpress2024blockpattern}.
-
-\\\\
+\newpage
 \textbf{Block Themes}
 
 Anders als der Beitragseditor konzentrieren sich die Block Themes auf die Deklaration und das Bearbeiten der gesamten Website.
 Hier können unter Zuhilfenahme von Blöcken die Kopf- bis hin zur Fußzeile Inhalte angepasst werden.
 Die Block Themes selbst werden unterteilt in Vorlagen, die die gesamte Seite beschreiben oder Vorlagenteile, die wiederverwendbare Bereiche sein können.
 Angepasste Blockvorlagen umfassen statische als auch dynamische Seiten, wie Archive, Singular, Home, 404 usw. \cite{wordpress2024EditorTemplates}
-
 
 \section{Gamification im Kontext digitaler Anwendungen}
 
@@ -571,11 +555,10 @@ Dieser spielerische Ansatz dient als Mittel zur Aktivierung und nicht als Selbst
 Die Integration von Gamification in Spendenaktionen adressiert mehrere strukturelle Herausforderungen traditioneller Fundraising-Ansätze.
 Spendenaufrufe leiden häufig unter geringem Nutzerengagement und mangelnder Transparenz bezüglich der Verwendung der Mittel.
 Gamification-Elemente schaffen hier Abhilfe durch die Visualisierung des sozialen Impacts und erhöhte Nutzerbeteiligung~\cite{golrang2021applying}.
-\\\\
 Die Integration spielerischer Elemente steigert sowohl die Aufmerksamkeit als auch die Reichweite sozialer Kampagnen.
 Parallel dazu ermöglicht dieser Ansatz eine authentische Kommunikation des Markenimages.
 Das Unternehmen kann dadurch seine gesellschaftliche Verantwortung auf eine partizipative Weise demonstrieren~\cite{golrang2021applying}.
-\\\\
+
 \section{Überblick über Coperate Social Responsibility und Charity-Plattformen}
 \gls{csr} (CSR) hat sich von einem optionalen Unternehmensengagement zu einer Strategie moderner Unternehmensmaßnahmen entwickelt.
 Die Europäische Kommission definiert CSR als die Verantwortung von Unternehmen für ihre Auswirkungen auf die Gesellschaft.
@@ -585,7 +568,7 @@ Wie aus der Studie der Bertelsmann-Stiftung zur gesellschaftlichen Verantwortung
 
 Die Verbindung von CSR-Maßnahmen mit digitalen, interaktiven Ansätzen stellt eine potenzielle Antwort auf diese gestiegenen Erwartungen dar.
 Gamifizierte Charity-Plattform ermöglichen es dabei, Transparenzanforderungen zu erfüllen als auch das häufig geringe Engagement bei konventionellen Spendenaktionen zu erhöhen.
-\\\\
+\newpage
 \textbf{Charity-Plattformen}
 
 Parallel zu dieser Entwicklung hat die Digitalisierung neue Möglichkeiten für die Umsetzung und Kommunikation von CSR-Initiativen eröffnet.
